@@ -179,16 +179,6 @@ export default function StaffQrPage() {
     }
   };
 
-  // Download raw QR code image only
-  const downloadQrOnly = (item: MealQrItem) => {
-    const link = document.createElement("a");
-    link.download = `QR_${item.mealType}_${data?.serviceDate || "token"}.png`;
-    link.href = item.dataUrl;
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-  };
-
   // Download all passes in one click
   const downloadAllPasses = async () => {
     if (!data?.qrs || data.qrs.length === 0) return;
@@ -335,13 +325,13 @@ export default function StaffQrPage() {
                 Token: {item.token}
               </div>
 
-              {/* Download Buttons */}
-              <div className="mt-4 w-full flex flex-col sm:flex-row items-center justify-center gap-2">
+              {/* Download Button */}
+              <div className="mt-4 w-full flex items-center justify-center">
                 <button
                   type="button"
                   onClick={() => downloadMealPass(item)}
                   disabled={downloadingMeal === item.mealType}
-                  className="w-full sm:w-auto inline-flex items-center justify-center space-x-1.5 px-4 py-2 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-lg shadow-sm transition disabled:opacity-50"
+                  className="w-full max-w-xs inline-flex items-center justify-center space-x-2 px-5 py-2.5 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 active:scale-[0.99] rounded-xl shadow-xs transition disabled:opacity-50"
                 >
                   {downloadingMeal === item.mealType ? (
                     <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -349,14 +339,6 @@ export default function StaffQrPage() {
                     <Download className="w-3.5 h-3.5" />
                   )}
                   <span>Download QR Pass</span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => downloadQrOnly(item)}
-                  className="w-full sm:w-auto text-xs font-medium text-slate-600 hover:text-slate-900 px-3 py-1.5 border border-slate-200 hover:bg-slate-50 rounded-lg transition"
-                  title="Download raw QR code image"
-                >
-                  QR Image Only
                 </button>
               </div>
 
