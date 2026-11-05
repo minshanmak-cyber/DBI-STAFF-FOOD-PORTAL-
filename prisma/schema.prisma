@@ -1,0 +1,132 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum Role {
+  ADMIN
+  STAFF
+  CANTEEN
+}
+
+enum MealType {
+  BREAKFAST
+  LUNCH
+  DINNER
+}
+
+enum ResponseStatus {
+  OPT_IN
+  OPT_OUT
+  NO_RESPONSE
+}
+
+model User {
+  id                 String          @id @default(cuid())
+  staffId            String          @unique
+  passwordHash       String
+  role               Role            @default(STAFF)
+  isActive           Boolean         @default(true)
+  mustChangePassword Boolean         @default(true)
+  createdAt          DateTime        @default(now())
+  updatedAt          DateTime        @updatedAt
+
+  profile            StaffProfile?
+  mealResponses      MealResponse[]  @relation("UserResponses")
+  editedResponses    MealResponse[]  @relation("EditedResponses")
+  mealCollections    MealCollection[] @relation("UserCollections")
+  verifiedCollections MealCollection[] @relation("VerifiedCollections")
+  qrTokens           QrToken[]
+  auditLogs          AuditLog[]      @relation("ActorAuditLogs")
+
+  @@index([staffId])
+  @@index([role])
+}
+
+model StaffProfile {
+  id         String   @id @default(cuid())
+  userId     String   @unique
+  fullName   String
+  department String?
+  phone      String?
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model MealResponse {
+  id          String         @id @default(cuid())
+  userId      String
+  serviceDate String         // ISO format "YYYY-MM-DD"
+  mealType    MealType
+  status      ResponseStatus @default(NO_RESPONSE)
+  editedById  String?
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  user        User           @relation("UserResponses", fields: [userId], references: [id], onDelete: Cascade)
+  editedBy    User?          @relation("EditedResponses", fields: [editedById], references: [id], onDelete: SetNull)
+
+  @@unique([userId, serviceDate, mealType])
+  @@index([serviceDate, mealType, status])
+  @@index([userId, serviceDate])
+}
+
+model MealCollection {
+  id           String    @id @default(cuid())
+  userId       String
+  serviceDate  String    // ISO format "YYYY-MM-DD"
+  mealType     MealType
+  collectedAt  DateTime  @default(now())
+  verifiedById String
+
+  user         User      @relation("UserCollections", fields: [userId], references: [id], onDelete: Cascade)
+  verifiedBy   User      @relation("VerifiedCollections", fields: [verifiedById], references: [id])
+
+  @@unique([userId, serviceDate, mealType])
+  @@index([serviceDate, mealType])
+  @@index([userId, serviceDate])
+}
+
+model QrToken {
+  id          String    @id @default(cuid())
+  token       String    @unique
+  userId      String
+  serviceDate String    // ISO format "YYYY-MM-DD"
+  mealType    MealType
+  expiresAt   DateTime
+  isRevoked   Boolean   @default(false)
+  createdAt   DateTime  @default(now())
+
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, serviceDate, mealType])
+  @@index([token])
+  @@index([serviceDate, mealType])
+}
+
+model AuditLog {
+  id            String   @id @default(cuid())
+  actorId       String?
+  actorStaffId  String?
+  action        String
+  targetType    String
+  targetId      String?
+  previousValue String?  @db.Text
+  newValue      String?  @db.Text
+  reason        String?  @db.Text
+  createdAt     DateTime @default(now())
+
+  actor         User?    @relation("ActorAuditLogs", fields: [actorId], references: [id], onDelete: SetNull)
+
+  @@index([actorId])
+  @@index([action])
+  @@index([targetType, targetId])
+  @@index([createdAt])
+}
+
