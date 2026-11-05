@@ -110,7 +110,10 @@ export async function POST(req: NextRequest) {
   } catch (error: any) {
     console.error("Login route error:", error);
     return NextResponse.json(
-      { error: "An unexpected error occurred during login. Please try again." },
+      {
+        error: "An unexpected error occurred during login. Please try again.",
+        details: error?.message || String(error),
+      },
       { status: 500 }
     );
   }
