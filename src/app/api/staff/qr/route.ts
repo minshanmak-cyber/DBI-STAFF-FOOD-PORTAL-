@@ -61,6 +61,9 @@ export async function GET(req: NextRequest) {
     serviceDateDisplay: formatServiceDateDisplay(targetDate),
     qrs: mealQrs,
     totalOptIn: optInResponses.length,
+    staffId: session.staffId,
+    staffName: session.fullName,
+    department: session.department || null,
   });
 }
 

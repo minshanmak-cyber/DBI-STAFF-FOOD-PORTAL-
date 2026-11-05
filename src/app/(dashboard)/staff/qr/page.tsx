@@ -3,7 +3,7 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { QrCode, ArrowLeft, CheckCircle, Clock, AlertCircle, Loader2 } from "lucide-react";
+import { QrCode, ArrowLeft, CheckCircle, Clock, AlertCircle, Loader2, Download } from "lucide-react";
 
 interface MealQrItem {
   mealType: "BREAKFAST" | "LUNCH" | "DINNER";
@@ -19,12 +19,16 @@ interface QrResponse {
   serviceDateDisplay: string;
   qrs: MealQrItem[];
   totalOptIn: number;
+  staffId?: string;
+  staffName?: string;
+  department?: string | null;
 }
 
 export default function StaffQrPage() {
   const [data, setData] = useState<QrResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState<string>("");
+  const [downloadingMeal, setDownloadingMeal] = useState<string | null>(null);
 
   const fetchQrs = async (dateParam?: string) => {
     setLoading(true);
@@ -50,6 +54,150 @@ export default function StaffQrPage() {
   const handleDateChange = (newDate: string) => {
     setSelectedDate(newDate);
     fetchQrs(newDate);
+  };
+
+  // Download full branded pass with details
+  const downloadMealPass = (item: MealQrItem) => {
+    setDownloadingMeal(item.mealType);
+    try {
+      const canvas = document.createElement("canvas");
+      canvas.width = 600;
+      canvas.height = 760;
+      const ctx = canvas.getContext("2d");
+      if (!ctx) {
+        setDownloadingMeal(null);
+        return;
+      }
+
+      // Background
+      ctx.fillStyle = "#ffffff";
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Outer border
+      ctx.strokeStyle = "#e2e8f0";
+      ctx.lineWidth = 4;
+      ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
+
+      // Top header banner
+      ctx.fillStyle = "#0f172a";
+      ctx.fillRect(10, 10, canvas.width - 20, 110);
+
+      // Title
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "bold 24px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText("DBI STAFF FOOD PORTAL", canvas.width / 2, 58);
+
+      ctx.fillStyle = "#94a3b8";
+      ctx.font = "600 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+      ctx.fillText("OFFICIAL CANTEEN MEAL PASS", canvas.width / 2, 88);
+
+      // Meal pill badge
+      const badgeColors: Record<string, { bg: string; text: string }> = {
+        BREAKFAST: { bg: "#0284c7", text: "#ffffff" },
+        LUNCH: { bg: "#0f766e", text: "#ffffff" },
+        DINNER: { bg: "#4338ca", text: "#ffffff" },
+      };
+      const color = badgeColors[item.mealType] || { bg: "#0f172a", text: "#ffffff" };
+
+      ctx.fillStyle = color.bg;
+      const pillW = 230;
+      const pillH = 38;
+      const pillX = (canvas.width - pillW) / 2;
+      const pillY = 135;
+      if (typeof ctx.roundRect === "function") {
+        ctx.beginPath();
+        ctx.roundRect(pillX, pillY, pillW, pillH, 19);
+        ctx.fill();
+      } else {
+        ctx.fillRect(pillX, pillY, pillW, pillH);
+      }
+
+      ctx.fillStyle = color.text;
+      ctx.font = "bold 15px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+      ctx.textAlign = "center";
+      ctx.fillText(`${item.mealType} COLLECTION PASS`, canvas.width / 2, pillY + 24);
+
+      // Staff & Date details box
+      ctx.fillStyle = "#f8fafc";
+      ctx.fillRect(40, 190, canvas.width - 80, 80);
+      ctx.strokeStyle = "#cbd5e1";
+      ctx.lineWidth = 1;
+      ctx.strokeRect(40, 190, canvas.width - 80, 80);
+
+      ctx.textAlign = "left";
+      ctx.fillStyle = "#64748b";
+      ctx.font = "600 11px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+      ctx.fillText("STAFF ID / NAME", 60, 216);
+      ctx.fillText("SERVICE DATE", canvas.width / 2 + 20, 216);
+
+      ctx.fillStyle = "#0f172a";
+      ctx.font = "bold 15px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+      const staffLabel = data?.staffName ? `${data.staffId || ""} • ${data.staffName}` : (data?.staffId || "Staff Member");
+      ctx.fillText(staffLabel, 60, 246);
+      ctx.fillText(data?.serviceDateDisplay || data?.serviceDate || "", canvas.width / 2 + 20, 246);
+
+      // QR Image
+      const img = new window.Image();
+      img.onload = () => {
+        const qrSize = 330;
+        const qrX = (canvas.width - qrSize) / 2;
+        const qrY = 285;
+        ctx.drawImage(img, qrX, qrY, qrSize, qrSize);
+
+        // Token
+        ctx.textAlign = "center";
+        ctx.fillStyle = "#64748b";
+        ctx.font = "12px monospace";
+        ctx.fillText(`Token: ${item.token}`, canvas.width / 2, 645);
+
+        // Footer instruction
+        ctx.fillStyle = "#0284c7";
+        ctx.font = "bold 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+        ctx.fillText("Show this QR pass at the canteen counter for collection", canvas.width / 2, 680);
+
+        ctx.fillStyle = "#94a3b8";
+        ctx.font = "11px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+        ctx.fillText("Valid strictly for single meal redemption", canvas.width / 2, 705);
+
+        // Trigger download
+        const link = document.createElement("a");
+        link.download = `DBI_${item.mealType}_${data?.serviceDate || "QR"}.png`;
+        link.href = canvas.toDataURL("image/png");
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        setDownloadingMeal(null);
+      };
+      img.onerror = () => {
+        setDownloadingMeal(null);
+      };
+      img.src = item.dataUrl;
+    } catch (err) {
+      console.error("Failed to render meal pass:", err);
+      setDownloadingMeal(null);
+    }
+  };
+
+  // Download raw QR code image only
+  const downloadQrOnly = (item: MealQrItem) => {
+    const link = document.createElement("a");
+    link.download = `QR_${item.mealType}_${data?.serviceDate || "token"}.png`;
+    link.href = item.dataUrl;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+  };
+
+  // Download all passes in one click
+  const downloadAllPasses = async () => {
+    if (!data?.qrs || data.qrs.length === 0) return;
+    for (let i = 0; i < data.qrs.length; i++) {
+      downloadMealPass(data.qrs[i]);
+      if (i < data.qrs.length - 1) {
+        await new Promise((r) => setTimeout(r, 400));
+      }
+    }
   };
 
   return (
@@ -101,6 +249,17 @@ export default function StaffQrPage() {
             onChange={(e) => handleDateChange(e.target.value)}
             className="px-3 py-1.5 text-xs font-medium border border-slate-300 rounded-lg shadow-xs focus:outline-none focus:ring-2 focus:ring-slate-900 bg-white"
           />
+
+          {data?.qrs && data.qrs.length > 1 && (
+            <button
+              type="button"
+              onClick={downloadAllPasses}
+              className="px-3 py-1.5 text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-white rounded-lg shadow-xs transition inline-flex items-center space-x-1.5"
+            >
+              <Download className="w-3.5 h-3.5" />
+              <span>Download All Passes</span>
+            </button>
+          )}
         </div>
       </div>
 
@@ -174,6 +333,31 @@ export default function StaffQrPage() {
               {/* Token Info */}
               <div className="mt-4 text-xs text-slate-500 font-mono break-all max-w-xs">
                 Token: {item.token}
+              </div>
+
+              {/* Download Buttons */}
+              <div className="mt-4 w-full flex flex-col sm:flex-row items-center justify-center gap-2">
+                <button
+                  type="button"
+                  onClick={() => downloadMealPass(item)}
+                  disabled={downloadingMeal === item.mealType}
+                  className="w-full sm:w-auto inline-flex items-center justify-center space-x-1.5 px-4 py-2 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 rounded-lg shadow-sm transition disabled:opacity-50"
+                >
+                  {downloadingMeal === item.mealType ? (
+                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                  ) : (
+                    <Download className="w-3.5 h-3.5" />
+                  )}
+                  <span>Download QR Pass</span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => downloadQrOnly(item)}
+                  className="w-full sm:w-auto text-xs font-medium text-slate-600 hover:text-slate-900 px-3 py-1.5 border border-slate-200 hover:bg-slate-50 rounded-lg transition"
+                  title="Download raw QR code image"
+                >
+                  QR Image Only
+                </button>
               </div>
 
               {item.isCollected && item.collectedAt && (
