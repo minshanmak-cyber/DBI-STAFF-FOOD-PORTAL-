@@ -71,30 +71,30 @@ export default function AdminReportsPage() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-[#E5E2EE] shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 sm:p-6 rounded-xl border border-[#E5E2EE] shadow-xs">
         <div>
-          <h1 className="text-2xl font-bold text-[#24212D]">Food Production Reports & Exports</h1>
+          <h1 className="text-2xl font-semibold text-[#24212D] tracking-tight">Food Production Reports & Exports</h1>
           <p className="text-xs text-[#6A6577] mt-1">
             Generate and export official kitchen sheets and staff response audits.
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3">
-          <div className="flex items-center space-x-2 bg-[#F6F5FA] p-2 rounded-xl border border-[#E5E2EE]">
-            <Calendar className="w-4 h-4 text-[#35118F]" />
-            <span className="text-xs font-semibold text-[#24212D]">Date:</span>
+        <div className="flex flex-wrap items-center gap-2.5">
+          <div className="flex items-center space-x-2 bg-[#F6F5FA] p-2 rounded-lg border border-[#E5E2EE]">
+            <Calendar className="w-4 h-4 text-[#35118F] shrink-0" />
+            <span className="text-xs font-medium text-[#24212D]">Date:</span>
             <input
               type="date"
               value={serviceDate}
               onChange={(e) => handleDateChange(e.target.value)}
-              className="px-3 py-1.5 text-xs font-medium border border-[#E5E2EE] rounded-lg shadow-xs focus:outline-none focus:ring-2 focus:ring-[#35118F] bg-white text-[#24212D]"
+              className="h-8 px-2.5 text-xs border border-[#E5E2EE] rounded-md bg-white text-[#24212D] focus:border-[#35118F] focus:outline-none"
             />
           </div>
 
           <button
             onClick={() => handleDownload("excel")}
             disabled={loading || Boolean(downloadingFormat)}
-            className="inline-flex items-center space-x-2 px-4 py-2.5 bg-[#12B98A] hover:bg-[#0ea278] text-white rounded-xl text-xs font-semibold shadow-xs transition disabled:opacity-50"
+            className="inline-flex items-center space-x-2 h-10 px-4 bg-[#12B98A] hover:bg-[#0ea278] active:bg-[#0c7a5b] text-white rounded-lg text-sm font-medium shadow-xs transition-colors disabled:opacity-50"
           >
             {downloadingFormat === "excel" ? (
               <Loader2 className="w-4 h-4 animate-spin text-white" />
@@ -107,12 +107,12 @@ export default function AdminReportsPage() {
           <button
             onClick={() => handleDownload("pdf")}
             disabled={loading || Boolean(downloadingFormat)}
-            className="inline-flex items-center space-x-2 px-4 py-2.5 bg-[#35118F] hover:bg-[#2a0d72] text-white rounded-xl text-xs font-semibold shadow-xs transition disabled:opacity-50"
+            className="btn-primary"
           >
             {downloadingFormat === "pdf" ? (
-              <Loader2 className="w-4 h-4 animate-spin text-white" />
+              <Loader2 className="w-4 h-4 animate-spin text-white mr-2" />
             ) : (
-              <FileText className="w-4 h-4 text-[#F5B51B]" />
+              <FileText className="w-4 h-4 mr-2" />
             )}
             <span>Export PDF (.pdf)</span>
           </button>
@@ -147,23 +147,24 @@ export default function AdminReportsPage() {
             />
           </div>
 
-          <div className="bg-white border border-[#E5E2EE] rounded-2xl p-6 shadow-xs">
-            <h2 className="text-base font-bold text-[#24212D] mb-2">Export Contents Description</h2>
+          <div className="bg-white border border-[#E5E2EE] rounded-xl p-5 shadow-xs">
+            <h2 className="text-sm font-semibold text-[#24212D] mb-1">Export Contents Description</h2>
+            <p className="text-xs text-[#6A6577]">Both downloadable formats contain verified operational data</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-[#6A6577] mt-4">
-              <div className="p-4 bg-[#F6F5FA] rounded-xl border border-[#E5E2EE]">
-                <span className="font-bold text-[#24212D] block mb-1">
+              <div className="p-4 bg-[#F6F5FA] rounded-lg border border-[#E5E2EE]">
+                <span className="font-semibold text-[#24212D] block mb-1">
                   1. Production Counts Summary
                 </span>
                 Calculated food targets, collections, remaining portions, and staff participation statistics.
               </div>
-              <div className="p-4 bg-[#F6F5FA] rounded-xl border border-[#E5E2EE]">
-                <span className="font-bold text-[#24212D] block mb-1">
+              <div className="p-4 bg-[#F6F5FA] rounded-lg border border-[#E5E2EE]">
+                <span className="font-semibold text-[#24212D] block mb-1">
                   2. Staff Response Audit
                 </span>
                 Individual staff entries for Breakfast, Lunch, and Dinner with last modification timestamps.
               </div>
-              <div className="p-4 bg-[#F6F5FA] rounded-xl border border-[#E5E2EE]">
-                <span className="font-bold text-[#24212D] block mb-1">
+              <div className="p-4 bg-[#F6F5FA] rounded-lg border border-[#E5E2EE]">
+                <span className="font-semibold text-[#24212D] block mb-1">
                   3. Meal Collection Logs
                 </span>
                 Canteen operator verification timestamps, staff identities, and redemption records.

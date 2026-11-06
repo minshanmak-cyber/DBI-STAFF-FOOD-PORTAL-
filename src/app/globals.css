@@ -10,11 +10,12 @@
 body {
   color: var(--foreground);
   background: var(--background);
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font-family: var(--font-inter), -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Accessible DBI purple focus rings */
+/* Accessible focus outlines */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible,
@@ -24,39 +25,79 @@ textarea:focus-visible {
   outline-offset: 2px;
 }
 
-/* DBI Clean Floating Capsule Dock for Mobile */
-.dbi-capsule-dock,
-.liquid-capsule-dock {
-  border-radius: 9999px;
+/* Enterprise Software System Components */
+@layer components {
+  /* Primary Button: 40px height, 8px rounded, medium font weight */
+  .btn-primary {
+    @apply inline-flex items-center justify-center h-10 px-4 rounded-lg bg-[#35118F] hover:bg-[#280c70] active:bg-[#200958] text-white text-sm font-medium transition-colors shadow-xs disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  /* Secondary Button: 40px height, neutral border, dark text, purple hover */
+  .btn-secondary {
+    @apply inline-flex items-center justify-center h-10 px-4 rounded-lg bg-white hover:bg-[#F6F5FA] active:bg-[#EAE8F2] border border-[#E5E2EE] hover:border-[#D5C4F5] text-[#24212D] hover:text-[#35118F] text-sm font-medium transition-colors shadow-xs disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  /* Destructive Button */
+  .btn-destructive {
+    @apply inline-flex items-center justify-center h-10 px-4 rounded-lg bg-red-600 hover:bg-red-700 active:bg-red-800 text-white text-sm font-medium transition-colors shadow-xs disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  /* Destructive Outline Button */
+  .btn-destructive-outline {
+    @apply inline-flex items-center justify-center h-10 px-4 rounded-lg bg-white hover:bg-red-50 active:bg-red-100 border border-red-200 hover:border-red-300 text-red-700 text-sm font-medium transition-colors disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  /* Icon Button */
+  .btn-icon {
+    @apply inline-flex items-center justify-center h-9 w-9 rounded-lg border border-transparent hover:border-[#E5E2EE] hover:bg-[#F6F5FA] text-[#6A6577] hover:text-[#24212D] transition-colors disabled:opacity-50 disabled:pointer-events-none;
+  }
+
+  /* Enterprise Form Input */
+  .form-input {
+    @apply h-10 w-full px-3 text-sm text-[#24212D] bg-white border border-[#E5E2EE] rounded-lg placeholder-[#9D98A8] focus:border-[#35118F] focus:ring-1 focus:ring-[#35118F] focus:outline-none transition-colors disabled:bg-[#F6F5FA] disabled:text-[#6A6577];
+  }
+
+  /* Enterprise Form Label */
+  .form-label {
+    @apply block text-[13px] font-medium text-[#24212D] mb-1.5;
+  }
+
+  /* Enterprise Helper Text */
+  .form-helper {
+    @apply block text-xs text-[#6A6577] mt-1;
+  }
+
+  /* Enterprise Card */
+  .dbi-card {
+    @apply bg-white border border-[#E5E2EE] rounded-xl shadow-xs;
+  }
+
+  /* Enterprise Status Badges (restrained, 6px rounded, readable text) */
+  .badge-success {
+    @apply inline-flex items-center space-x-1.5 text-xs font-medium text-[#0C7A5B] bg-[#EEFBF6] border border-[#12B98A]/30 px-2.5 py-0.5 rounded-md;
+  }
+
+  .badge-warning {
+    @apply inline-flex items-center space-x-1.5 text-xs font-medium text-[#946200] bg-[#FEF9ED] border border-[#F5B51B]/40 px-2.5 py-0.5 rounded-md;
+  }
+
+  .badge-danger {
+    @apply inline-flex items-center space-x-1.5 text-xs font-medium text-red-700 bg-red-50 border border-red-200 px-2.5 py-0.5 rounded-md;
+  }
+
+  .badge-neutral {
+    @apply inline-flex items-center space-x-1.5 text-xs font-medium text-[#6A6577] bg-[#F6F5FA] border border-[#E5E2EE] px-2.5 py-0.5 rounded-md;
+  }
+
+  .badge-purple {
+    @apply inline-flex items-center space-x-1.5 text-xs font-medium text-[#35118F] bg-[#F4F0FD] border border-[#35118F]/20 px-2.5 py-0.5 rounded-md;
+  }
+}
+
+/* Institutional Mobile Bottom Navigation Bar */
+.mobile-nav-bar {
   background: #ffffff;
-  border: 1px solid #E5E2EE;
-  box-shadow:
-    0 12px 32px -4px rgba(53, 17, 143, 0.12),
-    0 2px 8px 0 rgba(36, 33, 45, 0.04);
+  border-top: 1px solid #E5E2EE;
+  box-shadow: 0 -2px 8px 0 rgba(36, 33, 45, 0.04);
 }
 
-/* Active tab inside mobile capsule dock */
-.dbi-tab-active,
-.liquid-tab-active {
-  position: relative;
-  border-radius: 20px;
-  background: #F4F0FD;
-  border: 1px solid #E9E1FA;
-  color: #35118F;
-}
-
-/* Active indicator dash */
-.dbi-dash-indicator,
-.liquid-dash-indicator {
-  width: 16px;
-  height: 3px;
-  border-radius: 9999px;
-  background: #35118F;
-}
-
-/* Subtle clean surfaces */
-.dbi-card {
-  background: #ffffff;
-  border: 1px solid #E5E2EE;
-  border-radius: 1rem;
-}

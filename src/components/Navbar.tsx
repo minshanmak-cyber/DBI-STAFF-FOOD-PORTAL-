@@ -94,12 +94,12 @@ export default function Navbar() {
             </div>
 
             {/* Desktop Segmented Nav */}
-            <nav className="hidden md:flex items-center bg-[#F6F5FA] border border-[#E5E2EE] p-1 rounded-full space-x-1 shrink-0">
+            <nav className="hidden md:flex items-center bg-[#F6F5FA] border border-[#E5E2EE] p-1 rounded-lg space-x-1 shrink-0">
               {user.role === "STAFF" && (
                 <>
                   <Link
                     href="/staff"
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5 whitespace-nowrap transition-all duration-200 ${
+                    className={`h-8 px-3 rounded-md text-xs font-medium flex items-center space-x-1.5 whitespace-nowrap transition-colors ${
                       isActive("/staff")
                         ? "bg-[#35118F] text-white shadow-xs"
                         : "text-[#6A6577] hover:text-[#24212D] hover:bg-white"
@@ -110,7 +110,7 @@ export default function Navbar() {
                   </Link>
                   <Link
                     href="/staff/qr"
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5 whitespace-nowrap transition-all duration-200 ${
+                    className={`h-8 px-3 rounded-md text-xs font-medium flex items-center space-x-1.5 whitespace-nowrap transition-colors ${
                       isActive("/staff/qr")
                         ? "bg-[#35118F] text-white shadow-xs"
                         : "text-[#6A6577] hover:text-[#24212D] hover:bg-white"
@@ -121,7 +121,7 @@ export default function Navbar() {
                   </Link>
                   <Link
                     href="/staff/history"
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5 whitespace-nowrap transition-all duration-200 ${
+                    className={`h-8 px-3 rounded-md text-xs font-medium flex items-center space-x-1.5 whitespace-nowrap transition-colors ${
                       isActive("/staff/history")
                         ? "bg-[#35118F] text-white shadow-xs"
                         : "text-[#6A6577] hover:text-[#24212D] hover:bg-white"
@@ -137,7 +137,7 @@ export default function Navbar() {
                 <>
                   <Link
                     href="/admin"
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5 whitespace-nowrap transition-all duration-200 ${
+                    className={`h-8 px-3 rounded-md text-xs font-medium flex items-center space-x-1.5 whitespace-nowrap transition-colors ${
                       isActive("/admin")
                         ? "bg-[#35118F] text-white shadow-xs"
                         : "text-[#6A6577] hover:text-[#24212D] hover:bg-white"
@@ -148,7 +148,7 @@ export default function Navbar() {
                   </Link>
                   <Link
                     href="/admin/responses"
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5 whitespace-nowrap transition-all duration-200 ${
+                    className={`h-8 px-3 rounded-md text-xs font-medium flex items-center space-x-1.5 whitespace-nowrap transition-colors ${
                       isActive("/admin/responses")
                         ? "bg-[#35118F] text-white shadow-xs"
                         : "text-[#6A6577] hover:text-[#24212D] hover:bg-white"
@@ -159,7 +159,7 @@ export default function Navbar() {
                   </Link>
                   <Link
                     href="/admin/staff"
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5 whitespace-nowrap transition-all duration-200 ${
+                    className={`h-8 px-3 rounded-md text-xs font-medium flex items-center space-x-1.5 whitespace-nowrap transition-colors ${
                       isActive("/admin/staff")
                         ? "bg-[#35118F] text-white shadow-xs"
                         : "text-[#6A6577] hover:text-[#24212D] hover:bg-white"
@@ -170,7 +170,7 @@ export default function Navbar() {
                   </Link>
                   <Link
                     href="/admin/reports"
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5 whitespace-nowrap transition-all duration-200 ${
+                    className={`h-8 px-3 rounded-md text-xs font-medium flex items-center space-x-1.5 whitespace-nowrap transition-colors ${
                       isActive("/admin/reports")
                         ? "bg-[#35118F] text-white shadow-xs"
                         : "text-[#6A6577] hover:text-[#24212D] hover:bg-white"
@@ -181,7 +181,7 @@ export default function Navbar() {
                   </Link>
                   <Link
                     href="/admin/audit"
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5 whitespace-nowrap transition-all duration-200 ${
+                    className={`h-8 px-3 rounded-md text-xs font-medium flex items-center space-x-1.5 whitespace-nowrap transition-colors ${
                       isActive("/admin/audit")
                         ? "bg-[#35118F] text-white shadow-xs"
                         : "text-[#6A6577] hover:text-[#24212D] hover:bg-white"
@@ -197,7 +197,7 @@ export default function Navbar() {
                 <>
                   <Link
                     href="/canteen"
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5 whitespace-nowrap transition-all duration-200 ${
+                    className={`h-8 px-3 rounded-md text-xs font-medium flex items-center space-x-1.5 whitespace-nowrap transition-colors ${
                       isActive("/canteen")
                         ? "bg-[#35118F] text-white shadow-xs"
                         : "text-[#6A6577] hover:text-[#24212D] hover:bg-white"
@@ -208,10 +208,10 @@ export default function Navbar() {
                   </Link>
                   <Link
                     href="/canteen/scan"
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5 whitespace-nowrap transition-all duration-200 ${
+                    className={`h-8 px-3 rounded-md text-xs font-medium flex items-center space-x-1.5 whitespace-nowrap transition-colors ${
                       isActive("/canteen/scan")
-                        ? "bg-[#12B98A] text-white shadow-xs font-bold"
-                        : "text-[#12B98A] bg-[#EEFBF6] hover:bg-[#D2F6EA]"
+                        ? "bg-[#12B98A] text-white shadow-xs"
+                        : "text-[#0C7A5B] bg-[#EEFBF6] hover:bg-[#D2F6EA]"
                     }`}
                   >
                     <ScanLine className="w-3.5 h-3.5" />
@@ -243,16 +243,16 @@ export default function Navbar() {
               </div>
 
               {/* Mobile Staff ID Badge */}
-              <div className="sm:hidden font-mono bg-[#F6F5FA] border border-[#E5E2EE] px-2 py-1 rounded-xl text-[#24212D] font-extrabold text-xs shadow-xs">
+              <div className="sm:hidden font-mono bg-[#F6F5FA] border border-[#E5E2EE] px-2 py-1 rounded-md text-[#24212D] font-semibold text-xs">
                 {user.staffId}
               </div>
 
-              <div className="h-6 w-px bg-[#E5E2EE] hidden sm:block" />
+              <div className="h-5 w-px bg-[#E5E2EE] hidden sm:block" />
 
               <Link
                 href="/change-password"
                 title="Change Password"
-                className="p-2 text-[#6A6577] hover:text-[#35118F] hover:bg-[#F4F0FD] rounded-xl transition hidden md:block"
+                className="btn-icon hidden md:inline-flex"
               >
                 <KeyRound className="w-4 h-4" />
               </Link>
@@ -260,7 +260,7 @@ export default function Navbar() {
               <button
                 onClick={handleLogout}
                 title="Sign Out"
-                className="px-3 py-1.5 text-rose-600 hover:bg-rose-50 border border-transparent hover:border-rose-100 rounded-xl transition flex items-center space-x-1.5 text-xs font-semibold"
+                className="h-8 px-2.5 rounded-lg text-xs font-medium text-red-700 bg-white border border-red-200 hover:bg-red-50 hover:border-red-300 transition-colors flex items-center space-x-1.5"
               >
                 <LogOut className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">Logout</span>
@@ -270,10 +270,10 @@ export default function Navbar() {
               {user.role !== "STAFF" && (
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className="md:hidden p-2 text-[#24212D] hover:bg-[#F6F5FA] rounded-xl transition"
+                  className="md:hidden btn-icon"
                   aria-label="Toggle Navigation Menu"
                 >
-                  {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+                  {mobileMenuOpen ? <X className="w-4.5 h-4.5" /> : <Menu className="w-4.5 h-4.5" />}
                 </button>
               )}
             </div>
@@ -400,123 +400,87 @@ export default function Navbar() {
         )}
       </header>
 
-      {/* Floating Capsule Dock for Staff Mobile */}
+      {/* Institutional Mobile Bottom Navigation Bar for Staff */}
       {user.role === "STAFF" && (
         <nav
-          aria-label="Staff Floating Navigation"
-          className="md:hidden fixed bottom-5 left-4 right-4 sm:left-6 sm:right-6 max-w-[340px] sm:max-w-[360px] mx-auto z-50 dbi-capsule-dock p-1.5 transition-all"
+          aria-label="Staff Bottom Navigation"
+          className="md:hidden fixed bottom-0 inset-x-0 z-40 mobile-nav-bar transition-all"
         >
-          <div className="grid grid-cols-4 items-center justify-between gap-1">
+          <div className="grid grid-cols-4 items-center justify-around max-w-lg mx-auto h-14 px-2">
             {/* Meals */}
             <Link
               href="/staff"
-              className={`flex flex-col items-center justify-center py-2 px-1 rounded-[20px] transition-all active:scale-95 ${
+              className={`flex flex-col items-center justify-center py-1 px-1 transition-colors ${
                 isActive("/staff")
-                  ? "dbi-tab-active"
-                  : "text-[#24212D] hover:text-[#35118F]"
+                  ? "text-[#35118F]"
+                  : "text-[#6A6577] hover:text-[#24212D]"
               }`}
             >
-              <Utensils
-                className={`w-[20px] h-[20px] ${
-                  isActive("/staff") ? "text-[#35118F] stroke-[2.3]" : "text-[#24212D] stroke-[2]"
-                }`}
-              />
+              <Utensils className="w-5 h-5" />
               <span
-                className={`text-[11px] mt-1 tracking-tight leading-none ${
-                  isActive("/staff") ? "font-bold text-[#35118F]" : "font-semibold text-[#24212D]"
+                className={`text-[11px] mt-0.5 tracking-tight ${
+                  isActive("/staff") ? "font-semibold text-[#35118F]" : "font-normal text-[#6A6577]"
                 }`}
               >
                 Meals
               </span>
-              {isActive("/staff") ? (
-                <div className="dbi-dash-indicator mt-1" />
-              ) : (
-                <div className="w-[16px] h-[3px] mt-1 opacity-0 pointer-events-none" />
-              )}
             </Link>
 
             {/* My QR */}
             <Link
               href="/staff/qr"
-              className={`flex flex-col items-center justify-center py-2 px-1 rounded-[20px] transition-all active:scale-95 ${
+              className={`flex flex-col items-center justify-center py-1 px-1 transition-colors ${
                 isActive("/staff/qr")
-                  ? "dbi-tab-active"
-                  : "text-[#24212D] hover:text-[#35118F]"
+                  ? "text-[#35118F]"
+                  : "text-[#6A6577] hover:text-[#24212D]"
               }`}
             >
-              <QrCode
-                className={`w-[20px] h-[20px] ${
-                  isActive("/staff/qr") ? "text-[#35118F] stroke-[2.3]" : "text-[#24212D] stroke-[2]"
-                }`}
-              />
+              <QrCode className="w-5 h-5" />
               <span
-                className={`text-[11px] mt-1 tracking-tight leading-none ${
-                  isActive("/staff/qr") ? "font-bold text-[#35118F]" : "font-semibold text-[#24212D]"
+                className={`text-[11px] mt-0.5 tracking-tight ${
+                  isActive("/staff/qr") ? "font-semibold text-[#35118F]" : "font-normal text-[#6A6577]"
                 }`}
               >
                 My QR
               </span>
-              {isActive("/staff/qr") ? (
-                <div className="dbi-dash-indicator mt-1" />
-              ) : (
-                <div className="w-[16px] h-[3px] mt-1 opacity-0 pointer-events-none" />
-              )}
             </Link>
 
             {/* History */}
             <Link
               href="/staff/history"
-              className={`flex flex-col items-center justify-center py-2 px-1 rounded-[20px] transition-all active:scale-95 ${
+              className={`flex flex-col items-center justify-center py-1 px-1 transition-colors ${
                 isActive("/staff/history")
-                  ? "dbi-tab-active"
-                  : "text-[#24212D] hover:text-[#35118F]"
+                  ? "text-[#35118F]"
+                  : "text-[#6A6577] hover:text-[#24212D]"
               }`}
             >
-              <History
-                className={`w-[20px] h-[20px] ${
-                  isActive("/staff/history") ? "text-[#35118F] stroke-[2.3]" : "text-[#24212D] stroke-[2]"
-                }`}
-              />
+              <History className="w-5 h-5" />
               <span
-                className={`text-[11px] mt-1 tracking-tight leading-none ${
-                  isActive("/staff/history") ? "font-bold text-[#35118F]" : "font-semibold text-[#24212D]"
+                className={`text-[11px] mt-0.5 tracking-tight ${
+                  isActive("/staff/history") ? "font-semibold text-[#35118F]" : "font-normal text-[#6A6577]"
                 }`}
               >
                 History
               </span>
-              {isActive("/staff/history") ? (
-                <div className="dbi-dash-indicator mt-1" />
-              ) : (
-                <div className="w-[16px] h-[3px] mt-1 opacity-0 pointer-events-none" />
-              )}
             </Link>
 
             {/* Account */}
             <Link
               href="/change-password"
-              className={`flex flex-col items-center justify-center py-2 px-1 rounded-[20px] transition-all active:scale-95 ${
+              className={`flex flex-col items-center justify-center py-1 px-1 transition-colors ${
                 isActive("/change-password")
-                  ? "dbi-tab-active"
-                  : "text-[#24212D] hover:text-[#35118F]"
+                  ? "text-[#35118F]"
+                  : "text-[#6A6577] hover:text-[#24212D]"
               }`}
             >
-              <User
-                className={`w-[20px] h-[20px] ${
-                  isActive("/change-password") ? "text-[#35118F] stroke-[2.3]" : "text-[#24212D] stroke-[2]"
-                }`}
-              />
+              <User className="w-5 h-5" />
               <span
-                className={`text-[11px] mt-1 tracking-tight leading-none ${
-                  isActive("/change-password") ? "font-bold text-[#35118F]" : "font-semibold text-[#24212D]"
+                className={`text-[11px] mt-0.5 tracking-tight ${
+                  isActive("/change-password") ? "font-semibold text-[#35118F]" : "font-normal text-[#6A6577]"
                 }`}
               >
                 Account
               </span>
-              {isActive("/change-password") ? (
-                <div className="dbi-dash-indicator mt-1" />
-              ) : (
-                <div className="w-[16px] h-[3px] mt-1 opacity-0 pointer-events-none" />
-              )}
             </Link>
           </div>
         </nav>

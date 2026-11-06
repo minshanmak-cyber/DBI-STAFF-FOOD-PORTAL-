@@ -8,6 +8,17 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      boxShadow: {
+        xs: "0 1px 2px 0 rgba(16, 24, 40, 0.05)",
+      },
+      fontFamily: {
+        sans: ["var(--font-inter)", "Inter", "-apple-system", "BlinkMacSystemFont", "Segoe UI", "Roboto", "sans-serif"],
+      },
+      borderRadius: {
+        lg: "8px",
+        md: "6px",
+        sm: "4px",
+      },
       colors: {
         dbi: {
           purple: {

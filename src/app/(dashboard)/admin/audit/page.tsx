@@ -42,7 +42,7 @@ export default function AdminAuditPage() {
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-[#24212D]">System Audit Trail</h1>
+          <h1 className="text-2xl font-semibold text-[#24212D] tracking-tight">System Audit Trail</h1>
           <p className="text-xs text-[#6A6577] mt-1">
             Immutable log of administrative overrides, account modifications, and operational events.
           </p>
@@ -57,7 +57,7 @@ export default function AdminAuditPage() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search action, actor, or reason..."
-            className="w-full pl-9 pr-3 py-2 text-sm border border-[#E5E2EE] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#35118F] bg-white text-[#24212D] placeholder-[#6A6577]"
+            className="form-input pl-9"
           />
         </div>
       </div>
@@ -68,53 +68,53 @@ export default function AdminAuditPage() {
           <span>Loading audit history...</span>
         </div>
       ) : filtered.length === 0 ? (
-        <div className="bg-white border border-[#E5E2EE] rounded-2xl p-12 text-center">
-          <ShieldCheck className="w-12 h-12 text-[#6A6577]/40 mx-auto mb-3" />
+        <div className="bg-white border border-[#E5E2EE] rounded-xl p-10 text-center">
+          <ShieldCheck className="w-10 h-10 text-[#6A6577]/40 mx-auto mb-3" />
           <h3 className="text-base font-semibold text-[#24212D]">No Audit Events Found</h3>
           <p className="text-xs text-[#6A6577] mt-1">Events will appear here as actions are performed.</p>
         </div>
       ) : (
-        <div className="bg-white border border-[#E5E2EE] rounded-2xl overflow-hidden shadow-xs">
+        <div className="bg-white border border-[#E5E2EE] rounded-xl overflow-hidden shadow-xs">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="bg-[#F6F5FA] border-b border-[#E5E2EE] text-xs font-semibold uppercase tracking-wider text-[#6A6577]">
+              <thead className="bg-[#F8F7FC] border-b border-[#E5E2EE] text-xs font-medium uppercase tracking-wider text-[#6A6577]">
                 <tr>
-                  <th className="px-6 py-4">Timestamp (IST)</th>
-                  <th className="px-6 py-4">Actor</th>
-                  <th className="px-6 py-4">Action</th>
-                  <th className="px-6 py-4">Reason / Notes</th>
-                  <th className="px-6 py-4">Details</th>
+                  <th className="px-5 py-3">Timestamp (IST)</th>
+                  <th className="px-5 py-3">Actor</th>
+                  <th className="px-5 py-3">Action</th>
+                  <th className="px-5 py-3">Reason / Notes</th>
+                  <th className="px-5 py-3 text-right">Details</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#E5E2EE]/60">
+              <tbody className="divide-y divide-[#E5E2EE]">
                 {filtered.map((log) => (
-                  <tr key={log.id} className="hover:bg-[#F6F5FA]/60 transition">
-                    <td className="px-6 py-4 text-xs font-mono text-[#6A6577] whitespace-nowrap">
+                  <tr key={log.id} className="hover:bg-[#F8F7FC]/70 transition-colors">
+                    <td className="px-5 py-3.5 text-xs font-mono text-[#6A6577] whitespace-nowrap">
                       {log.createdAt}
                     </td>
-                    <td className="px-6 py-4 font-medium text-[#24212D]">
+                    <td className="px-5 py-3.5 font-medium text-[#24212D]">
                       <div>{log.actorName}</div>
                       <span className="text-[11px] font-mono text-[#35118F]">
                         {log.actorStaffId}
                       </span>
                     </td>
-                    <td className="px-6 py-4">
+                    <td className="px-5 py-3.5">
                       <span
-                        className={`text-[11px] font-semibold font-mono px-2.5 py-0.5 rounded-full ${
+                        className={
                           log.action.includes("OVERRIDE")
-                            ? "bg-[#F4F0FD] text-[#35118F] border border-[#35118F]/20"
+                            ? "badge-purple font-mono"
                             : log.action.includes("PASSWORD") || log.action.includes("STATUS")
-                            ? "bg-[#FEF9ED] text-[#B88204] border border-[#F5B51B]/30"
-                            : "bg-[#EEFBF6] text-[#0C7A5B] border border-[#12B98A]/30"
-                        }`}
+                            ? "badge-warning font-mono"
+                            : "badge-success font-mono"
+                        }
                       >
                         {log.action}
                       </span>
                     </td>
-                    <td className="px-6 py-4 text-xs text-[#24212D] max-w-xs">
+                    <td className="px-5 py-3.5 text-xs text-[#24212D] max-w-xs leading-relaxed">
                       {log.reason || "—"}
                     </td>
-                    <td className="px-6 py-4 text-[11px] font-mono text-[#6A6577] max-w-sm truncate">
+                    <td className="px-5 py-3.5 text-[11px] font-mono text-[#6A6577] max-w-sm truncate text-right">
                       {log.newValue ? (
                         <div title={log.newValue} className="text-[#0C7A5B]">New: {log.newValue}</div>
                       ) : null}

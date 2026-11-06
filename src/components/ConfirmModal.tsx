@@ -37,41 +37,42 @@ export default function ConfirmModal({
   }[variant];
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-[#24212D]/60 backdrop-blur-xs flex items-center justify-center p-4">
-      <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 border border-[#E5E2EE]">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-[#24212D]/50 flex items-center justify-center p-4">
+      <div className="bg-white rounded-xl shadow-lg max-w-md w-full p-5 border border-[#E5E2EE]">
         <div className="flex items-start justify-between">
           <div className="flex items-center space-x-3">
             <div
-              className={`p-2 rounded-full ${
+              className={`p-2 rounded-lg shrink-0 ${
                 variant === "danger"
-                  ? "bg-rose-100 text-rose-600"
+                  ? "bg-red-50 text-red-600 border border-red-200"
                   : variant === "warning"
-                  ? "bg-[#FEF9ED] text-[#F5B51B]"
-                  : "bg-[#F4F0FD] text-[#35118F]"
+                  ? "bg-[#FEF9ED] text-[#946200] border border-[#F5B51B]/30"
+                  : "bg-[#F4F0FD] text-[#35118F] border border-[#35118F]/20"
               }`}
             >
-              <AlertCircle className="w-5 h-5" />
+              <AlertCircle className="w-4.5 h-4.5" />
             </div>
-            <h3 className="text-lg font-semibold text-[#24212D]">{title}</h3>
+            <h3 className="text-base font-semibold text-[#24212D]">{title}</h3>
           </div>
           <button
             onClick={onClose}
-            className="text-[#6A6577] hover:text-[#24212D] p-1 rounded-md"
+            aria-label="Close dialog"
+            className="text-[#6A6577] hover:text-[#24212D] p-1.5 rounded-lg hover:bg-[#F6F5FA] transition-colors"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </button>
         </div>
 
-        <p className="text-sm text-[#6A6577] mt-3">{description}</p>
+        <p className="text-sm text-[#6A6577] mt-3 leading-relaxed">{description}</p>
 
         {children && <div className="mt-4">{children}</div>}
 
-        <div className="mt-6 flex items-center justify-end space-x-3">
+        <div className="mt-6 flex items-center justify-end space-x-2.5">
           <button
             type="button"
             disabled={isLoading}
             onClick={onClose}
-            className="px-4 py-2 text-sm font-medium text-[#6A6577] bg-white border border-[#E5E2EE] rounded-xl hover:bg-[#F6F5FA] transition"
+            className="btn-secondary"
           >
             {cancelLabel}
           </button>
@@ -79,7 +80,13 @@ export default function ConfirmModal({
             type="button"
             disabled={isLoading}
             onClick={onConfirm}
-            className={`px-4 py-2 text-sm font-semibold rounded-xl shadow-xs transition ${confirmBtnColors} disabled:opacity-50`}
+            className={
+              variant === "danger"
+                ? "btn-destructive"
+                : variant === "warning"
+                ? "inline-flex items-center justify-center h-10 px-4 rounded-lg bg-[#F5B51B] hover:bg-[#d6990d] text-[#24212D] text-sm font-medium transition-colors shadow-xs disabled:opacity-50"
+                : "btn-primary"
+            }
           >
             {isLoading ? "Processing..." : confirmLabel}
           </button>

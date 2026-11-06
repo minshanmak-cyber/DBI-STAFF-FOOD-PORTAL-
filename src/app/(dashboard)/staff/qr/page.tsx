@@ -197,12 +197,12 @@ export default function StaffQrPage() {
         <div>
           <Link
             href="/staff"
-            className="inline-flex items-center space-x-1.5 text-xs font-semibold text-[#6A6577] hover:text-[#35118F] mb-2 transition"
+            className="inline-flex items-center space-x-1.5 text-xs font-medium text-[#6A6577] hover:text-[#35118F] mb-1.5 transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to Meal Selection</span>
           </Link>
-          <h1 className="text-2xl font-bold text-[#24212D]">Your Meal Collection QR Codes</h1>
+          <h1 className="text-2xl font-semibold text-[#24212D] tracking-tight">Your Meal Collection QR Codes</h1>
           <p className="text-xs text-[#6A6577] mt-1">
             Present these QR codes at the canteen counter during meal service.
           </p>
@@ -216,7 +216,7 @@ export default function StaffQrPage() {
               const today = new Date().toISOString().split("T")[0];
               handleDateChange(today);
             }}
-            className="px-3 py-1.5 text-xs font-semibold bg-white border border-[#E5E2EE] hover:bg-[#F6F5FA] text-[#24212D] rounded-xl shadow-xs transition"
+            className="btn-secondary h-8 px-3 text-xs"
           >
             Today
           </button>
@@ -228,7 +228,7 @@ export default function StaffQrPage() {
               const tomorrowStr = tomorrow.toISOString().split("T")[0];
               handleDateChange(tomorrowStr);
             }}
-            className="px-3 py-1.5 text-xs font-semibold bg-white border border-[#E5E2EE] hover:bg-[#F6F5FA] text-[#24212D] rounded-xl shadow-xs transition"
+            className="btn-secondary h-8 px-3 text-xs"
           >
             Tomorrow
           </button>
@@ -237,16 +237,16 @@ export default function StaffQrPage() {
             type="date"
             value={selectedDate}
             onChange={(e) => handleDateChange(e.target.value)}
-            className="px-3 py-1.5 text-xs font-medium border border-[#E5E2EE] rounded-xl shadow-xs focus:outline-none focus:ring-2 focus:ring-[#35118F] bg-white text-[#24212D]"
+            className="h-8 px-2.5 text-xs border border-[#E5E2EE] rounded-lg bg-white text-[#24212D] focus:border-[#35118F] focus:outline-none"
           />
 
           {data?.qrs && data.qrs.length > 1 && (
             <button
               type="button"
               onClick={downloadAllPasses}
-              className="px-3.5 py-1.5 text-xs font-semibold bg-[#35118F] hover:bg-[#2a0d72] text-white rounded-xl shadow-xs transition inline-flex items-center space-x-1.5"
+              className="btn-primary h-8 px-3 text-xs"
             >
-              <Download className="w-3.5 h-3.5" />
+              <Download className="w-3.5 h-3.5 mr-1.5" />
               <span>Download All Passes</span>
             </button>
           )}
@@ -259,44 +259,44 @@ export default function StaffQrPage() {
           <span>Generating and loading QR passes...</span>
         </div>
       ) : data?.qrs.length === 0 ? (
-        <div className="bg-white border border-[#E5E2EE] rounded-2xl p-12 text-center">
-          <QrCode className="w-12 h-12 text-[#6A6577]/40 mx-auto mb-3" />
+        <div className="bg-white border border-[#E5E2EE] rounded-xl p-10 text-center">
+          <QrCode className="w-10 h-10 text-[#6A6577]/40 mx-auto mb-3" />
           <h3 className="text-base font-semibold text-[#24212D]">
             No Active Meal Requests for {data.serviceDateDisplay}
           </h3>
-          <p className="text-xs text-[#6A6577] max-w-md mx-auto mt-2">
-            You have not requested any meals (or opted out) for this date. Only meals that were requested before the cutoff generate collection QR passes.
+          <p className="text-xs text-[#6A6577] max-w-md mx-auto mt-1.5 leading-relaxed">
+            You have not requested any meals (or opted out) for this date. Only meals requested before the cutoff generate collection QR passes.
           </p>
-          <div className="mt-6">
+          <div className="mt-5">
             <Link
               href="/staff"
-              className="inline-flex items-center space-x-2 px-5 py-2.5 bg-[#35118F] text-white text-xs font-semibold rounded-xl hover:bg-[#2a0d72] transition shadow-xs"
+              className="btn-primary h-9 px-4 text-xs"
             >
               <span>Manage Next-Day Meal Requests</span>
             </Link>
           </div>
         </div>
       ) : (
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {data?.qrs.map((item) => (
             <div
               key={item.mealType}
-              className={`bg-white border rounded-2xl p-6 shadow-xs flex flex-col items-center text-center transition ${
-                item.isCollected ? "border-[#D2F6EA] bg-[#EEFBF6]/30" : "border-[#E5E2EE]"
+              className={`bg-white border rounded-xl p-5 shadow-xs flex flex-col items-center text-center transition-colors ${
+                item.isCollected ? "border-[#12B98A]/30 bg-[#EEFBF6]/20" : "border-[#E5E2EE]"
               }`}
             >
               {/* Badge */}
               <div className="w-full flex items-center justify-between mb-4">
-                <span className="font-bold text-[#24212D] uppercase tracking-wider text-sm">
+                <span className="font-semibold text-[#24212D] uppercase tracking-wider text-sm">
                   {item.mealType}
                 </span>
                 {item.isCollected ? (
-                  <span className="inline-flex items-center space-x-1 text-xs font-semibold text-[#0C7A5B] bg-[#EEFBF6] border border-[#D2F6EA] px-2.5 py-1 rounded-full">
+                  <span className="badge-success">
                     <CheckCircle className="w-3.5 h-3.5 text-[#12B98A]" />
                     <span>Collected</span>
                   </span>
                 ) : (
-                  <span className="inline-flex items-center space-x-1 text-xs font-semibold text-[#35118F] bg-[#F4F0FD] border border-[#E9E1FA] px-2.5 py-1 rounded-full">
+                  <span className="badge-purple">
                     <Clock className="w-3.5 h-3.5 text-[#35118F]" />
                     <span>Eligible for Collection</span>
                   </span>
@@ -304,16 +304,16 @@ export default function StaffQrPage() {
               </div>
 
               {/* QR Image */}
-              <div className="bg-white p-3.5 rounded-2xl border border-[#E5E2EE] shadow-xs relative">
+              <div className="bg-white p-3 rounded-lg border border-[#E5E2EE] shadow-xs relative">
                 <img
                   src={item.dataUrl}
                   alt={`${item.mealType} QR Code`}
-                  className={`w-56 h-56 ${item.isCollected ? "opacity-30 grayscale" : ""}`}
+                  className={`w-52 h-52 ${item.isCollected ? "opacity-25 grayscale" : ""}`}
                 />
                 {item.isCollected && (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/85 rounded-2xl">
-                    <CheckCircle className="w-12 h-12 text-[#12B98A] mb-1" />
-                    <span className="text-xs font-bold text-[#0C7A5B] uppercase">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/90 rounded-lg">
+                    <CheckCircle className="w-10 h-10 text-[#12B98A] mb-1" />
+                    <span className="text-xs font-semibold text-[#0C7A5B] uppercase">
                       Already Verified
                     </span>
                   </div>
@@ -321,7 +321,7 @@ export default function StaffQrPage() {
               </div>
 
               {/* Token Info */}
-              <div className="mt-4 text-xs text-[#6A6577] font-mono break-all max-w-xs">
+              <div className="mt-3 text-[11px] text-[#6A6577] font-mono break-all max-w-xs">
                 Token: {item.token}
               </div>
 
@@ -331,19 +331,19 @@ export default function StaffQrPage() {
                   type="button"
                   onClick={() => downloadMealPass(item)}
                   disabled={downloadingMeal === item.mealType}
-                  className="w-full max-w-xs inline-flex items-center justify-center space-x-2 px-5 py-2.5 text-xs font-semibold text-white bg-[#35118F] hover:bg-[#2a0d72] active:scale-[0.99] rounded-xl shadow-xs transition disabled:opacity-50"
+                  className="btn-primary w-full max-w-xs h-10 text-xs"
                 >
                   {downloadingMeal === item.mealType ? (
-                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                    <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
                   ) : (
-                    <Download className="w-3.5 h-3.5" />
+                    <Download className="w-3.5 h-3.5 mr-1.5" />
                   )}
                   <span>Download QR Pass</span>
                 </button>
               </div>
 
               {item.isCollected && item.collectedAt && (
-                <div className="mt-3 text-xs text-[#0C7A5B] bg-[#EEFBF6] border border-[#D2F6EA] px-3 py-1.5 rounded-xl">
+                <div className="mt-3 text-xs text-[#0C7A5B] bg-[#EEFBF6] border border-[#12B98A]/30 px-3 py-1.5 rounded-md">
                   Collected on: {item.collectedAt}
                 </div>
               )}

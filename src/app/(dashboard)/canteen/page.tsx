@@ -12,6 +12,7 @@ import {
   Calendar,
   Loader2,
   RefreshCw,
+  UtensilsCrossed,
 } from "lucide-react";
 import StatCard from "@/components/StatCard";
 
@@ -52,146 +53,208 @@ export default function CanteenDashboardPage() {
   }, []);
 
   return (
-    <div className="space-y-8 max-w-5xl mx-auto">
-      {/* Hero Action Banner */}
-      <div className="bg-[#35118F] text-white rounded-3xl p-6 sm:p-8 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-6 border border-[#35118F]">
+    <div className="space-y-6 max-w-5xl mx-auto">
+      {/* Page Header */}
+      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-[#E5E2EE]">
         <div>
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#F5B51B] bg-white/10 border border-[#F5B51B]/30 px-3 py-1 rounded-full">
-            Canteen Service Counter
-          </span>
-          <h1 className="text-2xl sm:text-3xl font-bold mt-3 text-white">
-            Today's Meal Verification & Collection
-          </h1>
-          <p className="text-xs sm:text-sm text-purple-200 mt-1 flex items-center space-x-1.5">
-            <Calendar className="w-4 h-4 text-[#12B98A]" />
-            <span>Service Date: {data?.serviceDateDisplay || "Today"}</span>
+          <div className="flex items-center gap-2.5">
+            <h1 className="text-2xl font-semibold text-[#24212D]">
+              Meal Counter Status
+            </h1>
+            <span className="badge-purple">
+              Canteen Service
+            </span>
+          </div>
+          <p className="text-xs text-[#6A6577] mt-1 flex items-center gap-1.5">
+            <Calendar className="w-3.5 h-3.5 text-[#6A6577]" />
+            <span>
+              Service Date:{" "}
+              <span className="font-semibold text-[#24212D]">
+                {data?.serviceDateDisplay || "Today"}
+              </span>
+            </span>
           </p>
         </div>
 
-        <div>
+        <div className="flex items-center gap-2.5">
+          <button
+            onClick={fetchStats}
+            disabled={loading}
+            className="btn-secondary h-10 px-3 text-xs"
+            title="Refresh meal counts"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-[#35118F]" : ""}`} />
+            <span>Refresh</span>
+          </button>
           <Link
             href="/canteen/scan"
-            className="inline-flex items-center space-x-3 px-6 py-4 bg-[#12B98A] hover:bg-[#0ea278] text-white font-bold rounded-2xl shadow-sm transition transform hover:-translate-y-0.5"
+            className="btn-primary h-10 px-4 text-xs font-medium"
           >
-            <ScanLine className="w-6 h-6 text-white" />
-            <span className="text-base">Open QR Scanner</span>
+            <ScanLine className="w-4 h-4" />
+            <span>Open QR Scanner</span>
           </Link>
         </div>
       </div>
 
-      {/* Real-time Counts */}
-      <div className="flex items-center justify-between">
-        <h2 className="text-lg font-bold text-[#24212D]">Today's Meal Counter Status</h2>
-        <button
-          onClick={fetchStats}
-          disabled={loading}
-          className="inline-flex items-center space-x-1.5 text-xs font-semibold text-[#6A6577] hover:text-[#35118F] bg-white border border-[#E5E2EE] px-3 py-1.5 rounded-xl transition shadow-xs"
-        >
-          <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-[#35118F]" : ""}`} />
-          <span>Refresh Counts</span>
-        </button>
-      </div>
-
       {loading && !data ? (
         <div className="flex items-center justify-center py-20 text-[#6A6577]">
-          <Loader2 className="w-8 h-8 animate-spin text-[#35118F] mr-3" />
-          <span>Loading canteen counts...</span>
+          <Loader2 className="w-6 h-6 animate-spin text-[#35118F] mr-3" />
+          <span className="text-sm">Loading canteen counts...</span>
         </div>
       ) : data ? (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-5">
-            <div className="bg-white border border-[#E5E2EE] rounded-2xl p-6 shadow-xs">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="p-2.5 bg-[#FEF9ED] text-[#B88204] rounded-xl border border-[#F5B51B]/30">
-                  <SunMedium className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-[#24212D] text-base">Breakfast</h3>
-                  <span className="text-xs text-[#6A6577]">Morning service</span>
-                </div>
-              </div>
-              <div className="space-y-2 border-t border-[#E5E2EE] pt-4 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-[#6A6577]">Requested:</span>
-                  <span className="font-bold text-[#24212D] font-mono">
-                    {data.meals.breakfast.requested}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-[#6A6577]">Collected:</span>
-                  <span className="font-bold text-[#12B98A] font-mono">
-                    {data.meals.breakfast.collected}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-[#6A6577]">Pending:</span>
-                  <span className="font-bold text-[#B88204] font-mono">
-                    {data.meals.breakfast.pending}
-                  </span>
-                </div>
-              </div>
-            </div>
+          {/* Daily Aggregate Stats */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+            <StatCard
+              label="Total Meals Booked"
+              value={data.totalRequested}
+              icon={<UtensilsCrossed className="w-4 h-4" />}
+              subtext="All service windows combined"
+            />
+            <StatCard
+              label="Total Collected"
+              value={data.totalCollected}
+              icon={<CheckCircle className="w-4 h-4 text-[#12B98A]" />}
+              subtext="Successfully verified"
+              badge={`${data.totalRequested > 0 ? Math.round((data.totalCollected / data.totalRequested) * 100) : 0}% completed`}
+              badgeColor="teal"
+            />
+            <StatCard
+              label="Awaiting Collection"
+              value={data.totalPending}
+              icon={<Clock className="w-4 h-4 text-[#F5B51B]" />}
+              subtext="Pending collection"
+              badgeColor="amber"
+            />
+          </div>
 
-            <div className="bg-white border border-[#E5E2EE] rounded-2xl p-6 shadow-xs">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="p-2.5 bg-[#EEFBF6] text-[#0C7A5B] rounded-xl border border-[#12B98A]/30">
-                  <Sunset className="w-6 h-6" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-[#24212D] text-base">Lunch</h3>
-                  <span className="text-xs text-[#6A6577]">Afternoon service</span>
-                </div>
-              </div>
-              <div className="space-y-2 border-t border-[#E5E2EE] pt-4 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-[#6A6577]">Requested:</span>
-                  <span className="font-bold text-[#24212D] font-mono">
-                    {data.meals.lunch.requested}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-[#6A6577]">Collected:</span>
-                  <span className="font-bold text-[#12B98A] font-mono">
-                    {data.meals.lunch.collected}
-                  </span>
-                </div>
-                <div className="flex justify-between">
-                  <span className="text-[#6A6577]">Pending:</span>
-                  <span className="font-bold text-[#B88204] font-mono">
-                    {data.meals.lunch.pending}
-                  </span>
-                </div>
-              </div>
-            </div>
+          {/* Service Window Breakdown */}
+          <div className="space-y-3">
+            <h2 className="text-base font-semibold text-[#24212D]">
+              Meal-by-Meal Breakdown
+            </h2>
 
-            <div className="bg-white border border-[#E5E2EE] rounded-2xl p-6 shadow-xs">
-              <div className="flex items-center space-x-3 mb-4">
-                <div className="p-2.5 bg-[#F4F0FD] text-[#35118F] rounded-xl border border-[#35118F]/20">
-                  <Moon className="w-6 h-6" />
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {/* Breakfast */}
+              <div className="bg-white border border-[#E5E2EE] rounded-xl p-5">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-lg bg-[#FEF9ED] text-[#B88204] border border-[#F5B51B]/30 flex items-center justify-center">
+                      <SunMedium className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-[#24212D] text-sm">Breakfast</h3>
+                      <span className="text-xs text-[#6A6577]">Morning Service</span>
+                    </div>
+                  </div>
+                  <span className="text-xs font-mono font-medium text-[#6A6577]">
+                    {data.meals.breakfast.requested > 0
+                      ? `${Math.round((data.meals.breakfast.collected / data.meals.breakfast.requested) * 100)}%`
+                      : "0%"}
+                  </span>
                 </div>
-                <div>
-                  <h3 className="font-bold text-[#24212D] text-base">Dinner</h3>
-                  <span className="text-xs text-[#6A6577]">Night service</span>
+
+                <div className="space-y-2 border-t border-[#E5E2EE] pt-3 text-xs">
+                  <div className="flex justify-between py-0.5">
+                    <span className="text-[#6A6577]">Requested:</span>
+                    <span className="font-semibold text-[#24212D] font-mono">
+                      {data.meals.breakfast.requested}
+                    </span>
+                  </div>
+                  <div className="flex justify-between py-0.5">
+                    <span className="text-[#6A6577]">Collected:</span>
+                    <span className="font-semibold text-[#12B98A] font-mono">
+                      {data.meals.breakfast.collected}
+                    </span>
+                  </div>
+                  <div className="flex justify-between py-0.5">
+                    <span className="text-[#6A6577]">Pending:</span>
+                    <span className="font-semibold text-[#B88204] font-mono">
+                      {data.meals.breakfast.pending}
+                    </span>
+                  </div>
                 </div>
               </div>
-              <div className="space-y-2 border-t border-[#E5E2EE] pt-4 text-sm">
-                <div className="flex justify-between">
-                  <span className="text-[#6A6577]">Requested:</span>
-                  <span className="font-bold text-[#24212D] font-mono">
-                    {data.meals.dinner.requested}
+
+              {/* Lunch */}
+              <div className="bg-white border border-[#E5E2EE] rounded-xl p-5">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-lg bg-[#EEFBF6] text-[#0C7A5B] border border-[#12B98A]/30 flex items-center justify-center">
+                      <Sunset className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-[#24212D] text-sm">Lunch</h3>
+                      <span className="text-xs text-[#6A6577]">Afternoon Service</span>
+                    </div>
+                  </div>
+                  <span className="text-xs font-mono font-medium text-[#6A6577]">
+                    {data.meals.lunch.requested > 0
+                      ? `${Math.round((data.meals.lunch.collected / data.meals.lunch.requested) * 100)}%`
+                      : "0%"}
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-[#6A6577]">Collected:</span>
-                  <span className="font-bold text-[#12B98A] font-mono">
-                    {data.meals.dinner.collected}
+
+                <div className="space-y-2 border-t border-[#E5E2EE] pt-3 text-xs">
+                  <div className="flex justify-between py-0.5">
+                    <span className="text-[#6A6577]">Requested:</span>
+                    <span className="font-semibold text-[#24212D] font-mono">
+                      {data.meals.lunch.requested}
+                    </span>
+                  </div>
+                  <div className="flex justify-between py-0.5">
+                    <span className="text-[#6A6577]">Collected:</span>
+                    <span className="font-semibold text-[#12B98A] font-mono">
+                      {data.meals.lunch.collected}
+                    </span>
+                  </div>
+                  <div className="flex justify-between py-0.5">
+                    <span className="text-[#6A6577]">Pending:</span>
+                    <span className="font-semibold text-[#B88204] font-mono">
+                      {data.meals.lunch.pending}
+                    </span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Dinner */}
+              <div className="bg-white border border-[#E5E2EE] rounded-xl p-5">
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-lg bg-[#F4F0FD] text-[#35118F] border border-[#35118F]/20 flex items-center justify-center">
+                      <Moon className="w-5 h-5" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-[#24212D] text-sm">Dinner</h3>
+                      <span className="text-xs text-[#6A6577]">Night Service</span>
+                    </div>
+                  </div>
+                  <span className="text-xs font-mono font-medium text-[#6A6577]">
+                    {data.meals.dinner.requested > 0
+                      ? `${Math.round((data.meals.dinner.collected / data.meals.dinner.requested) * 100)}%`
+                      : "0%"}
                   </span>
                 </div>
-                <div className="flex justify-between">
-                  <span className="text-[#6A6577]">Pending:</span>
-                  <span className="font-bold text-[#B88204] font-mono">
-                    {data.meals.dinner.pending}
-                  </span>
+
+                <div className="space-y-2 border-t border-[#E5E2EE] pt-3 text-xs">
+                  <div className="flex justify-between py-0.5">
+                    <span className="text-[#6A6577]">Requested:</span>
+                    <span className="font-semibold text-[#24212D] font-mono">
+                      {data.meals.dinner.requested}
+                    </span>
+                  </div>
+                  <div className="flex justify-between py-0.5">
+                    <span className="text-[#6A6577]">Collected:</span>
+                    <span className="font-semibold text-[#12B98A] font-mono">
+                      {data.meals.dinner.collected}
+                    </span>
+                  </div>
+                  <div className="flex justify-between py-0.5">
+                    <span className="text-[#6A6577]">Pending:</span>
+                    <span className="font-semibold text-[#B88204] font-mono">
+                      {data.meals.dinner.pending}
+                    </span>
+                  </div>
                 </div>
               </div>
             </div>

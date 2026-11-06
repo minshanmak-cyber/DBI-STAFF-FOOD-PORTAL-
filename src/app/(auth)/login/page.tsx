@@ -46,44 +46,41 @@ export default function LoginPage() {
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         {/* Official DBI Logo */}
         <div className="flex justify-center mb-4">
-          <div className="bg-white px-5 py-3 rounded-2xl border border-[#E5E2EE] shadow-xs inline-flex items-center justify-center">
+          <div className="bg-white px-4 py-2.5 rounded-xl border border-[#E5E2EE] shadow-xs inline-flex items-center justify-center">
             <Image
               src="/dbi-logo.jpg"
               alt="Digital Bridge International Logo"
-              width={260}
-              height={80}
-              className="h-14 sm:h-16 w-auto object-contain"
+              width={240}
+              height={70}
+              className="h-12 sm:h-14 w-auto object-contain"
               priority
             />
           </div>
         </div>
 
-        <h2 className="text-center text-2xl font-bold tracking-tight text-[#24212D]">
+        <h1 className="text-center text-2xl font-semibold tracking-tight text-[#24212D]">
           Staff Food Management Portal
-        </h2>
-        <p className="mt-1 text-center text-xs text-[#6A6577] font-medium">
+        </h1>
+        <p className="mt-1 text-center text-xs text-[#6A6577]">
           Sign in using your assigned institutional Staff ID
         </p>
       </div>
 
       <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-md px-4">
-        <div className="bg-white py-8 px-6 shadow-xs border border-[#E5E2EE] rounded-2xl sm:px-10">
+        <div className="bg-white py-7 px-6 sm:px-8 shadow-xs border border-[#E5E2EE] rounded-xl">
           {error && (
-            <div className="mb-6 p-4 bg-rose-50 border border-rose-200 rounded-xl flex items-start space-x-3 text-rose-800 text-sm">
-              <AlertCircle className="w-5 h-5 text-rose-600 flex-shrink-0 mt-0.5" />
-              <span>{error}</span>
+            <div className="mb-5 p-3.5 bg-red-50 border border-red-200 rounded-lg flex items-start space-x-2.5 text-red-800 text-xs">
+              <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
+              <span className="leading-relaxed">{error}</span>
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-5">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div>
-              <label
-                htmlFor="staffId"
-                className="block text-xs font-semibold uppercase tracking-wider text-[#24212D]"
-              >
+              <label htmlFor="staffId" className="form-label">
                 Staff ID
               </label>
-              <div className="mt-1.5 relative rounded-xl shadow-xs">
+              <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#6A6577]">
                   <User className="w-4 h-4" />
                 </div>
@@ -95,19 +92,16 @@ export default function LoginPage() {
                   value={staffId}
                   onChange={(e) => setStaffId(e.target.value.toUpperCase())}
                   placeholder="e.g. 1001 or ADMIN001"
-                  className="block w-full pl-9 pr-3 py-2.5 text-sm border border-[#E5E2EE] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#35118F] focus:border-[#35118F] uppercase font-mono tracking-wide text-[#24212D] bg-[#F6F5FA]/40 focus:bg-white transition"
+                  className="form-input pl-9 uppercase font-mono tracking-wide"
                 />
               </div>
             </div>
 
             <div>
-              <label
-                htmlFor="password"
-                className="block text-xs font-semibold uppercase tracking-wider text-[#24212D]"
-              >
+              <label htmlFor="password" className="form-label">
                 Password
               </label>
-              <div className="mt-1.5 relative rounded-xl shadow-xs">
+              <div className="relative">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#6A6577]">
                   <Lock className="w-4 h-4" />
                 </div>
@@ -119,21 +113,21 @@ export default function LoginPage() {
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  className="block w-full pl-9 pr-3 py-2.5 text-sm border border-[#E5E2EE] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#35118F] focus:border-[#35118F] text-[#24212D] bg-[#F6F5FA]/40 focus:bg-white transition"
+                  className="form-input pl-9"
                 />
               </div>
             </div>
 
-            <div>
+            <div className="pt-1">
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full flex justify-center items-center py-2.5 px-4 rounded-xl shadow-xs text-sm font-semibold text-white bg-[#35118F] hover:bg-[#2a0d72] focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-[#35118F] transition active:scale-[0.99] disabled:opacity-50"
+                className="btn-primary w-full"
               >
                 {loading ? (
                   <>
                     <Loader2 className="w-4 h-4 mr-2 animate-spin text-[#F5B51B]" />
-                    Signing in...
+                    <span>Signing in...</span>
                   </>
                 ) : (
                   <>

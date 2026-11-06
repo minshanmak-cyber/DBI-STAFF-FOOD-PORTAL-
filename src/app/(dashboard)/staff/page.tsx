@@ -143,72 +143,72 @@ export default function StaffDashboardPage() {
   const renderMealBadge = (status: "OPT_IN" | "OPT_OUT" | "NO_RESPONSE") => {
     if (status === "OPT_IN") {
       return (
-        <span className="inline-flex items-center space-x-1 text-xs px-2.5 py-0.5 rounded-full font-semibold bg-[#EEFBF6] text-[#0C7A5B] border border-[#D2F6EA]">
-          <CheckCircle className="w-3 h-3 text-[#12B98A]" />
+        <span className="badge-success">
+          <CheckCircle className="w-3.5 h-3.5 text-[#12B98A]" />
           <span>Requested</span>
         </span>
       );
     }
     if (status === "OPT_OUT") {
       return (
-        <span className="inline-flex items-center space-x-1 text-xs px-2.5 py-0.5 rounded-full font-semibold bg-[#F6F5FA] text-[#6A6577] border border-[#E5E2EE]">
-          <XCircle className="w-3 h-3 text-[#6A6577]" />
+        <span className="badge-neutral">
+          <XCircle className="w-3.5 h-3.5 text-[#6A6577]" />
           <span>Opted Out</span>
         </span>
       );
     }
     return (
-      <span className="inline-flex items-center space-x-1 text-xs px-2.5 py-0.5 rounded-full font-semibold bg-[#FEF9ED] text-[#A87508] border border-[#FDEFCD]">
-        <HelpCircle className="w-3 h-3 text-[#F5B51B]" />
+      <span className="badge-warning">
+        <HelpCircle className="w-3.5 h-3.5 text-[#F5B51B]" />
         <span>Not Responded</span>
       </span>
     );
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Welcome Banner */}
-      <div className="bg-white border border-[#E5E2EE] rounded-2xl p-6 sm:p-8 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white border border-[#E5E2EE] rounded-xl p-5 sm:p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#35118F] bg-[#F4F0FD] px-2.5 py-1 rounded-md border border-[#E9E1FA]">
+          <span className="badge-purple">
             Staff Portal
           </span>
-          <h1 className="text-2xl font-bold text-[#24212D] mt-2">
+          <h1 className="text-2xl font-semibold text-[#24212D] mt-2 tracking-tight">
             Welcome, {user?.fullName || "Staff Member"}
           </h1>
           <p className="text-xs text-[#6A6577] mt-1">
-            Staff ID: <span className="font-mono text-[#35118F] font-bold">{user?.staffId}</span>
+            Staff ID: <span className="font-mono text-[#35118F] font-semibold">{user?.staffId}</span>
             {user?.department && ` • Department: ${user.department}`}
           </p>
         </div>
 
-        <div className="flex flex-wrap items-center gap-3">
+        <div className="flex flex-wrap items-center gap-2.5">
           <Link
             href="/staff/qr"
-            className="inline-flex items-center space-x-2 px-4 py-2.5 bg-[#35118F] hover:bg-[#2a0d72] text-white rounded-xl text-xs font-semibold shadow-xs transition"
+            className="btn-primary h-9 px-3.5 text-xs"
           >
-            <QrCode className="w-4 h-4 text-[#F5B51B]" />
+            <QrCode className="w-3.5 h-3.5 mr-1.5" />
             <span>My QR Passes</span>
           </Link>
           <Link
             href="/staff/history"
-            className="inline-flex items-center space-x-2 px-4 py-2.5 bg-white border border-[#E5E2EE] hover:bg-[#F6F5FA] text-[#24212D] rounded-xl text-xs font-semibold transition"
+            className="btn-secondary h-9 px-3.5 text-xs"
           >
-            <History className="w-4 h-4 text-[#6A6577]" />
+            <History className="w-3.5 h-3.5 mr-1.5 text-[#6A6577]" />
             <span>Meal History</span>
           </Link>
         </div>
       </div>
 
       {/* Next Day Meal Selection Section */}
-      <div className="bg-white border border-[#E5E2EE] rounded-2xl p-6 sm:p-8 shadow-xs">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 border-b border-[#E5E2EE]">
+      <div className="bg-white border border-[#E5E2EE] rounded-xl p-5 sm:p-6 shadow-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-[#E5E2EE]">
           <div>
-            <div className="flex items-center space-x-2 text-[#6A6577] text-xs font-semibold uppercase tracking-wider">
-              <Calendar className="w-4 h-4 text-[#35118F]" />
+            <div className="flex items-center space-x-1.5 text-[#6A6577] text-xs font-medium uppercase tracking-wider">
+              <Calendar className="w-3.5 h-3.5 text-[#35118F]" />
               <span>Target Service Date</span>
             </div>
-            <h2 className="text-xl font-bold text-[#24212D] mt-1">
+            <h2 className="text-lg font-semibold text-[#24212D] mt-0.5">
               {data?.serviceDateDisplay || "Tomorrow"}
             </h2>
           </div>
@@ -225,24 +225,24 @@ export default function StaffDashboardPage() {
 
         {feedback && (
           <div
-            className={`mt-6 p-4 rounded-xl flex items-start space-x-3 text-sm ${
+            className={`mt-5 p-3.5 rounded-lg flex items-start space-x-2.5 text-xs ${
               feedback.type === "success"
-                ? "bg-[#EEFBF6] border border-[#D2F6EA] text-[#0C7A5B]"
-                : "bg-rose-50 border border-rose-200 text-rose-800"
+                ? "bg-[#EEFBF6] border border-[#12B98A]/30 text-[#0C7A5B]"
+                : "bg-red-50 border border-red-200 text-red-800"
             }`}
           >
             {feedback.type === "success" ? (
-              <CheckCircle className="w-5 h-5 text-[#12B98A] flex-shrink-0 mt-0.5" />
+              <CheckCircle className="w-4 h-4 text-[#12B98A] shrink-0 mt-0.5" />
             ) : (
-              <AlertCircle className="w-5 h-5 text-rose-600 flex-shrink-0 mt-0.5" />
+              <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
             )}
-            <span>{feedback.message}</span>
+            <span className="leading-relaxed">{feedback.message}</span>
           </div>
         )}
 
         {isLocked && (
-          <div className="mt-6 p-4 bg-[#FEF9ED] border border-[#FDEFCD] rounded-xl text-xs text-[#A87508] flex items-center space-x-2.5">
-            <AlertCircle className="w-4 h-4 text-[#F5B51B] flex-shrink-0" />
+          <div className="mt-5 p-3.5 bg-[#FEF9ED] border border-[#F5B51B]/30 rounded-lg text-xs text-[#946200] flex items-center space-x-2.5">
+            <AlertCircle className="w-4 h-4 text-[#F5B51B] shrink-0" />
             <span>
               {data?.eligibility.reason ||
                 "Submissions are accepted strictly between 9:00 AM and 3:00 PM IST on the day preceding the meal date. For late corrections, please contact your Administrator."}
@@ -251,36 +251,36 @@ export default function StaffDashboardPage() {
         )}
 
         <form onSubmit={handleSubmit} className="mt-6 space-y-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Breakfast Card */}
             <div
-              className={`border-2 rounded-2xl p-5 transition ${
+              className={`border rounded-xl p-4.5 transition-colors ${
                 breakfast === "OPT_IN"
-                  ? "border-[#35118F] bg-[#F4F0FD]/50 shadow-xs"
+                  ? "border-[#35118F] bg-[#F4F0FD]/40"
                   : breakfast === "OPT_OUT"
                   ? "border-[#E5E2EE] bg-[#F6F5FA]"
-                  : "border-[#FDEFCD] bg-[#FEF9ED]/30"
+                  : "border-[#E5E2EE] bg-white"
               }`}
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center space-x-2.5">
-                  <div className="p-2 bg-[#FEF9ED] text-[#F5B51B] rounded-xl">
-                    <SunMedium className="w-5 h-5" />
+                  <div className="p-2 bg-[#FEF9ED] text-[#946200] rounded-lg border border-[#F5B51B]/30">
+                    <SunMedium className="w-4.5 h-4.5" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-[#24212D] text-sm">Breakfast</h3>
-                    <span className="text-[11px] text-[#6A6577]">Morning service</span>
+                    <h3 className="font-semibold text-[#24212D] text-sm">Breakfast</h3>
+                    <span className="text-xs text-[#6A6577]">Morning service</span>
                   </div>
                 </div>
                 {renderMealBadge(breakfast)}
               </div>
 
-              <p className="text-[11px] text-[#6A6577] min-h-[1.5rem] mt-2">
+              <p className="text-xs text-[#6A6577] min-h-[1.5rem] mt-2">
                 {breakfast === "OPT_IN"
-                  ? "✓ Meal requested. Will generate QR pass."
+                  ? "Meal requested. QR pass will be active."
                   : breakfast === "OPT_OUT"
                   ? "Explicitly declined."
-                  : "Unanswered (defaults to no meal)."}
+                  : "Unanswered (treated as out)."}
               </p>
 
               <div className="flex gap-2 mt-4 pt-3 border-t border-[#E5E2EE]">
@@ -288,9 +288,9 @@ export default function StaffDashboardPage() {
                   type="button"
                   disabled={isLocked}
                   onClick={() => setBreakfast("OPT_IN")}
-                  className={`flex-1 py-2 text-xs font-semibold rounded-xl border transition ${
+                  className={`flex-1 h-9 text-xs font-medium rounded-lg border transition-colors ${
                     breakfast === "OPT_IN"
-                      ? "bg-[#35118F] text-white border-[#35118F] shadow-xs"
+                      ? "bg-[#35118F] text-white border-[#35118F]"
                       : "bg-white text-[#24212D] border-[#E5E2EE] hover:bg-[#F6F5FA]"
                   } disabled:opacity-50`}
                 >
@@ -300,9 +300,9 @@ export default function StaffDashboardPage() {
                   type="button"
                   disabled={isLocked}
                   onClick={() => setBreakfast("OPT_OUT")}
-                  className={`flex-1 py-2 text-xs font-semibold rounded-xl border transition ${
+                  className={`flex-1 h-9 text-xs font-medium rounded-lg border transition-colors ${
                     breakfast === "OPT_OUT"
-                      ? "bg-[#24212D] text-white border-[#24212D] shadow-xs"
+                      ? "bg-[#24212D] text-white border-[#24212D]"
                       : "bg-white text-[#24212D] border-[#E5E2EE] hover:bg-[#F6F5FA]"
                   } disabled:opacity-50`}
                 >
@@ -313,33 +313,33 @@ export default function StaffDashboardPage() {
 
             {/* Lunch Card */}
             <div
-              className={`border-2 rounded-2xl p-5 transition ${
+              className={`border rounded-xl p-4.5 transition-colors ${
                 lunch === "OPT_IN"
-                  ? "border-[#35118F] bg-[#F4F0FD]/50 shadow-xs"
+                  ? "border-[#35118F] bg-[#F4F0FD]/40"
                   : lunch === "OPT_OUT"
                   ? "border-[#E5E2EE] bg-[#F6F5FA]"
-                  : "border-[#FDEFCD] bg-[#FEF9ED]/30"
+                  : "border-[#E5E2EE] bg-white"
               }`}
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center space-x-2.5">
-                  <div className="p-2 bg-[#EEFBF6] text-[#12B98A] rounded-xl">
-                    <Sunset className="w-5 h-5" />
+                  <div className="p-2 bg-[#EEFBF6] text-[#0C7A5B] rounded-lg border border-[#12B98A]/30">
+                    <Sunset className="w-4.5 h-4.5" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-[#24212D] text-sm">Lunch</h3>
-                    <span className="text-[11px] text-[#6A6577]">Afternoon service</span>
+                    <h3 className="font-semibold text-[#24212D] text-sm">Lunch</h3>
+                    <span className="text-xs text-[#6A6577]">Afternoon service</span>
                   </div>
                 </div>
                 {renderMealBadge(lunch)}
               </div>
 
-              <p className="text-[11px] text-[#6A6577] min-h-[1.5rem] mt-2">
+              <p className="text-xs text-[#6A6577] min-h-[1.5rem] mt-2">
                 {lunch === "OPT_IN"
-                  ? "✓ Meal requested. Will generate QR pass."
+                  ? "Meal requested. QR pass will be active."
                   : lunch === "OPT_OUT"
                   ? "Explicitly declined."
-                  : "Unanswered (defaults to no meal)."}
+                  : "Unanswered (treated as out)."}
               </p>
 
               <div className="flex gap-2 mt-4 pt-3 border-t border-[#E5E2EE]">
@@ -347,9 +347,9 @@ export default function StaffDashboardPage() {
                   type="button"
                   disabled={isLocked}
                   onClick={() => setLunch("OPT_IN")}
-                  className={`flex-1 py-2 text-xs font-semibold rounded-xl border transition ${
+                  className={`flex-1 h-9 text-xs font-medium rounded-lg border transition-colors ${
                     lunch === "OPT_IN"
-                      ? "bg-[#35118F] text-white border-[#35118F] shadow-xs"
+                      ? "bg-[#35118F] text-white border-[#35118F]"
                       : "bg-white text-[#24212D] border-[#E5E2EE] hover:bg-[#F6F5FA]"
                   } disabled:opacity-50`}
                 >
@@ -359,9 +359,9 @@ export default function StaffDashboardPage() {
                   type="button"
                   disabled={isLocked}
                   onClick={() => setLunch("OPT_OUT")}
-                  className={`flex-1 py-2 text-xs font-semibold rounded-xl border transition ${
+                  className={`flex-1 h-9 text-xs font-medium rounded-lg border transition-colors ${
                     lunch === "OPT_OUT"
-                      ? "bg-[#24212D] text-white border-[#24212D] shadow-xs"
+                      ? "bg-[#24212D] text-white border-[#24212D]"
                       : "bg-white text-[#24212D] border-[#E5E2EE] hover:bg-[#F6F5FA]"
                   } disabled:opacity-50`}
                 >
@@ -372,33 +372,33 @@ export default function StaffDashboardPage() {
 
             {/* Dinner Card */}
             <div
-              className={`border-2 rounded-2xl p-5 transition ${
+              className={`border rounded-xl p-4.5 transition-colors ${
                 dinner === "OPT_IN"
-                  ? "border-[#35118F] bg-[#F4F0FD]/50 shadow-xs"
+                  ? "border-[#35118F] bg-[#F4F0FD]/40"
                   : dinner === "OPT_OUT"
                   ? "border-[#E5E2EE] bg-[#F6F5FA]"
-                  : "border-[#FDEFCD] bg-[#FEF9ED]/30"
+                  : "border-[#E5E2EE] bg-white"
               }`}
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center space-x-2.5">
-                  <div className="p-2 bg-[#F4F0FD] text-[#35118F] rounded-xl">
-                    <Moon className="w-5 h-5" />
+                  <div className="p-2 bg-[#F4F0FD] text-[#35118F] rounded-lg border border-[#35118F]/20">
+                    <Moon className="w-4.5 h-4.5" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-[#24212D] text-sm">Dinner</h3>
-                    <span className="text-[11px] text-[#6A6577]">Night service</span>
+                    <h3 className="font-semibold text-[#24212D] text-sm">Dinner</h3>
+                    <span className="text-xs text-[#6A6577]">Night service</span>
                   </div>
                 </div>
                 {renderMealBadge(dinner)}
               </div>
 
-              <p className="text-[11px] text-[#6A6577] min-h-[1.5rem] mt-2">
+              <p className="text-xs text-[#6A6577] min-h-[1.5rem] mt-2">
                 {dinner === "OPT_IN"
-                  ? "✓ Meal requested. Will generate QR pass."
+                  ? "Meal requested. QR pass will be active."
                   : dinner === "OPT_OUT"
                   ? "Explicitly declined."
-                  : "Unanswered (defaults to no meal)."}
+                  : "Unanswered (treated as out)."}
               </p>
 
               <div className="flex gap-2 mt-4 pt-3 border-t border-[#E5E2EE]">
@@ -406,9 +406,9 @@ export default function StaffDashboardPage() {
                   type="button"
                   disabled={isLocked}
                   onClick={() => setDinner("OPT_IN")}
-                  className={`flex-1 py-2 text-xs font-semibold rounded-xl border transition ${
+                  className={`flex-1 h-9 text-xs font-medium rounded-lg border transition-colors ${
                     dinner === "OPT_IN"
-                      ? "bg-[#35118F] text-white border-[#35118F] shadow-xs"
+                      ? "bg-[#35118F] text-white border-[#35118F]"
                       : "bg-white text-[#24212D] border-[#E5E2EE] hover:bg-[#F6F5FA]"
                   } disabled:opacity-50`}
                 >
@@ -418,9 +418,9 @@ export default function StaffDashboardPage() {
                   type="button"
                   disabled={isLocked}
                   onClick={() => setDinner("OPT_OUT")}
-                  className={`flex-1 py-2 text-xs font-semibold rounded-xl border transition ${
+                  className={`flex-1 h-9 text-xs font-medium rounded-lg border transition-colors ${
                     dinner === "OPT_OUT"
-                      ? "bg-[#24212D] text-white border-[#24212D] shadow-xs"
+                      ? "bg-[#24212D] text-white border-[#24212D]"
                       : "bg-white text-[#24212D] border-[#E5E2EE] hover:bg-[#F6F5FA]"
                   } disabled:opacity-50`}
                 >
@@ -434,16 +434,16 @@ export default function StaffDashboardPage() {
             <button
               type="submit"
               disabled={isLocked || submitting}
-              className="inline-flex items-center space-x-2 px-6 py-2.5 bg-[#35118F] hover:bg-[#2a0d72] text-white text-xs font-semibold rounded-xl shadow-xs transition disabled:opacity-50 active:scale-[0.99]"
+              className="btn-primary h-10 px-5 text-sm"
             >
               {submitting ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin text-[#F5B51B]" />
-                  <span>Saving Selections...</span>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin text-[#F5B51B]" />
+                  <span>Saving Preferences...</span>
                 </>
               ) : (
                 <>
-                  <CheckCircle className="w-4 h-4 text-[#12B98A]" />
+                  <CheckCircle className="w-4 h-4 mr-2 text-[#12B98A]" />
                   <span>Save Next-Day Preferences</span>
                 </>
               )}

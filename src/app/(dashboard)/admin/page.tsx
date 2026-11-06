@@ -62,30 +62,30 @@ export default function AdminDashboardPage() {
   };
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Header & Date Selector */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-6 rounded-2xl border border-[#E5E2EE] shadow-xs">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 sm:p-6 rounded-xl border border-[#E5E2EE] shadow-xs">
         <div>
-          <span className="text-xs font-semibold uppercase tracking-wider text-[#35118F] bg-[#F4F0FD] border border-[#E9E1FA] px-2.5 py-1 rounded-md">
+          <span className="badge-purple">
             Operations Dashboard
           </span>
-          <h1 className="text-2xl font-bold text-[#24212D] mt-2">DBI Food Production Counts</h1>
+          <h1 className="text-2xl font-semibold text-[#24212D] mt-2 tracking-tight">DBI Food Production Counts</h1>
           <p className="text-xs text-[#6A6577] mt-1">
             Real-time aggregate food counts and staff participation for{" "}
-            <span className="font-semibold text-[#24212D]">
+            <span className="font-medium text-[#24212D]">
               {data?.serviceDateDisplay || "selected date"}
             </span>
           </p>
         </div>
 
-        <div className="flex items-center space-x-3 bg-[#F6F5FA] p-2 rounded-xl border border-[#E5E2EE]">
-          <Calendar className="w-4 h-4 text-[#35118F]" />
-          <span className="text-xs font-semibold text-[#24212D]">Target Date:</span>
+        <div className="flex items-center space-x-2.5 bg-[#F6F5FA] p-2 rounded-lg border border-[#E5E2EE]">
+          <Calendar className="w-4 h-4 text-[#35118F] shrink-0" />
+          <span className="text-xs font-medium text-[#24212D]">Target Date:</span>
           <input
             type="date"
             value={selectedDate}
             onChange={(e) => handleDateChange(e.target.value)}
-            className="px-3 py-1.5 text-xs font-medium border border-[#E5E2EE] rounded-lg shadow-xs focus:outline-none focus:ring-2 focus:ring-[#35118F] bg-white text-[#24212D]"
+            className="h-8 px-2.5 text-xs border border-[#E5E2EE] rounded-md bg-white text-[#24212D] focus:border-[#35118F] focus:outline-none"
           />
         </div>
       </div>
@@ -136,17 +136,17 @@ export default function AdminDashboardPage() {
           </div>
 
           {/* Meal Details Table */}
-          <div className="bg-white border border-[#E5E2EE] rounded-2xl overflow-hidden shadow-xs">
-            <div className="px-6 py-4 border-b border-[#E5E2EE] flex items-center justify-between">
+          <div className="bg-white border border-[#E5E2EE] rounded-xl overflow-hidden shadow-xs">
+            <div className="px-5 py-4 border-b border-[#E5E2EE] flex items-center justify-between">
               <div>
-                <h2 className="font-bold text-[#24212D] text-base">Meal Breakdown Summary</h2>
+                <h2 className="font-semibold text-[#24212D] text-sm sm:text-base">Meal Breakdown Summary</h2>
                 <p className="text-xs text-[#6A6577]">
                   Kitchen production targets for {data.serviceDateDisplay}
                 </p>
               </div>
               <Link
                 href={`/admin/reports?serviceDate=${data.serviceDate}`}
-                className="text-xs font-semibold text-[#35118F] hover:text-[#2a0d72] inline-flex items-center space-x-1"
+                className="text-xs font-medium text-[#35118F] hover:text-[#2a0d72] inline-flex items-center space-x-1"
               >
                 <span>Export Report</span>
                 <ArrowRight className="w-3.5 h-3.5" />
@@ -155,35 +155,35 @@ export default function AdminDashboardPage() {
 
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm">
-                <thead className="bg-[#F6F5FA] text-xs font-semibold uppercase text-[#6A6577] border-b border-[#E5E2EE]">
+                <thead className="bg-[#F8F7FC] text-xs font-medium uppercase tracking-wider text-[#6A6577] border-b border-[#E5E2EE]">
                   <tr>
-                    <th className="px-6 py-3.5">Meal Type</th>
-                    <th className="px-6 py-3.5">Opt-In (Prepare)</th>
-                    <th className="px-6 py-3.5">Opt-Out</th>
-                    <th className="px-6 py-3.5">Collected</th>
-                    <th className="px-6 py-3.5">Pending</th>
-                    <th className="px-6 py-3.5">Collection Rate</th>
+                    <th className="px-5 py-3">Meal Type</th>
+                    <th className="px-5 py-3">Opt-In (Prepare)</th>
+                    <th className="px-5 py-3">Opt-Out</th>
+                    <th className="px-5 py-3">Collected</th>
+                    <th className="px-5 py-3">Pending</th>
+                    <th className="px-5 py-3 text-right">Collection Rate</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-[#E5E2EE]">
-                  <tr>
-                    <td className="px-6 py-4 font-semibold text-[#24212D] flex items-center space-x-2">
+                  <tr className="hover:bg-[#F8F7FC]/70 transition-colors">
+                    <td className="px-5 py-3.5 font-medium text-[#24212D] flex items-center space-x-2">
                       <SunMedium className="w-4 h-4 text-[#F5B51B]" />
                       <span>Breakfast</span>
                     </td>
-                    <td className="px-6 py-4 font-bold text-[#24212D] font-mono text-base">
+                    <td className="px-5 py-3.5 font-semibold text-[#24212D] font-mono text-base">
                       {data.meals.breakfast.requested}
                     </td>
-                    <td className="px-6 py-4 text-[#6A6577] font-mono">
+                    <td className="px-5 py-3.5 text-[#6A6577] font-mono">
                       {data.meals.breakfast.optOut}
                     </td>
-                    <td className="px-6 py-4 text-[#0C7A5B] font-mono font-medium">
+                    <td className="px-5 py-3.5 text-[#0C7A5B] font-mono font-medium">
                       {data.meals.breakfast.collected}
                     </td>
-                    <td className="px-6 py-4 text-[#D6990D] font-mono font-medium">
+                    <td className="px-5 py-3.5 text-[#946200] font-mono font-medium">
                       {data.meals.breakfast.pending}
                     </td>
-                    <td className="px-6 py-4 text-xs font-semibold text-[#24212D]">
+                    <td className="px-5 py-3.5 text-xs font-medium text-[#24212D] text-right font-mono">
                       {data.meals.breakfast.requested > 0
                         ? `${Math.round(
                             (data.meals.breakfast.collected /
@@ -194,24 +194,24 @@ export default function AdminDashboardPage() {
                     </td>
                   </tr>
 
-                  <tr>
-                    <td className="px-6 py-4 font-semibold text-[#24212D] flex items-center space-x-2">
+                  <tr className="hover:bg-[#F8F7FC]/70 transition-colors">
+                    <td className="px-5 py-3.5 font-medium text-[#24212D] flex items-center space-x-2">
                       <Sunset className="w-4 h-4 text-[#12B98A]" />
                       <span>Lunch</span>
                     </td>
-                    <td className="px-6 py-4 font-bold text-[#24212D] font-mono text-base">
+                    <td className="px-5 py-3.5 font-semibold text-[#24212D] font-mono text-base">
                       {data.meals.lunch.requested}
                     </td>
-                    <td className="px-6 py-4 text-[#6A6577] font-mono">
+                    <td className="px-5 py-3.5 text-[#6A6577] font-mono">
                       {data.meals.lunch.optOut}
                     </td>
-                    <td className="px-6 py-4 text-[#0C7A5B] font-mono font-medium">
+                    <td className="px-5 py-3.5 text-[#0C7A5B] font-mono font-medium">
                       {data.meals.lunch.collected}
                     </td>
-                    <td className="px-6 py-4 text-[#D6990D] font-mono font-medium">
+                    <td className="px-5 py-3.5 text-[#946200] font-mono font-medium">
                       {data.meals.lunch.pending}
                     </td>
-                    <td className="px-6 py-4 text-xs font-semibold text-[#24212D]">
+                    <td className="px-5 py-3.5 text-xs font-medium text-[#24212D] text-right font-mono">
                       {data.meals.lunch.requested > 0
                         ? `${Math.round(
                             (data.meals.lunch.collected /
@@ -222,24 +222,24 @@ export default function AdminDashboardPage() {
                     </td>
                   </tr>
 
-                  <tr>
-                    <td className="px-6 py-4 font-semibold text-[#24212D] flex items-center space-x-2">
+                  <tr className="hover:bg-[#F8F7FC]/70 transition-colors">
+                    <td className="px-5 py-3.5 font-medium text-[#24212D] flex items-center space-x-2">
                       <Moon className="w-4 h-4 text-[#35118F]" />
                       <span>Dinner</span>
                     </td>
-                    <td className="px-6 py-4 font-bold text-[#24212D] font-mono text-base">
+                    <td className="px-5 py-3.5 font-semibold text-[#24212D] font-mono text-base">
                       {data.meals.dinner.requested}
                     </td>
-                    <td className="px-6 py-4 text-[#6A6577] font-mono">
+                    <td className="px-5 py-3.5 text-[#6A6577] font-mono">
                       {data.meals.dinner.optOut}
                     </td>
-                    <td className="px-6 py-4 text-[#0C7A5B] font-mono font-medium">
+                    <td className="px-5 py-3.5 text-[#0C7A5B] font-mono font-medium">
                       {data.meals.dinner.collected}
                     </td>
-                    <td className="px-6 py-4 text-[#D6990D] font-mono font-medium">
+                    <td className="px-5 py-3.5 text-[#946200] font-mono font-medium">
                       {data.meals.dinner.pending}
                     </td>
-                    <td className="px-6 py-4 text-xs font-semibold text-[#24212D]">
+                    <td className="px-5 py-3.5 text-xs font-medium text-[#24212D] text-right font-mono">
                       {data.meals.dinner.requested > 0
                         ? `${Math.round(
                             (data.meals.dinner.collected /
@@ -258,14 +258,14 @@ export default function AdminDashboardPage() {
           <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
             <Link
               href="/admin/staff"
-              className="bg-white border border-[#E5E2EE] hover:border-[#D5C4F5] rounded-2xl p-5 shadow-xs transition flex items-start space-x-4"
+              className="bg-white border border-[#E5E2EE] hover:border-[#D5C4F5] rounded-xl p-5 shadow-xs transition-colors flex items-start space-x-3.5"
             >
-              <div className="p-3 bg-[#F4F0FD] text-[#35118F] rounded-xl">
-                <Users className="w-6 h-6" />
+              <div className="p-2.5 bg-[#F4F0FD] text-[#35118F] rounded-lg shrink-0">
+                <Users className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-bold text-[#24212D] text-sm">Staff Management</h3>
-                <p className="text-xs text-[#6A6577] mt-1">
+                <h3 className="font-semibold text-[#24212D] text-sm">Staff Management</h3>
+                <p className="text-xs text-[#6A6577] mt-1 leading-relaxed">
                   Create accounts, assign IDs, reset passwords, and toggle active status.
                 </p>
               </div>
@@ -273,14 +273,14 @@ export default function AdminDashboardPage() {
 
             <Link
               href="/admin/responses"
-              className="bg-white border border-[#E5E2EE] hover:border-[#D2F6EA] rounded-2xl p-5 shadow-xs transition flex items-start space-x-4"
+              className="bg-white border border-[#E5E2EE] hover:border-[#D2F6EA] rounded-xl p-5 shadow-xs transition-colors flex items-start space-x-3.5"
             >
-              <div className="p-3 bg-[#EEFBF6] text-[#12B98A] rounded-xl">
-                <ClipboardList className="w-6 h-6" />
+              <div className="p-2.5 bg-[#EEFBF6] text-[#12B98A] rounded-lg shrink-0">
+                <ClipboardList className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-bold text-[#24212D] text-sm">Response Corrections</h3>
-                <p className="text-xs text-[#6A6577] mt-1">
+                <h3 className="font-semibold text-[#24212D] text-sm">Response Corrections</h3>
+                <p className="text-xs text-[#6A6577] mt-1 leading-relaxed">
                   Review staff choices and apply emergency late corrections with audit compliance.
                 </p>
               </div>
@@ -288,14 +288,14 @@ export default function AdminDashboardPage() {
 
             <Link
               href="/admin/reports"
-              className="bg-white border border-[#E5E2EE] hover:border-[#FDEFCD] rounded-2xl p-5 shadow-xs transition flex items-start space-x-4"
+              className="bg-white border border-[#E5E2EE] hover:border-[#FDEFCD] rounded-xl p-5 shadow-xs transition-colors flex items-start space-x-3.5"
             >
-              <div className="p-3 bg-[#FEF9ED] text-[#F5B51B] rounded-xl">
-                <FileSpreadsheet className="w-6 h-6" />
+              <div className="p-2.5 bg-[#FEF9ED] text-[#946200] rounded-lg shrink-0">
+                <FileSpreadsheet className="w-5 h-5" />
               </div>
               <div>
-                <h3 className="font-bold text-[#24212D] text-sm">Reports & Exports</h3>
-                <p className="text-xs text-[#6A6577] mt-1">
+                <h3 className="font-semibold text-[#24212D] text-sm">Reports & Exports</h3>
+                <p className="text-xs text-[#6A6577] mt-1 leading-relaxed">
                   Download production sheets in formatted Excel (.xlsx) and printable PDF formats.
                 </p>
               </div>
