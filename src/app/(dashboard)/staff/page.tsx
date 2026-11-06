@@ -254,44 +254,46 @@ export default function StaffDashboardPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Breakfast Card */}
             <div
-              className={`border rounded-xl p-4.5 transition-colors ${
+              className={`border rounded-xl p-5 flex flex-col justify-between transition-all ${
                 breakfast === "OPT_IN"
-                  ? "border-[#35118F] bg-[#F4F0FD]/40"
+                  ? "border-[#35118F] ring-1 ring-[#35118F]/20 bg-[#F4F0FD]/30"
                   : breakfast === "OPT_OUT"
-                  ? "border-[#E5E2EE] bg-[#F6F5FA]"
-                  : "border-[#E5E2EE] bg-white"
+                  ? "border-[#E5E2EE] bg-[#F6F5FA]/60"
+                  : "border-[#E5E2EE] bg-white hover:border-[#D5C4F5]"
               }`}
             >
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center space-x-2.5">
-                  <div className="p-2 bg-[#FEF9ED] text-[#946200] rounded-lg border border-[#F5B51B]/30">
-                    <SunMedium className="w-4.5 h-4.5" />
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center space-x-2.5">
+                    <div className="w-9 h-9 rounded-lg bg-[#FEF9ED] text-[#946200] border border-[#F5B51B]/30 flex items-center justify-center">
+                      <SunMedium className="w-4.5 h-4.5" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-[#24212D] text-sm">Breakfast</h3>
+                      <span className="text-xs text-[#6A6577]">Morning service</span>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-[#24212D] text-sm">Breakfast</h3>
-                    <span className="text-xs text-[#6A6577]">Morning service</span>
-                  </div>
+                  {renderMealBadge(breakfast)}
                 </div>
-                {renderMealBadge(breakfast)}
+
+                <p className="text-xs text-[#6A6577] mt-2 mb-4 leading-relaxed">
+                  {breakfast === "OPT_IN"
+                    ? "Meal requested. QR pass will be active."
+                    : breakfast === "OPT_OUT"
+                    ? "Explicitly declined."
+                    : "Unanswered (treated as out)."}
+                </p>
               </div>
 
-              <p className="text-xs text-[#6A6577] min-h-[1.5rem] mt-2">
-                {breakfast === "OPT_IN"
-                  ? "Meal requested. QR pass will be active."
-                  : breakfast === "OPT_OUT"
-                  ? "Explicitly declined."
-                  : "Unanswered (treated as out)."}
-              </p>
-
-              <div className="flex gap-2 mt-4 pt-3 border-t border-[#E5E2EE]">
+              <div className="grid grid-cols-2 gap-2 pt-3 border-t border-[#E5E2EE]">
                 <button
                   type="button"
                   disabled={isLocked}
                   onClick={() => setBreakfast("OPT_IN")}
-                  className={`flex-1 h-9 text-xs font-medium rounded-lg border transition-colors ${
+                  className={`h-9 px-3 text-xs font-medium rounded-lg transition-all ${
                     breakfast === "OPT_IN"
-                      ? "bg-[#35118F] text-white border-[#35118F]"
-                      : "bg-white text-[#24212D] border-[#E5E2EE] hover:bg-[#F6F5FA]"
+                      ? "bg-[#35118F] text-white shadow-xs"
+                      : "bg-white hover:bg-[#F6F5FA] text-[#24212D] border border-[#E5E2EE] hover:border-[#35118F]/40"
                   } disabled:opacity-50`}
                 >
                   Request Meal
@@ -300,10 +302,10 @@ export default function StaffDashboardPage() {
                   type="button"
                   disabled={isLocked}
                   onClick={() => setBreakfast("OPT_OUT")}
-                  className={`flex-1 h-9 text-xs font-medium rounded-lg border transition-colors ${
+                  className={`h-9 px-3 text-xs font-medium rounded-lg transition-all ${
                     breakfast === "OPT_OUT"
-                      ? "bg-[#24212D] text-white border-[#24212D]"
-                      : "bg-white text-[#24212D] border-[#E5E2EE] hover:bg-[#F6F5FA]"
+                      ? "bg-[#24212D] text-white shadow-xs"
+                      : "bg-white hover:bg-[#F6F5FA] text-[#6A6577] border border-[#E5E2EE] hover:text-red-700 hover:border-red-200"
                   } disabled:opacity-50`}
                 >
                   Opt Out
@@ -313,44 +315,46 @@ export default function StaffDashboardPage() {
 
             {/* Lunch Card */}
             <div
-              className={`border rounded-xl p-4.5 transition-colors ${
+              className={`border rounded-xl p-5 flex flex-col justify-between transition-all ${
                 lunch === "OPT_IN"
-                  ? "border-[#35118F] bg-[#F4F0FD]/40"
+                  ? "border-[#35118F] ring-1 ring-[#35118F]/20 bg-[#F4F0FD]/30"
                   : lunch === "OPT_OUT"
-                  ? "border-[#E5E2EE] bg-[#F6F5FA]"
-                  : "border-[#E5E2EE] bg-white"
+                  ? "border-[#E5E2EE] bg-[#F6F5FA]/60"
+                  : "border-[#E5E2EE] bg-white hover:border-[#D5C4F5]"
               }`}
             >
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center space-x-2.5">
-                  <div className="p-2 bg-[#EEFBF6] text-[#0C7A5B] rounded-lg border border-[#12B98A]/30">
-                    <Sunset className="w-4.5 h-4.5" />
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center space-x-2.5">
+                    <div className="w-9 h-9 rounded-lg bg-[#EEFBF6] text-[#0C7A5B] border border-[#12B98A]/30 flex items-center justify-center">
+                      <Sunset className="w-4.5 h-4.5" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-[#24212D] text-sm">Lunch</h3>
+                      <span className="text-xs text-[#6A6577]">Afternoon service</span>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-[#24212D] text-sm">Lunch</h3>
-                    <span className="text-xs text-[#6A6577]">Afternoon service</span>
-                  </div>
+                  {renderMealBadge(lunch)}
                 </div>
-                {renderMealBadge(lunch)}
+
+                <p className="text-xs text-[#6A6577] mt-2 mb-4 leading-relaxed">
+                  {lunch === "OPT_IN"
+                    ? "Meal requested. QR pass will be active."
+                    : lunch === "OPT_OUT"
+                    ? "Explicitly declined."
+                    : "Unanswered (treated as out)."}
+                </p>
               </div>
 
-              <p className="text-xs text-[#6A6577] min-h-[1.5rem] mt-2">
-                {lunch === "OPT_IN"
-                  ? "Meal requested. QR pass will be active."
-                  : lunch === "OPT_OUT"
-                  ? "Explicitly declined."
-                  : "Unanswered (treated as out)."}
-              </p>
-
-              <div className="flex gap-2 mt-4 pt-3 border-t border-[#E5E2EE]">
+              <div className="grid grid-cols-2 gap-2 pt-3 border-t border-[#E5E2EE]">
                 <button
                   type="button"
                   disabled={isLocked}
                   onClick={() => setLunch("OPT_IN")}
-                  className={`flex-1 h-9 text-xs font-medium rounded-lg border transition-colors ${
+                  className={`h-9 px-3 text-xs font-medium rounded-lg transition-all ${
                     lunch === "OPT_IN"
-                      ? "bg-[#35118F] text-white border-[#35118F]"
-                      : "bg-white text-[#24212D] border-[#E5E2EE] hover:bg-[#F6F5FA]"
+                      ? "bg-[#35118F] text-white shadow-xs"
+                      : "bg-white hover:bg-[#F6F5FA] text-[#24212D] border border-[#E5E2EE] hover:border-[#35118F]/40"
                   } disabled:opacity-50`}
                 >
                   Request Meal
@@ -359,10 +363,10 @@ export default function StaffDashboardPage() {
                   type="button"
                   disabled={isLocked}
                   onClick={() => setLunch("OPT_OUT")}
-                  className={`flex-1 h-9 text-xs font-medium rounded-lg border transition-colors ${
+                  className={`h-9 px-3 text-xs font-medium rounded-lg transition-all ${
                     lunch === "OPT_OUT"
-                      ? "bg-[#24212D] text-white border-[#24212D]"
-                      : "bg-white text-[#24212D] border-[#E5E2EE] hover:bg-[#F6F5FA]"
+                      ? "bg-[#24212D] text-white shadow-xs"
+                      : "bg-white hover:bg-[#F6F5FA] text-[#6A6577] border border-[#E5E2EE] hover:text-red-700 hover:border-red-200"
                   } disabled:opacity-50`}
                 >
                   Opt Out
@@ -372,44 +376,46 @@ export default function StaffDashboardPage() {
 
             {/* Dinner Card */}
             <div
-              className={`border rounded-xl p-4.5 transition-colors ${
+              className={`border rounded-xl p-5 flex flex-col justify-between transition-all ${
                 dinner === "OPT_IN"
-                  ? "border-[#35118F] bg-[#F4F0FD]/40"
+                  ? "border-[#35118F] ring-1 ring-[#35118F]/20 bg-[#F4F0FD]/30"
                   : dinner === "OPT_OUT"
-                  ? "border-[#E5E2EE] bg-[#F6F5FA]"
-                  : "border-[#E5E2EE] bg-white"
+                  ? "border-[#E5E2EE] bg-[#F6F5FA]/60"
+                  : "border-[#E5E2EE] bg-white hover:border-[#D5C4F5]"
               }`}
             >
-              <div className="flex items-center justify-between mb-3">
-                <div className="flex items-center space-x-2.5">
-                  <div className="p-2 bg-[#F4F0FD] text-[#35118F] rounded-lg border border-[#35118F]/20">
-                    <Moon className="w-4.5 h-4.5" />
+              <div>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center space-x-2.5">
+                    <div className="w-9 h-9 rounded-lg bg-[#F4F0FD] text-[#35118F] border border-[#35118F]/20 flex items-center justify-center">
+                      <Moon className="w-4.5 h-4.5" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-[#24212D] text-sm">Dinner</h3>
+                      <span className="text-xs text-[#6A6577]">Night service</span>
+                    </div>
                   </div>
-                  <div>
-                    <h3 className="font-semibold text-[#24212D] text-sm">Dinner</h3>
-                    <span className="text-xs text-[#6A6577]">Night service</span>
-                  </div>
+                  {renderMealBadge(dinner)}
                 </div>
-                {renderMealBadge(dinner)}
+
+                <p className="text-xs text-[#6A6577] mt-2 mb-4 leading-relaxed">
+                  {dinner === "OPT_IN"
+                    ? "Meal requested. QR pass will be active."
+                    : dinner === "OPT_OUT"
+                    ? "Explicitly declined."
+                    : "Unanswered (treated as out)."}
+                </p>
               </div>
 
-              <p className="text-xs text-[#6A6577] min-h-[1.5rem] mt-2">
-                {dinner === "OPT_IN"
-                  ? "Meal requested. QR pass will be active."
-                  : dinner === "OPT_OUT"
-                  ? "Explicitly declined."
-                  : "Unanswered (treated as out)."}
-              </p>
-
-              <div className="flex gap-2 mt-4 pt-3 border-t border-[#E5E2EE]">
+              <div className="grid grid-cols-2 gap-2 pt-3 border-t border-[#E5E2EE]">
                 <button
                   type="button"
                   disabled={isLocked}
                   onClick={() => setDinner("OPT_IN")}
-                  className={`flex-1 h-9 text-xs font-medium rounded-lg border transition-colors ${
+                  className={`h-9 px-3 text-xs font-medium rounded-lg transition-all ${
                     dinner === "OPT_IN"
-                      ? "bg-[#35118F] text-white border-[#35118F]"
-                      : "bg-white text-[#24212D] border-[#E5E2EE] hover:bg-[#F6F5FA]"
+                      ? "bg-[#35118F] text-white shadow-xs"
+                      : "bg-white hover:bg-[#F6F5FA] text-[#24212D] border border-[#E5E2EE] hover:border-[#35118F]/40"
                   } disabled:opacity-50`}
                 >
                   Request Meal
@@ -418,10 +424,10 @@ export default function StaffDashboardPage() {
                   type="button"
                   disabled={isLocked}
                   onClick={() => setDinner("OPT_OUT")}
-                  className={`flex-1 h-9 text-xs font-medium rounded-lg border transition-colors ${
+                  className={`h-9 px-3 text-xs font-medium rounded-lg transition-all ${
                     dinner === "OPT_OUT"
-                      ? "bg-[#24212D] text-white border-[#24212D]"
-                      : "bg-white text-[#24212D] border-[#E5E2EE] hover:bg-[#F6F5FA]"
+                      ? "bg-[#24212D] text-white shadow-xs"
+                      : "bg-white hover:bg-[#F6F5FA] text-[#6A6577] border border-[#E5E2EE] hover:text-red-700 hover:border-red-200"
                   } disabled:opacity-50`}
                 >
                   Opt Out
