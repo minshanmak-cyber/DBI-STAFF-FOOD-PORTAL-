@@ -79,7 +79,7 @@ export async function generateExcelReport(data: {
   summarySheet.getRow(1).fill = {
     type: "pattern",
     pattern: "solid",
-    fgColor: { argb: "102A43" },
+    fgColor: { argb: "35118F" },
   };
 
   // --- Sheet 2: Staff Responses ---
@@ -99,7 +99,7 @@ export async function generateExcelReport(data: {
   responsesSheet.getRow(1).fill = {
     type: "pattern",
     pattern: "solid",
-    fgColor: { argb: "243B53" },
+    fgColor: { argb: "12B98A" },
   };
 
   // --- Sheet 3: Collections Log ---
@@ -118,7 +118,7 @@ export async function generateExcelReport(data: {
   collectionsSheet.getRow(1).fill = {
     type: "pattern",
     pattern: "solid",
-    fgColor: { argb: "334E68" },
+    fgColor: { argb: "4F1FB5" },
   };
 
   const buffer = await workbook.xlsx.writeBuffer();
@@ -138,19 +138,20 @@ export function generatePdfReport(data: {
 
   // Header Title
   doc.setFontSize(18);
-  doc.setTextColor(16, 42, 67); // dark blue
-  doc.text("DBI Staff Food Management Portal", 14, 20);
+  doc.setTextColor(53, 17, 143); // #35118F DBI Deep Purple
+  doc.text("Digital Bridge International", 14, 18);
 
-  doc.setFontSize(12);
-  doc.setTextColor(51, 78, 104);
-  doc.text(`Daily Service Report: ${formatServiceDateDisplay(data.serviceDate)}`, 14, 28);
-  doc.setFontSize(9);
-  doc.setTextColor(100);
-  doc.text(`Generated at: ${formatIST(new Date())}`, 14, 34);
+  doc.setFontSize(13);
+  doc.setTextColor(36, 33, 45); // #24212D
+  doc.text("Staff Food Management Portal - Daily Service Report", 14, 26);
+
+  doc.setFontSize(10);
+  doc.setTextColor(106, 101, 119); // #6A6577
+  doc.text(`Service Date: ${formatServiceDateDisplay(data.serviceDate)}  |  Generated (IST): ${formatIST(new Date())}`, 14, 33);
 
   // Summary Table
   autoTable(doc, {
-    startY: 40,
+    startY: 38,
     head: [["Meal Type", "Requested (Opt-In)", "Collected", "Pending", "Collection Rate"]],
     body: [
       [
@@ -189,14 +190,14 @@ export function generatePdfReport(data: {
       ],
     ],
     theme: "striped",
-    headStyles: { fillColor: [16, 42, 67] },
+    headStyles: { fillColor: [53, 17, 143] },
   });
 
   // Staff Responses Section
   const summaryEndY = (doc as any).lastAutoTable.finalY || 100;
-  doc.setFontSize(14);
-  doc.setTextColor(16, 42, 67);
-  doc.text("Staff Meal Responses", 14, summaryEndY + 14);
+  doc.setFontSize(13);
+  doc.setTextColor(53, 17, 143);
+  doc.text("Staff Meal Responses", 14, summaryEndY + 12);
 
   const responseRows = data.staffResponses.slice(0, 40).map((r) => [
     r.staffId,
@@ -208,11 +209,11 @@ export function generatePdfReport(data: {
   ]);
 
   autoTable(doc, {
-    startY: summaryEndY + 18,
+    startY: summaryEndY + 16,
     head: [["Staff ID", "Full Name", "Department", "Breakfast", "Lunch", "Dinner"]],
     body: responseRows,
     theme: "striped",
-    headStyles: { fillColor: [36, 59, 83] },
+    headStyles: { fillColor: [18, 185, 138] }, // #12B98A DBI Teal
     styles: { fontSize: 8 },
   });
 
@@ -220,7 +221,7 @@ export function generatePdfReport(data: {
   if (data.collections.length > 0) {
     doc.addPage();
     doc.setFontSize(14);
-    doc.setTextColor(16, 42, 67);
+    doc.setTextColor(53, 17, 143);
     doc.text("Meal Collection Audit Log", 14, 20);
 
     const collectionRows = data.collections.map((c) => [
@@ -236,7 +237,7 @@ export function generatePdfReport(data: {
       head: [["Staff ID", "Staff Name", "Meal Type", "Collected At (IST)", "Verified By"]],
       body: collectionRows,
       theme: "striped",
-      headStyles: { fillColor: [51, 78, 104] },
+      headStyles: { fillColor: [53, 17, 143] },
       styles: { fontSize: 8 },
     });
   }

@@ -32,35 +32,37 @@ export default function ConfirmModal({
 
   const confirmBtnColors = {
     danger: "bg-rose-600 hover:bg-rose-700 text-white focus:ring-rose-500",
-    warning: "bg-amber-600 hover:bg-amber-700 text-white focus:ring-amber-500",
-    primary: "bg-slate-900 hover:bg-slate-800 text-white focus:ring-slate-500",
+    warning: "bg-[#F5B51B] hover:bg-[#d6990d] text-white focus:ring-[#F5B51B]",
+    primary: "bg-[#35118F] hover:bg-[#2a0d72] text-white focus:ring-[#35118F]",
   }[variant];
 
   return (
-    <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-white rounded-xl shadow-xl max-w-md w-full p-6 border border-slate-200">
+    <div className="fixed inset-0 z-50 overflow-y-auto bg-[#24212D]/60 backdrop-blur-xs flex items-center justify-center p-4">
+      <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 border border-[#E5E2EE]">
         <div className="flex items-start justify-between">
           <div className="flex items-center space-x-3">
             <div
               className={`p-2 rounded-full ${
                 variant === "danger"
                   ? "bg-rose-100 text-rose-600"
-                  : "bg-amber-100 text-amber-600"
+                  : variant === "warning"
+                  ? "bg-[#FEF9ED] text-[#F5B51B]"
+                  : "bg-[#F4F0FD] text-[#35118F]"
               }`}
             >
               <AlertCircle className="w-5 h-5" />
             </div>
-            <h3 className="text-lg font-semibold text-slate-900">{title}</h3>
+            <h3 className="text-lg font-semibold text-[#24212D]">{title}</h3>
           </div>
           <button
             onClick={onClose}
-            className="text-slate-400 hover:text-slate-600 p-1 rounded-md"
+            className="text-[#6A6577] hover:text-[#24212D] p-1 rounded-md"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <p className="text-sm text-slate-600 mt-3">{description}</p>
+        <p className="text-sm text-[#6A6577] mt-3">{description}</p>
 
         {children && <div className="mt-4">{children}</div>}
 
@@ -69,7 +71,7 @@ export default function ConfirmModal({
             type="button"
             disabled={isLoading}
             onClick={onClose}
-            className="px-4 py-2 text-sm font-medium text-slate-700 bg-white border border-slate-300 rounded-lg hover:bg-slate-50 transition"
+            className="px-4 py-2 text-sm font-medium text-[#6A6577] bg-white border border-[#E5E2EE] rounded-xl hover:bg-[#F6F5FA] transition"
           >
             {cancelLabel}
           </button>
@@ -77,7 +79,7 @@ export default function ConfirmModal({
             type="button"
             disabled={isLoading}
             onClick={onConfirm}
-            className={`px-4 py-2 text-sm font-medium rounded-lg transition ${confirmBtnColors} disabled:opacity-50`}
+            className={`px-4 py-2 text-sm font-semibold rounded-xl shadow-xs transition ${confirmBtnColors} disabled:opacity-50`}
           >
             {isLoading ? "Processing..." : confirmLabel}
           </button>

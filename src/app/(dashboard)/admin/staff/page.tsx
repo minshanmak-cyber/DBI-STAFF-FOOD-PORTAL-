@@ -219,8 +219,8 @@ export default function StaffManagementPage() {
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="text-2xl font-bold text-slate-900">Staff & Account Directory</h1>
-          <p className="text-xs text-slate-500 mt-1">
+          <h1 className="text-2xl font-bold text-[#24212D]">Staff & Account Directory</h1>
+          <p className="text-xs text-[#6A6577] mt-1">
             Manage institutional users, credentials, roles, and active statuses.
           </p>
         </div>
@@ -234,9 +234,9 @@ export default function StaffManagementPage() {
             setRole("STAFF");
             setShowCreateModal(true);
           }}
-          className="inline-flex items-center space-x-2 px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-sm font-semibold shadow-sm transition"
+          className="inline-flex items-center space-x-2 px-4 py-2.5 bg-[#35118F] hover:bg-[#2a0d72] text-white rounded-xl text-sm font-semibold shadow-xs transition"
         >
-          <UserPlus className="w-4 h-4 text-sky-400" />
+          <UserPlus className="w-4 h-4 text-[#F5B51B]" />
           <span>Add New Account</span>
         </button>
       </div>
@@ -245,12 +245,12 @@ export default function StaffManagementPage() {
         <div
           className={`p-4 rounded-xl flex items-start space-x-3 text-sm ${
             feedback.type === "success"
-              ? "bg-emerald-50 border border-emerald-200 text-emerald-800"
+              ? "bg-[#EEFBF6] border border-[#12B98A]/30 text-[#0C7A5B]"
               : "bg-rose-50 border border-rose-200 text-rose-800"
           }`}
         >
           {feedback.type === "success" ? (
-            <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+            <CheckCircle className="w-5 h-5 text-[#12B98A] flex-shrink-0 mt-0.5" />
           ) : (
             <AlertCircle className="w-5 h-5 text-rose-600 flex-shrink-0 mt-0.5" />
           )}
@@ -260,7 +260,7 @@ export default function StaffManagementPage() {
 
       {/* Search Input */}
       <div className="relative max-w-md">
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#6A6577]">
           <Search className="w-4 h-4" />
         </div>
         <input
@@ -268,21 +268,21 @@ export default function StaffManagementPage() {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Filter by Staff ID, Name, or Department..."
-          className="w-full pl-9 pr-3 py-2 text-sm border border-slate-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-slate-900 bg-white"
+          className="w-full pl-9 pr-3 py-2 text-sm border border-[#E5E2EE] rounded-xl focus:outline-none focus:ring-2 focus:ring-[#35118F] bg-white text-[#24212D] placeholder-[#6A6577]"
         />
       </div>
 
       {/* Users Table */}
       {loading ? (
-        <div className="flex items-center justify-center py-20 text-slate-500">
-          <Loader2 className="w-8 h-8 animate-spin text-slate-900 mr-3" />
+        <div className="flex items-center justify-center py-20 text-[#6A6577]">
+          <Loader2 className="w-8 h-8 animate-spin text-[#35118F] mr-3" />
           <span>Loading staff accounts...</span>
         </div>
       ) : (
-        <div className="bg-white border border-slate-200 rounded-2xl overflow-hidden shadow-sm">
+        <div className="bg-white border border-[#E5E2EE] rounded-2xl overflow-hidden shadow-xs">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="bg-slate-50 border-b border-slate-200 text-xs font-semibold uppercase text-slate-600">
+              <thead className="bg-[#F6F5FA] border-b border-[#E5E2EE] text-xs font-semibold uppercase tracking-wider text-[#6A6577]">
                 <tr>
                   <th className="px-6 py-4">Staff ID</th>
                   <th className="px-6 py-4">Full Name</th>
@@ -292,29 +292,37 @@ export default function StaffManagementPage() {
                   <th className="px-6 py-4 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-slate-100">
+              <tbody className="divide-y divide-[#E5E2EE]/60">
                 {filteredUsers.map((u) => (
-                  <tr key={u.id} className="hover:bg-slate-50/60 transition">
-                    <td className="px-6 py-4 font-mono font-bold text-slate-900">
+                  <tr key={u.id} className="hover:bg-[#F6F5FA]/60 transition">
+                    <td className="px-6 py-4 font-mono font-bold text-[#35118F]">
                       {u.staffId}
                     </td>
-                    <td className="px-6 py-4 font-medium text-slate-900">
+                    <td className="px-6 py-4 font-medium text-[#24212D]">
                       {u.fullName}
                       {u.mustChangePassword && (
-                        <span className="block text-[10px] text-amber-600 font-normal">
+                        <span className="block text-[10px] text-[#F5B51B] font-semibold">
                           Requires password change
                         </span>
                       )}
                     </td>
-                    <td className="px-6 py-4 text-slate-600">{u.department}</td>
+                    <td className="px-6 py-4 text-[#6A6577]">{u.department || "—"}</td>
                     <td className="px-6 py-4">
-                      <span className="text-[11px] font-semibold uppercase px-2 py-0.5 rounded bg-slate-100 text-slate-700">
+                      <span
+                        className={`text-[11px] font-bold uppercase px-2.5 py-0.5 rounded-full ${
+                          u.role === "ADMIN"
+                            ? "bg-[#F4F0FD] text-[#35118F] border border-[#35118F]/20"
+                            : u.role === "CANTEEN"
+                            ? "bg-[#FEF9ED] text-[#B88204] border border-[#F5B51B]/30"
+                            : "bg-[#F6F5FA] text-[#6A6577] border border-[#E5E2EE]"
+                        }`}
+                      >
                         {u.role}
                       </span>
                     </td>
                     <td className="px-6 py-4">
                       {u.isActive ? (
-                        <span className="inline-flex items-center space-x-1 text-xs font-medium text-emerald-800 bg-emerald-50 border border-emerald-200 px-2.5 py-0.5 rounded-full">
+                        <span className="inline-flex items-center space-x-1 text-xs font-medium text-[#0C7A5B] bg-[#EEFBF6] border border-[#12B98A]/30 px-2.5 py-0.5 rounded-full">
                           <span>Active</span>
                         </span>
                       ) : (
@@ -332,7 +340,7 @@ export default function StaffManagementPage() {
                           setRole(u.role);
                         }}
                         title="Edit Profile"
-                        className="p-1.5 text-slate-500 hover:text-slate-800 hover:bg-slate-100 rounded-md transition"
+                        className="p-1.5 text-[#6A6577] hover:text-[#24212D] hover:bg-[#F6F5FA] rounded-lg transition"
                       >
                         <Edit2 className="w-4 h-4" />
                       </button>
@@ -342,17 +350,17 @@ export default function StaffManagementPage() {
                           setNewPassword("Temp@12345");
                         }}
                         title="Reset Password"
-                        className="p-1.5 text-sky-600 hover:text-sky-800 hover:bg-sky-50 rounded-md transition"
+                        className="p-1.5 text-[#35118F] hover:text-[#2a0d72] hover:bg-[#F4F0FD] rounded-lg transition"
                       >
                         <KeyRound className="w-4 h-4" />
                       </button>
                       <button
                         onClick={() => setToggleActiveUser(u)}
                         title={u.isActive ? "Deactivate Account" : "Reactivate Account"}
-                        className={`p-1.5 rounded-md transition ${
+                        className={`p-1.5 rounded-lg transition ${
                           u.isActive
                             ? "text-rose-600 hover:bg-rose-50"
-                            : "text-emerald-600 hover:bg-emerald-50"
+                            : "text-[#0C7A5B] hover:bg-[#EEFBF6]"
                         }`}
                       >
                         {u.isActive ? (
@@ -372,13 +380,13 @@ export default function StaffManagementPage() {
 
       {/* Create User Modal */}
       {showCreateModal && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 border border-slate-200">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-              <h3 className="text-base font-bold text-slate-900">Create New Staff Account</h3>
+        <div className="fixed inset-0 z-50 bg-[#24212D]/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 border border-[#E5E2EE]">
+            <div className="flex items-center justify-between pb-4 border-b border-[#E5E2EE]">
+              <h3 className="text-base font-bold text-[#24212D]">Create New Staff Account</h3>
               <button
                 onClick={() => setShowCreateModal(false)}
-                className="text-slate-400 hover:text-slate-600"
+                className="text-[#6A6577] hover:text-[#24212D]"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -386,7 +394,7 @@ export default function StaffManagementPage() {
 
             <form onSubmit={handleCreate} className="mt-4 space-y-4">
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[#24212D]">
                   Staff ID
                 </label>
                 <input
@@ -395,12 +403,12 @@ export default function StaffManagementPage() {
                   value={staffId}
                   onChange={(e) => setStaffId(e.target.value.toUpperCase())}
                   placeholder="e.g. 1117"
-                  className="mt-1 block w-full px-3 py-2 text-sm border border-slate-300 rounded-lg uppercase font-mono"
+                  className="mt-1 block w-full px-3 py-2 text-sm border border-[#E5E2EE] rounded-xl uppercase font-mono text-[#24212D] focus:ring-[#35118F] focus:border-[#35118F]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[#24212D]">
                   Full Name
                 </label>
                 <input
@@ -409,12 +417,12 @@ export default function StaffManagementPage() {
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   placeholder="e.g. Vikram Chandra"
-                  className="mt-1 block w-full px-3 py-2 text-sm border border-slate-300 rounded-lg"
+                  className="mt-1 block w-full px-3 py-2 text-sm border border-[#E5E2EE] rounded-xl text-[#24212D] focus:ring-[#35118F] focus:border-[#35118F]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[#24212D]">
                   Department
                 </label>
                 <input
@@ -422,18 +430,18 @@ export default function StaffManagementPage() {
                   value={department}
                   onChange={(e) => setDepartment(e.target.value)}
                   placeholder="e.g. Operations / Logistics"
-                  className="mt-1 block w-full px-3 py-2 text-sm border border-slate-300 rounded-lg"
+                  className="mt-1 block w-full px-3 py-2 text-sm border border-[#E5E2EE] rounded-xl text-[#24212D] focus:ring-[#35118F] focus:border-[#35118F]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[#24212D]">
                   Role
                 </label>
                 <select
                   value={role}
                   onChange={(e) => setRole(e.target.value as any)}
-                  className="mt-1 block w-full px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white"
+                  className="mt-1 block w-full px-3 py-2 text-sm border border-[#E5E2EE] rounded-xl bg-white text-[#24212D] focus:ring-[#35118F]"
                 >
                   <option value="STAFF">STAFF (Meal Requests & QR)</option>
                   <option value="ADMIN">ADMIN (Full Management)</option>
@@ -442,7 +450,7 @@ export default function StaffManagementPage() {
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[#24212D]">
                   Initial Temporary Password
                 </label>
                 <input
@@ -450,9 +458,9 @@ export default function StaffManagementPage() {
                   required
                   value={initialPassword}
                   onChange={(e) => setInitialPassword(e.target.value)}
-                  className="mt-1 block w-full px-3 py-2 text-sm border border-slate-300 rounded-lg font-mono"
+                  className="mt-1 block w-full px-3 py-2 text-sm border border-[#E5E2EE] rounded-xl font-mono text-[#24212D] focus:ring-[#35118F]"
                 />
-                <span className="text-[11px] text-slate-500 mt-1 block">
+                <span className="text-[11px] text-[#6A6577] mt-1 block">
                   Staff will be forced to change this password on first login.
                 </span>
               </div>
@@ -461,14 +469,14 @@ export default function StaffManagementPage() {
                 <button
                   type="button"
                   onClick={() => setShowCreateModal(false)}
-                  className="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg"
+                  className="px-4 py-2 text-xs font-semibold text-[#6A6577] hover:bg-[#F6F5FA] rounded-xl transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-5 py-2 bg-slate-900 text-white text-xs font-semibold rounded-lg hover:bg-slate-800 disabled:opacity-50"
+                  className="px-5 py-2 bg-[#35118F] text-white text-xs font-semibold rounded-xl hover:bg-[#2a0d72] shadow-xs transition disabled:opacity-50"
                 >
                   {submitting ? "Creating..." : "Create Account"}
                 </button>
@@ -480,15 +488,15 @@ export default function StaffManagementPage() {
 
       {/* Edit User Modal */}
       {editingUser && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 border border-slate-200">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-              <h3 className="text-base font-bold text-slate-900">
+        <div className="fixed inset-0 z-50 bg-[#24212D]/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 border border-[#E5E2EE]">
+            <div className="flex items-center justify-between pb-4 border-b border-[#E5E2EE]">
+              <h3 className="text-base font-bold text-[#24212D]">
                 Edit Staff: {editingUser.staffId}
               </h3>
               <button
                 onClick={() => setEditingUser(null)}
-                className="text-slate-400 hover:text-slate-600"
+                className="text-[#6A6577] hover:text-[#24212D]"
               >
                 <X className="w-5 h-5" />
               </button>
@@ -496,7 +504,7 @@ export default function StaffManagementPage() {
 
             <form onSubmit={handleUpdate} className="mt-4 space-y-4">
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[#24212D]">
                   Full Name
                 </label>
                 <input
@@ -504,30 +512,30 @@ export default function StaffManagementPage() {
                   required
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
-                  className="mt-1 block w-full px-3 py-2 text-sm border border-slate-300 rounded-lg"
+                  className="mt-1 block w-full px-3 py-2 text-sm border border-[#E5E2EE] rounded-xl text-[#24212D] focus:ring-[#35118F]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[#24212D]">
                   Department
                 </label>
                 <input
                   type="text"
                   value={department}
                   onChange={(e) => setDepartment(e.target.value)}
-                  className="mt-1 block w-full px-3 py-2 text-sm border border-slate-300 rounded-lg"
+                  className="mt-1 block w-full px-3 py-2 text-sm border border-[#E5E2EE] rounded-xl text-[#24212D] focus:ring-[#35118F]"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[#24212D]">
                   Role
                 </label>
                 <select
                   value={role}
                   onChange={(e) => setRole(e.target.value as any)}
-                  className="mt-1 block w-full px-3 py-2 text-sm border border-slate-300 rounded-lg bg-white"
+                  className="mt-1 block w-full px-3 py-2 text-sm border border-[#E5E2EE] rounded-xl bg-white text-[#24212D] focus:ring-[#35118F]"
                 >
                   <option value="STAFF">STAFF</option>
                   <option value="ADMIN">ADMIN</option>
@@ -539,14 +547,14 @@ export default function StaffManagementPage() {
                 <button
                   type="button"
                   onClick={() => setEditingUser(null)}
-                  className="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg"
+                  className="px-4 py-2 text-xs font-semibold text-[#6A6577] hover:bg-[#F6F5FA] rounded-xl transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-5 py-2 bg-slate-900 text-white text-xs font-semibold rounded-lg hover:bg-slate-800 disabled:opacity-50"
+                  className="px-5 py-2 bg-[#35118F] text-white text-xs font-semibold rounded-xl hover:bg-[#2a0d72] shadow-xs transition disabled:opacity-50"
                 >
                   {submitting ? "Saving..." : "Save Changes"}
                 </button>
@@ -558,27 +566,27 @@ export default function StaffManagementPage() {
 
       {/* Reset Password Modal */}
       {resettingUser && (
-        <div className="fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 border border-slate-200">
-            <div className="flex items-center justify-between pb-4 border-b border-slate-100">
-              <h3 className="text-base font-bold text-slate-900">
+        <div className="fixed inset-0 z-50 bg-[#24212D]/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6 border border-[#E5E2EE]">
+            <div className="flex items-center justify-between pb-4 border-b border-[#E5E2EE]">
+              <h3 className="text-base font-bold text-[#24212D]">
                 Reset Password: {resettingUser.staffId}
               </h3>
               <button
                 onClick={() => setResettingUser(null)}
-                className="text-slate-400 hover:text-slate-600"
+                className="text-[#6A6577] hover:text-[#24212D]"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
             <form onSubmit={handleResetPassword} className="mt-4 space-y-4">
-              <p className="text-xs text-slate-500">
+              <p className="text-xs text-[#6A6577]">
                 You can securely assign a new temporary password. For safety, the user will be required to change it on their next login.
               </p>
 
               <div>
-                <label className="block text-xs font-semibold uppercase tracking-wider text-slate-700">
+                <label className="block text-xs font-semibold uppercase tracking-wider text-[#24212D]">
                   New Temporary Password
                 </label>
                 <input
@@ -587,7 +595,7 @@ export default function StaffManagementPage() {
                   value={newPassword}
                   onChange={(e) => setNewPassword(e.target.value)}
                   placeholder="Min 8 chars, 1 uppercase, 1 digit"
-                  className="mt-1 block w-full px-3 py-2 text-sm border border-slate-300 rounded-lg font-mono"
+                  className="mt-1 block w-full px-3 py-2 text-sm border border-[#E5E2EE] rounded-xl font-mono text-[#24212D] focus:ring-[#35118F]"
                 />
               </div>
 
@@ -595,14 +603,14 @@ export default function StaffManagementPage() {
                 <button
                   type="button"
                   onClick={() => setResettingUser(null)}
-                  className="px-4 py-2 text-xs font-semibold text-slate-600 hover:bg-slate-100 rounded-lg"
+                  className="px-4 py-2 text-xs font-semibold text-[#6A6577] hover:bg-[#F6F5FA] rounded-xl transition"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting}
-                  className="px-5 py-2 bg-sky-700 text-white text-xs font-semibold rounded-lg hover:bg-sky-800 disabled:opacity-50"
+                  className="px-5 py-2 bg-[#35118F] text-white text-xs font-semibold rounded-xl hover:bg-[#2a0d72] shadow-xs transition disabled:opacity-50"
                 >
                   {submitting ? "Resetting..." : "Reset Password"}
                 </button>

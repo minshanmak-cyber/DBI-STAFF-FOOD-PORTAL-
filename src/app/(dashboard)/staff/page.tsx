@@ -143,23 +143,23 @@ export default function StaffDashboardPage() {
   const renderMealBadge = (status: "OPT_IN" | "OPT_OUT" | "NO_RESPONSE") => {
     if (status === "OPT_IN") {
       return (
-        <span className="inline-flex items-center space-x-1 text-xs px-2.5 py-0.5 rounded-full font-semibold bg-sky-100 text-sky-800 border border-sky-200">
-          <CheckCircle className="w-3 h-3 text-sky-600" />
+        <span className="inline-flex items-center space-x-1 text-xs px-2.5 py-0.5 rounded-full font-semibold bg-[#EEFBF6] text-[#0C7A5B] border border-[#D2F6EA]">
+          <CheckCircle className="w-3 h-3 text-[#12B98A]" />
           <span>Requested</span>
         </span>
       );
     }
     if (status === "OPT_OUT") {
       return (
-        <span className="inline-flex items-center space-x-1 text-xs px-2.5 py-0.5 rounded-full font-semibold bg-slate-200 text-slate-700">
-          <XCircle className="w-3 h-3 text-slate-500" />
+        <span className="inline-flex items-center space-x-1 text-xs px-2.5 py-0.5 rounded-full font-semibold bg-[#F6F5FA] text-[#6A6577] border border-[#E5E2EE]">
+          <XCircle className="w-3 h-3 text-[#6A6577]" />
           <span>Opted Out</span>
         </span>
       );
     }
     return (
-      <span className="inline-flex items-center space-x-1 text-xs px-2.5 py-0.5 rounded-full font-semibold bg-amber-100 text-amber-800 border border-amber-200">
-        <HelpCircle className="w-3 h-3 text-amber-600" />
+      <span className="inline-flex items-center space-x-1 text-xs px-2.5 py-0.5 rounded-full font-semibold bg-[#FEF9ED] text-[#A87508] border border-[#FDEFCD]">
+        <HelpCircle className="w-3 h-3 text-[#F5B51B]" />
         <span>Not Responded</span>
       </span>
     );
@@ -168,16 +168,16 @@ export default function StaffDashboardPage() {
   return (
     <div className="space-y-8">
       {/* Welcome Banner */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white border border-[#E5E2EE] rounded-2xl p-6 sm:p-8 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
-          <span className="text-xs font-semibold uppercase tracking-wider text-sky-700 bg-sky-50 px-2.5 py-1 rounded-md border border-sky-100">
+          <span className="text-xs font-semibold uppercase tracking-wider text-[#35118F] bg-[#F4F0FD] px-2.5 py-1 rounded-md border border-[#E9E1FA]">
             Staff Portal
           </span>
-          <h1 className="text-2xl font-bold text-slate-900 mt-2">
+          <h1 className="text-2xl font-bold text-[#24212D] mt-2">
             Welcome, {user?.fullName || "Staff Member"}
           </h1>
-          <p className="text-xs text-slate-500 mt-1">
-            Staff ID: <span className="font-mono text-slate-800 font-bold">{user?.staffId}</span>
+          <p className="text-xs text-[#6A6577] mt-1">
+            Staff ID: <span className="font-mono text-[#35118F] font-bold">{user?.staffId}</span>
             {user?.department && ` • Department: ${user.department}`}
           </p>
         </div>
@@ -185,30 +185,30 @@ export default function StaffDashboardPage() {
         <div className="flex flex-wrap items-center gap-3">
           <Link
             href="/staff/qr"
-            className="inline-flex items-center space-x-2 px-4 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-semibold shadow-sm transition"
+            className="inline-flex items-center space-x-2 px-4 py-2.5 bg-[#35118F] hover:bg-[#2a0d72] text-white rounded-xl text-xs font-semibold shadow-xs transition"
           >
-            <QrCode className="w-4 h-4 text-sky-400" />
+            <QrCode className="w-4 h-4 text-[#F5B51B]" />
             <span>My QR Passes</span>
           </Link>
           <Link
             href="/staff/history"
-            className="inline-flex items-center space-x-2 px-4 py-2.5 bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-xl text-xs font-semibold transition"
+            className="inline-flex items-center space-x-2 px-4 py-2.5 bg-white border border-[#E5E2EE] hover:bg-[#F6F5FA] text-[#24212D] rounded-xl text-xs font-semibold transition"
           >
-            <History className="w-4 h-4 text-slate-500" />
+            <History className="w-4 h-4 text-[#6A6577]" />
             <span>Meal History</span>
           </Link>
         </div>
       </div>
 
       {/* Next Day Meal Selection Section */}
-      <div className="bg-white border border-slate-200 rounded-2xl p-6 sm:p-8 shadow-sm">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 border-b border-slate-100">
+      <div className="bg-white border border-[#E5E2EE] rounded-2xl p-6 sm:p-8 shadow-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-6 border-b border-[#E5E2EE]">
           <div>
-            <div className="flex items-center space-x-2 text-slate-500 text-xs font-semibold uppercase tracking-wider">
-              <Calendar className="w-4 h-4 text-slate-400" />
+            <div className="flex items-center space-x-2 text-[#6A6577] text-xs font-semibold uppercase tracking-wider">
+              <Calendar className="w-4 h-4 text-[#35118F]" />
               <span>Target Service Date</span>
             </div>
-            <h2 className="text-xl font-bold text-slate-900 mt-1">
+            <h2 className="text-xl font-bold text-[#24212D] mt-1">
               {data?.serviceDateDisplay || "Tomorrow"}
             </h2>
           </div>
@@ -227,12 +227,12 @@ export default function StaffDashboardPage() {
           <div
             className={`mt-6 p-4 rounded-xl flex items-start space-x-3 text-sm ${
               feedback.type === "success"
-                ? "bg-emerald-50 border border-emerald-200 text-emerald-800"
+                ? "bg-[#EEFBF6] border border-[#D2F6EA] text-[#0C7A5B]"
                 : "bg-rose-50 border border-rose-200 text-rose-800"
             }`}
           >
             {feedback.type === "success" ? (
-              <CheckCircle className="w-5 h-5 text-emerald-600 flex-shrink-0 mt-0.5" />
+              <CheckCircle className="w-5 h-5 text-[#12B98A] flex-shrink-0 mt-0.5" />
             ) : (
               <AlertCircle className="w-5 h-5 text-rose-600 flex-shrink-0 mt-0.5" />
             )}
@@ -241,8 +241,8 @@ export default function StaffDashboardPage() {
         )}
 
         {isLocked && (
-          <div className="mt-6 p-4 bg-amber-50 border border-amber-200 rounded-xl text-xs text-amber-900 flex items-center space-x-2.5">
-            <AlertCircle className="w-4 h-4 text-amber-600 flex-shrink-0" />
+          <div className="mt-6 p-4 bg-[#FEF9ED] border border-[#FDEFCD] rounded-xl text-xs text-[#A87508] flex items-center space-x-2.5">
+            <AlertCircle className="w-4 h-4 text-[#F5B51B] flex-shrink-0" />
             <span>
               {data?.eligibility.reason ||
                 "Submissions are accepted strictly between 9:00 AM and 3:00 PM IST on the day preceding the meal date. For late corrections, please contact your Administrator."}
@@ -256,26 +256,26 @@ export default function StaffDashboardPage() {
             <div
               className={`border-2 rounded-2xl p-5 transition ${
                 breakfast === "OPT_IN"
-                  ? "border-sky-500 bg-sky-50/40 shadow-sm"
+                  ? "border-[#35118F] bg-[#F4F0FD]/50 shadow-xs"
                   : breakfast === "OPT_OUT"
-                  ? "border-slate-300 bg-slate-50/60"
-                  : "border-amber-200 bg-amber-50/20"
+                  ? "border-[#E5E2EE] bg-[#F6F5FA]"
+                  : "border-[#FDEFCD] bg-[#FEF9ED]/30"
               }`}
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center space-x-2.5">
-                  <div className="p-2 bg-amber-100 text-amber-700 rounded-xl">
+                  <div className="p-2 bg-[#FEF9ED] text-[#F5B51B] rounded-xl">
                     <SunMedium className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-slate-900 text-sm">Breakfast</h3>
-                    <span className="text-[11px] text-slate-500">Morning service</span>
+                    <h3 className="font-bold text-[#24212D] text-sm">Breakfast</h3>
+                    <span className="text-[11px] text-[#6A6577]">Morning service</span>
                   </div>
                 </div>
                 {renderMealBadge(breakfast)}
               </div>
 
-              <p className="text-[11px] text-slate-500 min-h-[1.5rem] mt-2">
+              <p className="text-[11px] text-[#6A6577] min-h-[1.5rem] mt-2">
                 {breakfast === "OPT_IN"
                   ? "✓ Meal requested. Will generate QR pass."
                   : breakfast === "OPT_OUT"
@@ -283,15 +283,15 @@ export default function StaffDashboardPage() {
                   : "Unanswered (defaults to no meal)."}
               </p>
 
-              <div className="flex gap-2 mt-4 pt-3 border-t border-slate-100">
+              <div className="flex gap-2 mt-4 pt-3 border-t border-[#E5E2EE]">
                 <button
                   type="button"
                   disabled={isLocked}
                   onClick={() => setBreakfast("OPT_IN")}
-                  className={`flex-1 py-2 text-xs font-semibold rounded-lg border transition ${
+                  className={`flex-1 py-2 text-xs font-semibold rounded-xl border transition ${
                     breakfast === "OPT_IN"
-                      ? "bg-slate-900 text-white border-slate-900 shadow-xs"
-                      : "bg-white text-slate-700 border-slate-300 hover:bg-slate-100"
+                      ? "bg-[#35118F] text-white border-[#35118F] shadow-xs"
+                      : "bg-white text-[#24212D] border-[#E5E2EE] hover:bg-[#F6F5FA]"
                   } disabled:opacity-50`}
                 >
                   Request Meal
@@ -300,10 +300,10 @@ export default function StaffDashboardPage() {
                   type="button"
                   disabled={isLocked}
                   onClick={() => setBreakfast("OPT_OUT")}
-                  className={`flex-1 py-2 text-xs font-semibold rounded-lg border transition ${
+                  className={`flex-1 py-2 text-xs font-semibold rounded-xl border transition ${
                     breakfast === "OPT_OUT"
-                      ? "bg-slate-700 text-white border-slate-700 shadow-xs"
-                      : "bg-white text-slate-700 border-slate-300 hover:bg-slate-100"
+                      ? "bg-[#24212D] text-white border-[#24212D] shadow-xs"
+                      : "bg-white text-[#24212D] border-[#E5E2EE] hover:bg-[#F6F5FA]"
                   } disabled:opacity-50`}
                 >
                   Opt Out
@@ -315,26 +315,26 @@ export default function StaffDashboardPage() {
             <div
               className={`border-2 rounded-2xl p-5 transition ${
                 lunch === "OPT_IN"
-                  ? "border-sky-500 bg-sky-50/40 shadow-sm"
+                  ? "border-[#35118F] bg-[#F4F0FD]/50 shadow-xs"
                   : lunch === "OPT_OUT"
-                  ? "border-slate-300 bg-slate-50/60"
-                  : "border-amber-200 bg-amber-50/20"
+                  ? "border-[#E5E2EE] bg-[#F6F5FA]"
+                  : "border-[#FDEFCD] bg-[#FEF9ED]/30"
               }`}
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center space-x-2.5">
-                  <div className="p-2 bg-orange-100 text-orange-700 rounded-xl">
+                  <div className="p-2 bg-[#EEFBF6] text-[#12B98A] rounded-xl">
                     <Sunset className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-slate-900 text-sm">Lunch</h3>
-                    <span className="text-[11px] text-slate-500">Afternoon service</span>
+                    <h3 className="font-bold text-[#24212D] text-sm">Lunch</h3>
+                    <span className="text-[11px] text-[#6A6577]">Afternoon service</span>
                   </div>
                 </div>
                 {renderMealBadge(lunch)}
               </div>
 
-              <p className="text-[11px] text-slate-500 min-h-[1.5rem] mt-2">
+              <p className="text-[11px] text-[#6A6577] min-h-[1.5rem] mt-2">
                 {lunch === "OPT_IN"
                   ? "✓ Meal requested. Will generate QR pass."
                   : lunch === "OPT_OUT"
@@ -342,15 +342,15 @@ export default function StaffDashboardPage() {
                   : "Unanswered (defaults to no meal)."}
               </p>
 
-              <div className="flex gap-2 mt-4 pt-3 border-t border-slate-100">
+              <div className="flex gap-2 mt-4 pt-3 border-t border-[#E5E2EE]">
                 <button
                   type="button"
                   disabled={isLocked}
                   onClick={() => setLunch("OPT_IN")}
-                  className={`flex-1 py-2 text-xs font-semibold rounded-lg border transition ${
+                  className={`flex-1 py-2 text-xs font-semibold rounded-xl border transition ${
                     lunch === "OPT_IN"
-                      ? "bg-slate-900 text-white border-slate-900 shadow-xs"
-                      : "bg-white text-slate-700 border-slate-300 hover:bg-slate-100"
+                      ? "bg-[#35118F] text-white border-[#35118F] shadow-xs"
+                      : "bg-white text-[#24212D] border-[#E5E2EE] hover:bg-[#F6F5FA]"
                   } disabled:opacity-50`}
                 >
                   Request Meal
@@ -359,10 +359,10 @@ export default function StaffDashboardPage() {
                   type="button"
                   disabled={isLocked}
                   onClick={() => setLunch("OPT_OUT")}
-                  className={`flex-1 py-2 text-xs font-semibold rounded-lg border transition ${
+                  className={`flex-1 py-2 text-xs font-semibold rounded-xl border transition ${
                     lunch === "OPT_OUT"
-                      ? "bg-slate-700 text-white border-slate-700 shadow-xs"
-                      : "bg-white text-slate-700 border-slate-300 hover:bg-slate-100"
+                      ? "bg-[#24212D] text-white border-[#24212D] shadow-xs"
+                      : "bg-white text-[#24212D] border-[#E5E2EE] hover:bg-[#F6F5FA]"
                   } disabled:opacity-50`}
                 >
                   Opt Out
@@ -374,26 +374,26 @@ export default function StaffDashboardPage() {
             <div
               className={`border-2 rounded-2xl p-5 transition ${
                 dinner === "OPT_IN"
-                  ? "border-sky-500 bg-sky-50/40 shadow-sm"
+                  ? "border-[#35118F] bg-[#F4F0FD]/50 shadow-xs"
                   : dinner === "OPT_OUT"
-                  ? "border-slate-300 bg-slate-50/60"
-                  : "border-amber-200 bg-amber-50/20"
+                  ? "border-[#E5E2EE] bg-[#F6F5FA]"
+                  : "border-[#FDEFCD] bg-[#FEF9ED]/30"
               }`}
             >
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center space-x-2.5">
-                  <div className="p-2 bg-indigo-100 text-indigo-700 rounded-xl">
+                  <div className="p-2 bg-[#F4F0FD] text-[#35118F] rounded-xl">
                     <Moon className="w-5 h-5" />
                   </div>
                   <div>
-                    <h3 className="font-bold text-slate-900 text-sm">Dinner</h3>
-                    <span className="text-[11px] text-slate-500">Night service</span>
+                    <h3 className="font-bold text-[#24212D] text-sm">Dinner</h3>
+                    <span className="text-[11px] text-[#6A6577]">Night service</span>
                   </div>
                 </div>
                 {renderMealBadge(dinner)}
               </div>
 
-              <p className="text-[11px] text-slate-500 min-h-[1.5rem] mt-2">
+              <p className="text-[11px] text-[#6A6577] min-h-[1.5rem] mt-2">
                 {dinner === "OPT_IN"
                   ? "✓ Meal requested. Will generate QR pass."
                   : dinner === "OPT_OUT"
@@ -401,15 +401,15 @@ export default function StaffDashboardPage() {
                   : "Unanswered (defaults to no meal)."}
               </p>
 
-              <div className="flex gap-2 mt-4 pt-3 border-t border-slate-100">
+              <div className="flex gap-2 mt-4 pt-3 border-t border-[#E5E2EE]">
                 <button
                   type="button"
                   disabled={isLocked}
                   onClick={() => setDinner("OPT_IN")}
-                  className={`flex-1 py-2 text-xs font-semibold rounded-lg border transition ${
+                  className={`flex-1 py-2 text-xs font-semibold rounded-xl border transition ${
                     dinner === "OPT_IN"
-                      ? "bg-slate-900 text-white border-slate-900 shadow-xs"
-                      : "bg-white text-slate-700 border-slate-300 hover:bg-slate-100"
+                      ? "bg-[#35118F] text-white border-[#35118F] shadow-xs"
+                      : "bg-white text-[#24212D] border-[#E5E2EE] hover:bg-[#F6F5FA]"
                   } disabled:opacity-50`}
                 >
                   Request Meal
@@ -418,10 +418,10 @@ export default function StaffDashboardPage() {
                   type="button"
                   disabled={isLocked}
                   onClick={() => setDinner("OPT_OUT")}
-                  className={`flex-1 py-2 text-xs font-semibold rounded-lg border transition ${
+                  className={`flex-1 py-2 text-xs font-semibold rounded-xl border transition ${
                     dinner === "OPT_OUT"
-                      ? "bg-slate-700 text-white border-slate-700 shadow-xs"
-                      : "bg-white text-slate-700 border-slate-300 hover:bg-slate-100"
+                      ? "bg-[#24212D] text-white border-[#24212D] shadow-xs"
+                      : "bg-white text-[#24212D] border-[#E5E2EE] hover:bg-[#F6F5FA]"
                   } disabled:opacity-50`}
                 >
                   Opt Out
@@ -430,20 +430,20 @@ export default function StaffDashboardPage() {
             </div>
           </div>
 
-          <div className="flex items-center justify-end space-x-4 pt-4 border-t border-slate-100">
+          <div className="flex items-center justify-end space-x-4 pt-4 border-t border-[#E5E2EE]">
             <button
               type="submit"
               disabled={isLocked || submitting}
-              className="inline-flex items-center space-x-2 px-6 py-2.5 bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold rounded-xl shadow-xs transition disabled:opacity-50"
+              className="inline-flex items-center space-x-2 px-6 py-2.5 bg-[#35118F] hover:bg-[#2a0d72] text-white text-xs font-semibold rounded-xl shadow-xs transition disabled:opacity-50 active:scale-[0.99]"
             >
               {submitting ? (
                 <>
-                  <Loader2 className="w-4 h-4 animate-spin text-sky-400" />
+                  <Loader2 className="w-4 h-4 animate-spin text-[#F5B51B]" />
                   <span>Saving Selections...</span>
                 </>
               ) : (
                 <>
-                  <CheckCircle className="w-4 h-4 text-sky-400" />
+                  <CheckCircle className="w-4 h-4 text-[#12B98A]" />
                   <span>Save Next-Day Preferences</span>
                 </>
               )}

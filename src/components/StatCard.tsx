@@ -6,7 +6,7 @@ interface StatCardProps {
   subtext?: string;
   icon?: React.ReactNode;
   badge?: string;
-  badgeColor?: "blue" | "emerald" | "amber" | "rose" | "slate";
+  badgeColor?: "blue" | "emerald" | "amber" | "rose" | "slate" | "purple" | "teal" | "yellow";
 }
 
 export default function StatCard({
@@ -18,34 +18,37 @@ export default function StatCard({
   badgeColor = "slate",
 }: StatCardProps) {
   const badgeClasses = {
-    blue: "bg-sky-50 text-sky-700 border-sky-200",
-    emerald: "bg-emerald-50 text-emerald-700 border-emerald-200",
-    amber: "bg-amber-50 text-amber-700 border-amber-200",
+    blue: "bg-[#F4F0FD] text-[#35118F] border-[#E9E1FA]",
+    purple: "bg-[#F4F0FD] text-[#35118F] border-[#E9E1FA]",
+    emerald: "bg-[#EEFBF6] text-[#0C7A5B] border-[#D2F6EA]",
+    teal: "bg-[#EEFBF6] text-[#0C7A5B] border-[#D2F6EA]",
+    amber: "bg-[#FEF9ED] text-[#A87508] border-[#FDEFCD]",
+    yellow: "bg-[#FEF9ED] text-[#A87508] border-[#FDEFCD]",
     rose: "bg-rose-50 text-rose-700 border-rose-200",
-    slate: "bg-slate-100 text-slate-700 border-slate-200",
+    slate: "bg-[#F6F5FA] text-[#24212D] border-[#E5E2EE]",
   }[badgeColor];
 
   return (
-    <div className="bg-white border border-slate-200 rounded-xl p-5 shadow-sm transition hover:shadow-md">
+    <div className="bg-white border border-[#E5E2EE] rounded-2xl p-5 shadow-xs transition hover:border-[#D5C4F5]">
       <div className="flex items-center justify-between mb-2">
-        <span className="text-xs font-semibold uppercase tracking-wider text-slate-500">
+        <span className="text-xs font-semibold uppercase tracking-wider text-[#6A6577]">
           {label}
         </span>
-        {icon && <div className="text-slate-400">{icon}</div>}
+        {icon && <div className="text-[#6A6577]">{icon}</div>}
       </div>
       <div className="flex items-baseline space-x-2">
-        <span className="text-3xl font-bold text-slate-900 tracking-tight font-mono">
+        <span className="text-3xl font-bold text-[#24212D] tracking-tight font-mono">
           {value}
         </span>
         {badge && (
           <span
-            className={`text-xs px-2 py-0.5 rounded-full border font-medium ${badgeClasses}`}
+            className={`text-xs px-2.5 py-0.5 rounded-full border font-medium ${badgeClasses}`}
           >
             {badge}
           </span>
         )}
       </div>
-      {subtext && <p className="text-xs text-slate-500 mt-2">{subtext}</p>}
+      {subtext && <p className="text-xs text-[#6A6577] mt-2">{subtext}</p>}
     </div>
   );
 }

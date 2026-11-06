@@ -1,10 +1,10 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import {
-  UtensilsCrossed,
   Utensils,
   LogOut,
   QrCode,
@@ -19,7 +19,6 @@ import {
   User,
   Menu,
   X,
-  Sparkles,
 } from "lucide-react";
 
 interface UserProfile {
@@ -66,62 +65,69 @@ export default function Navbar() {
 
   return (
     <>
-      {/* Top Header with Liquid Glass Finish */}
-      <header className="sticky top-0 z-40 liquid-glass border-b border-white/60 transition-all duration-300">
+      {/* Top Header */}
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#E5E2EE] transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 gap-3">
             {/* Logo / Brand */}
             <div className="flex items-center space-x-3 shrink-0">
-              <Link href="/" className="flex items-center space-x-2.5 group">
-                <div className="bg-gradient-to-br from-slate-900 to-slate-800 text-sky-400 p-2.5 rounded-2xl flex items-center justify-center shadow-[0_4px_14px_rgba(15,23,42,0.25),inset_0_1px_1px_rgba(255,255,255,0.2)] group-hover:scale-105 transition-transform duration-200">
-                  <UtensilsCrossed className="w-4 h-4 text-sky-400" />
+              <Link href="/" className="flex items-center space-x-2.5 sm:space-x-3 group">
+                <div className="bg-white px-2 py-1 rounded-xl border border-[#E5E2EE] shadow-xs flex items-center justify-center shrink-0">
+                  <Image
+                    src="/dbi-logo.jpg"
+                    alt="Digital Bridge International Logo"
+                    width={110}
+                    height={36}
+                    className="h-7 sm:h-8 w-auto object-contain"
+                    priority
+                  />
                 </div>
                 <div>
-                  <div className="font-extrabold text-slate-900 tracking-tight text-base sm:text-lg leading-tight flex items-center gap-1.5">
-                    <span>DBI Staff Food Portal</span>
+                  <div className="font-extrabold text-[#24212D] tracking-tight text-sm sm:text-base leading-tight">
+                    Staff Food Portal
                   </div>
-                  <div className="text-[10px] uppercase tracking-wider text-slate-500 font-bold hidden sm:block leading-none mt-0.5">
-                    Institutional Food Operations
+                  <div className="text-[10px] uppercase tracking-wider text-[#6A6577] font-semibold hidden sm:block leading-none mt-0.5">
+                    Digital Bridge International
                   </div>
                 </div>
               </Link>
             </div>
 
-            {/* Desktop Segmented Floating Liquid Nav */}
-            <nav className="hidden md:flex items-center liquid-glass-subtle p-1.5 rounded-full space-x-1 shrink-0">
+            {/* Desktop Segmented Nav */}
+            <nav className="hidden md:flex items-center bg-[#F6F5FA] border border-[#E5E2EE] p-1 rounded-full space-x-1 shrink-0">
               {user.role === "STAFF" && (
                 <>
                   <Link
                     href="/staff"
                     className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5 whitespace-nowrap transition-all duration-200 ${
                       isActive("/staff")
-                        ? "bg-white/95 text-sky-950 shadow-[0_3px_10px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,1)] scale-[1.02]"
-                        : "text-slate-600 hover:text-slate-950 hover:bg-white/60"
+                        ? "bg-[#35118F] text-white shadow-xs"
+                        : "text-[#6A6577] hover:text-[#24212D] hover:bg-white"
                     }`}
                   >
-                    <LayoutDashboard className={`w-3.5 h-3.5 ${isActive("/staff") ? "text-sky-600" : "text-slate-500"}`} />
+                    <LayoutDashboard className="w-3.5 h-3.5" />
                     <span>Meal Selection</span>
                   </Link>
                   <Link
                     href="/staff/qr"
                     className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5 whitespace-nowrap transition-all duration-200 ${
                       isActive("/staff/qr")
-                        ? "bg-white/95 text-sky-950 shadow-[0_3px_10px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,1)] scale-[1.02]"
-                        : "text-slate-600 hover:text-slate-950 hover:bg-white/60"
+                        ? "bg-[#35118F] text-white shadow-xs"
+                        : "text-[#6A6577] hover:text-[#24212D] hover:bg-white"
                     }`}
                   >
-                    <QrCode className={`w-3.5 h-3.5 ${isActive("/staff/qr") ? "text-sky-600" : "text-slate-500"}`} />
+                    <QrCode className="w-3.5 h-3.5" />
                     <span>My QR Codes</span>
                   </Link>
                   <Link
                     href="/staff/history"
                     className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5 whitespace-nowrap transition-all duration-200 ${
                       isActive("/staff/history")
-                        ? "bg-white/95 text-sky-950 shadow-[0_3px_10px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,1)] scale-[1.02]"
-                        : "text-slate-600 hover:text-slate-950 hover:bg-white/60"
+                        ? "bg-[#35118F] text-white shadow-xs"
+                        : "text-[#6A6577] hover:text-[#24212D] hover:bg-white"
                     }`}
                   >
-                    <History className={`w-3.5 h-3.5 ${isActive("/staff/history") ? "text-sky-600" : "text-slate-500"}`} />
+                    <History className="w-3.5 h-3.5" />
                     <span>History</span>
                   </Link>
                 </>
@@ -133,55 +139,55 @@ export default function Navbar() {
                     href="/admin"
                     className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5 whitespace-nowrap transition-all duration-200 ${
                       isActive("/admin")
-                        ? "bg-white/95 text-slate-950 shadow-[0_3px_10px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,1)] scale-[1.02]"
-                        : "text-slate-600 hover:text-slate-950 hover:bg-white/60"
+                        ? "bg-[#35118F] text-white shadow-xs"
+                        : "text-[#6A6577] hover:text-[#24212D] hover:bg-white"
                     }`}
                   >
-                    <LayoutDashboard className={`w-3.5 h-3.5 ${isActive("/admin") ? "text-sky-600" : "text-slate-500"}`} />
+                    <LayoutDashboard className="w-3.5 h-3.5" />
                     <span>Dashboard</span>
                   </Link>
                   <Link
                     href="/admin/responses"
                     className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5 whitespace-nowrap transition-all duration-200 ${
                       isActive("/admin/responses")
-                        ? "bg-white/95 text-slate-950 shadow-[0_3px_10px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,1)] scale-[1.02]"
-                        : "text-slate-600 hover:text-slate-950 hover:bg-white/60"
+                        ? "bg-[#35118F] text-white shadow-xs"
+                        : "text-[#6A6577] hover:text-[#24212D] hover:bg-white"
                     }`}
                   >
-                    <ClipboardList className={`w-3.5 h-3.5 ${isActive("/admin/responses") ? "text-sky-600" : "text-slate-500"}`} />
+                    <ClipboardList className="w-3.5 h-3.5" />
                     <span>Responses</span>
                   </Link>
                   <Link
                     href="/admin/staff"
                     className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5 whitespace-nowrap transition-all duration-200 ${
                       isActive("/admin/staff")
-                        ? "bg-white/95 text-slate-950 shadow-[0_3px_10px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,1)] scale-[1.02]"
-                        : "text-slate-600 hover:text-slate-950 hover:bg-white/60"
+                        ? "bg-[#35118F] text-white shadow-xs"
+                        : "text-[#6A6577] hover:text-[#24212D] hover:bg-white"
                     }`}
                   >
-                    <Users className={`w-3.5 h-3.5 ${isActive("/admin/staff") ? "text-sky-600" : "text-slate-500"}`} />
+                    <Users className="w-3.5 h-3.5" />
                     <span>Staff Directory</span>
                   </Link>
                   <Link
                     href="/admin/reports"
                     className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5 whitespace-nowrap transition-all duration-200 ${
                       isActive("/admin/reports")
-                        ? "bg-white/95 text-slate-950 shadow-[0_3px_10px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,1)] scale-[1.02]"
-                        : "text-slate-600 hover:text-slate-950 hover:bg-white/60"
+                        ? "bg-[#35118F] text-white shadow-xs"
+                        : "text-[#6A6577] hover:text-[#24212D] hover:bg-white"
                     }`}
                   >
-                    <FileSpreadsheet className={`w-3.5 h-3.5 ${isActive("/admin/reports") ? "text-sky-600" : "text-slate-500"}`} />
+                    <FileSpreadsheet className="w-3.5 h-3.5" />
                     <span>Reports</span>
                   </Link>
                   <Link
                     href="/admin/audit"
                     className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5 whitespace-nowrap transition-all duration-200 ${
                       isActive("/admin/audit")
-                        ? "bg-white/95 text-slate-950 shadow-[0_3px_10px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,1)] scale-[1.02]"
-                        : "text-slate-600 hover:text-slate-950 hover:bg-white/60"
+                        ? "bg-[#35118F] text-white shadow-xs"
+                        : "text-[#6A6577] hover:text-[#24212D] hover:bg-white"
                     }`}
                   >
-                    <ShieldCheck className={`w-3.5 h-3.5 ${isActive("/admin/audit") ? "text-sky-600" : "text-slate-500"}`} />
+                    <ShieldCheck className="w-3.5 h-3.5" />
                     <span>Audit Logs</span>
                   </Link>
                 </>
@@ -193,19 +199,19 @@ export default function Navbar() {
                     href="/canteen"
                     className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5 whitespace-nowrap transition-all duration-200 ${
                       isActive("/canteen")
-                        ? "bg-white/95 text-slate-950 shadow-[0_3px_10px_rgba(0,0,0,0.06),inset_0_1px_1px_rgba(255,255,255,1)] scale-[1.02]"
-                        : "text-slate-600 hover:text-slate-950 hover:bg-white/60"
+                        ? "bg-[#35118F] text-white shadow-xs"
+                        : "text-[#6A6577] hover:text-[#24212D] hover:bg-white"
                     }`}
                   >
-                    <LayoutDashboard className={`w-3.5 h-3.5 ${isActive("/canteen") ? "text-sky-600" : "text-slate-500"}`} />
+                    <LayoutDashboard className="w-3.5 h-3.5" />
                     <span>Canteen Counts</span>
                   </Link>
                   <Link
                     href="/canteen/scan"
                     className={`px-3.5 py-1.5 rounded-full text-xs font-semibold flex items-center space-x-1.5 whitespace-nowrap transition-all duration-200 ${
                       isActive("/canteen/scan")
-                        ? "bg-slate-900 text-white shadow-[0_4px_14px_rgba(15,23,42,0.3)] scale-[1.02]"
-                        : "bg-sky-50/80 text-sky-800 hover:bg-sky-100"
+                        ? "bg-[#12B98A] text-white shadow-xs font-bold"
+                        : "text-[#12B98A] bg-[#EEFBF6] hover:bg-[#D2F6EA]"
                     }`}
                   >
                     <ScanLine className="w-3.5 h-3.5" />
@@ -215,32 +221,38 @@ export default function Navbar() {
               )}
             </nav>
 
-            {/* User Profile & Actions with Liquid Glass Accents */}
+            {/* User Profile & Actions */}
             <div className="flex items-center space-x-2.5 shrink-0">
               <div className="text-right hidden sm:block">
-                <div className="text-xs font-bold text-slate-800 leading-tight">{user.fullName}</div>
-                <div className="text-[10px] text-slate-500 flex items-center justify-end space-x-1.5 mt-0.5">
-                  <span className="font-mono bg-slate-100/80 px-1.5 py-0.5 rounded-md text-slate-700 font-semibold border border-slate-200/50">
+                <div className="text-xs font-bold text-[#24212D] leading-tight">{user.fullName}</div>
+                <div className="text-[10px] text-[#6A6577] flex items-center justify-end space-x-1.5 mt-0.5">
+                  <span className="font-mono bg-[#F6F5FA] px-1.5 py-0.5 rounded-md text-[#24212D] font-semibold border border-[#E5E2EE]">
                     {user.staffId}
                   </span>
                   <span className="text-slate-300">•</span>
-                  <span className="uppercase tracking-wider font-extrabold text-sky-800 bg-sky-50/80 border border-sky-200/60 px-1.5 py-0.5 rounded-md text-[9px] shadow-[0_1px_4px_rgba(56,189,248,0.15)]">
+                  <span
+                    className={`uppercase tracking-wider font-extrabold px-1.5 py-0.5 rounded-md text-[9px] ${
+                      user.role === "CANTEEN"
+                        ? "text-[#12B98A] bg-[#EEFBF6] border border-[#D2F6EA]"
+                        : "text-[#35118F] bg-[#F4F0FD] border border-[#E9E1FA]"
+                    }`}
+                  >
                     {user.role}
                   </span>
                 </div>
               </div>
 
               {/* Mobile Staff ID Badge */}
-              <div className="sm:hidden font-mono bg-slate-100/90 border border-slate-200/60 px-2 py-1 rounded-xl text-slate-800 font-extrabold text-xs shadow-xs">
+              <div className="sm:hidden font-mono bg-[#F6F5FA] border border-[#E5E2EE] px-2 py-1 rounded-xl text-[#24212D] font-extrabold text-xs shadow-xs">
                 {user.staffId}
               </div>
 
-              <div className="h-6 w-px bg-slate-200/80 hidden sm:block" />
+              <div className="h-6 w-px bg-[#E5E2EE] hidden sm:block" />
 
               <Link
                 href="/change-password"
                 title="Change Password"
-                className="p-2 text-slate-500 hover:text-slate-900 hover:bg-slate-100/80 rounded-xl transition-all duration-200 hidden md:block"
+                className="p-2 text-[#6A6577] hover:text-[#35118F] hover:bg-[#F4F0FD] rounded-xl transition hidden md:block"
               >
                 <KeyRound className="w-4 h-4" />
               </Link>
@@ -248,7 +260,7 @@ export default function Navbar() {
               <button
                 onClick={handleLogout}
                 title="Sign Out"
-                className="px-3 py-1.5 text-rose-600 hover:bg-rose-50/80 border border-transparent hover:border-rose-100 rounded-xl transition-all duration-200 flex items-center space-x-1.5 text-xs font-semibold"
+                className="px-3 py-1.5 text-rose-600 hover:bg-rose-50 border border-transparent hover:border-rose-100 rounded-xl transition flex items-center space-x-1.5 text-xs font-semibold"
               >
                 <LogOut className="w-3.5 h-3.5" />
                 <span className="hidden sm:inline">Logout</span>
@@ -258,7 +270,7 @@ export default function Navbar() {
               {user.role !== "STAFF" && (
                 <button
                   onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                  className="md:hidden p-2 text-slate-600 hover:bg-slate-100/80 rounded-xl transition"
+                  className="md:hidden p-2 text-[#24212D] hover:bg-[#F6F5FA] rounded-xl transition"
                   aria-label="Toggle Navigation Menu"
                 >
                   {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -270,7 +282,7 @@ export default function Navbar() {
 
         {/* Mobile Dropdown for Admin & Canteen */}
         {mobileMenuOpen && user.role !== "STAFF" && (
-          <div className="md:hidden border-t border-white/60 liquid-glass px-4 py-3 space-y-1.5 shadow-xl">
+          <div className="md:hidden border-t border-[#E5E2EE] bg-white px-4 py-3 space-y-1.5 shadow-lg">
             {user.role === "ADMIN" && (
               <>
                 <Link
@@ -278,8 +290,8 @@ export default function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center space-x-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition ${
                     isActive("/admin")
-                      ? "bg-slate-900 text-white shadow-xs"
-                      : "text-slate-700 hover:bg-white/60"
+                      ? "bg-[#35118F] text-white shadow-xs"
+                      : "text-[#24212D] hover:bg-[#F6F5FA]"
                   }`}
                 >
                   <LayoutDashboard className="w-4 h-4" />
@@ -290,8 +302,8 @@ export default function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center space-x-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition ${
                     isActive("/admin/responses")
-                      ? "bg-slate-900 text-white shadow-xs"
-                      : "text-slate-700 hover:bg-white/60"
+                      ? "bg-[#35118F] text-white shadow-xs"
+                      : "text-[#24212D] hover:bg-[#F6F5FA]"
                   }`}
                 >
                   <ClipboardList className="w-4 h-4" />
@@ -302,8 +314,8 @@ export default function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center space-x-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition ${
                     isActive("/admin/staff")
-                      ? "bg-slate-900 text-white shadow-xs"
-                      : "text-slate-700 hover:bg-slate-100"
+                      ? "bg-[#35118F] text-white shadow-xs"
+                      : "text-[#24212D] hover:bg-[#F6F5FA]"
                   }`}
                 >
                   <Users className="w-4 h-4" />
@@ -314,8 +326,8 @@ export default function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center space-x-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition ${
                     isActive("/admin/reports")
-                      ? "bg-slate-900 text-white shadow-xs"
-                      : "text-slate-700 hover:bg-slate-100"
+                      ? "bg-[#35118F] text-white shadow-xs"
+                      : "text-[#24212D] hover:bg-[#F6F5FA]"
                   }`}
                 >
                   <FileSpreadsheet className="w-4 h-4" />
@@ -326,20 +338,20 @@ export default function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center space-x-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition ${
                     isActive("/admin/audit")
-                      ? "bg-slate-900 text-white shadow-xs"
-                      : "text-slate-700 hover:bg-slate-100"
+                      ? "bg-[#35118F] text-white shadow-xs"
+                      : "text-[#24212D] hover:bg-[#F6F5FA]"
                   }`}
                 >
                   <ShieldCheck className="w-4 h-4" />
                   <span>Audit Logs</span>
                 </Link>
-                <div className="pt-2 border-t border-slate-200/60 mt-1">
+                <div className="pt-2 border-t border-[#E5E2EE] mt-1">
                   <Link
                     href="/change-password"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center space-x-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-slate-100 transition"
+                    className="flex items-center space-x-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-[#24212D] hover:bg-[#F6F5FA] transition"
                   >
-                    <KeyRound className="w-4 h-4 text-slate-500" />
+                    <KeyRound className="w-4 h-4 text-[#6A6577]" />
                     <span>Change Password</span>
                   </Link>
                 </div>
@@ -353,8 +365,8 @@ export default function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center space-x-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition ${
                     isActive("/canteen")
-                      ? "bg-slate-900 text-white shadow-xs"
-                      : "text-slate-700 hover:bg-white/60"
+                      ? "bg-[#35118F] text-white shadow-xs"
+                      : "text-[#24212D] hover:bg-[#F6F5FA]"
                   }`}
                 >
                   <LayoutDashboard className="w-4 h-4" />
@@ -365,20 +377,20 @@ export default function Navbar() {
                   onClick={() => setMobileMenuOpen(false)}
                   className={`flex items-center space-x-2.5 px-3 py-2 rounded-xl text-xs font-semibold transition ${
                     isActive("/canteen/scan")
-                      ? "bg-slate-900 text-white shadow-xs"
-                      : "text-slate-700 hover:bg-white/60"
+                      ? "bg-[#12B98A] text-white shadow-xs font-bold"
+                      : "text-[#12B98A] bg-[#EEFBF6] hover:bg-[#D2F6EA]"
                   }`}
                 >
                   <ScanLine className="w-4 h-4" />
                   <span>Scan QR Code</span>
                 </Link>
-                <div className="pt-2 border-t border-slate-200/60 mt-1">
+                <div className="pt-2 border-t border-[#E5E2EE] mt-1">
                   <Link
                     href="/change-password"
                     onClick={() => setMobileMenuOpen(false)}
-                    className="flex items-center space-x-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-slate-700 hover:bg-white/60 transition"
+                    className="flex items-center space-x-2.5 px-3 py-2 rounded-xl text-xs font-semibold text-[#24212D] hover:bg-[#F6F5FA] transition"
                   >
-                    <KeyRound className="w-4 h-4 text-slate-500" />
+                    <KeyRound className="w-4 h-4 text-[#6A6577]" />
                     <span>Change Password</span>
                   </Link>
                 </div>
@@ -388,122 +400,122 @@ export default function Navbar() {
         )}
       </header>
 
-      {/* iOS 27 Liquid Glass Floating Capsule Dock for Staff */}
+      {/* Floating Capsule Dock for Staff Mobile */}
       {user.role === "STAFF" && (
         <nav
-          aria-label="Staff Floating Liquid Navigation"
-          className="md:hidden fixed bottom-5 left-4 right-4 sm:left-6 sm:right-6 max-w-[340px] sm:max-w-[360px] mx-auto z-50 liquid-capsule-dock p-1.5 transition-all duration-300"
+          aria-label="Staff Floating Navigation"
+          className="md:hidden fixed bottom-5 left-4 right-4 sm:left-6 sm:right-6 max-w-[340px] sm:max-w-[360px] mx-auto z-50 dbi-capsule-dock p-1.5 transition-all"
         >
           <div className="grid grid-cols-4 items-center justify-between gap-1">
             {/* Meals */}
             <Link
               href="/staff"
-              className={`flex flex-col items-center justify-center py-2 px-1 rounded-[22px] transition-all duration-200 active:scale-95 ${
+              className={`flex flex-col items-center justify-center py-2 px-1 rounded-[20px] transition-all active:scale-95 ${
                 isActive("/staff")
-                  ? "liquid-tab-active"
-                  : "text-slate-800 hover:text-slate-950"
+                  ? "dbi-tab-active"
+                  : "text-[#24212D] hover:text-[#35118F]"
               }`}
             >
               <Utensils
-                className={`w-[22px] h-[22px] ${
-                  isActive("/staff") ? "text-[#0284c7] stroke-[2.3]" : "text-slate-800 stroke-[2]"
+                className={`w-[20px] h-[20px] ${
+                  isActive("/staff") ? "text-[#35118F] stroke-[2.3]" : "text-[#24212D] stroke-[2]"
                 }`}
               />
               <span
                 className={`text-[11px] mt-1 tracking-tight leading-none ${
-                  isActive("/staff") ? "font-bold text-[#0284c7]" : "font-semibold text-slate-800"
+                  isActive("/staff") ? "font-bold text-[#35118F]" : "font-semibold text-[#24212D]"
                 }`}
               >
                 Meals
               </span>
               {isActive("/staff") ? (
-                <div className="liquid-dash-indicator mt-1" />
+                <div className="dbi-dash-indicator mt-1" />
               ) : (
-                <div className="w-[14px] h-[4px] mt-1 opacity-0 pointer-events-none" />
+                <div className="w-[16px] h-[3px] mt-1 opacity-0 pointer-events-none" />
               )}
             </Link>
 
             {/* My QR */}
             <Link
               href="/staff/qr"
-              className={`flex flex-col items-center justify-center py-2 px-1 rounded-[22px] transition-all duration-200 active:scale-95 ${
+              className={`flex flex-col items-center justify-center py-2 px-1 rounded-[20px] transition-all active:scale-95 ${
                 isActive("/staff/qr")
-                  ? "liquid-tab-active"
-                  : "text-slate-800 hover:text-slate-950"
+                  ? "dbi-tab-active"
+                  : "text-[#24212D] hover:text-[#35118F]"
               }`}
             >
               <QrCode
-                className={`w-[22px] h-[22px] ${
-                  isActive("/staff/qr") ? "text-[#0284c7] stroke-[2.3]" : "text-slate-800 stroke-[2]"
+                className={`w-[20px] h-[20px] ${
+                  isActive("/staff/qr") ? "text-[#35118F] stroke-[2.3]" : "text-[#24212D] stroke-[2]"
                 }`}
               />
               <span
                 className={`text-[11px] mt-1 tracking-tight leading-none ${
-                  isActive("/staff/qr") ? "font-bold text-[#0284c7]" : "font-semibold text-slate-800"
+                  isActive("/staff/qr") ? "font-bold text-[#35118F]" : "font-semibold text-[#24212D]"
                 }`}
               >
                 My QR
               </span>
               {isActive("/staff/qr") ? (
-                <div className="liquid-dash-indicator mt-1" />
+                <div className="dbi-dash-indicator mt-1" />
               ) : (
-                <div className="w-[14px] h-[4px] mt-1 opacity-0 pointer-events-none" />
+                <div className="w-[16px] h-[3px] mt-1 opacity-0 pointer-events-none" />
               )}
             </Link>
 
             {/* History */}
             <Link
               href="/staff/history"
-              className={`flex flex-col items-center justify-center py-2 px-1 rounded-[22px] transition-all duration-200 active:scale-95 ${
+              className={`flex flex-col items-center justify-center py-2 px-1 rounded-[20px] transition-all active:scale-95 ${
                 isActive("/staff/history")
-                  ? "liquid-tab-active"
-                  : "text-slate-800 hover:text-slate-950"
+                  ? "dbi-tab-active"
+                  : "text-[#24212D] hover:text-[#35118F]"
               }`}
             >
               <History
-                className={`w-[22px] h-[22px] ${
-                  isActive("/staff/history") ? "text-[#0284c7] stroke-[2.3]" : "text-slate-800 stroke-[2]"
+                className={`w-[20px] h-[20px] ${
+                  isActive("/staff/history") ? "text-[#35118F] stroke-[2.3]" : "text-[#24212D] stroke-[2]"
                 }`}
               />
               <span
                 className={`text-[11px] mt-1 tracking-tight leading-none ${
-                  isActive("/staff/history") ? "font-bold text-[#0284c7]" : "font-semibold text-slate-800"
+                  isActive("/staff/history") ? "font-bold text-[#35118F]" : "font-semibold text-[#24212D]"
                 }`}
               >
                 History
               </span>
               {isActive("/staff/history") ? (
-                <div className="liquid-dash-indicator mt-1" />
+                <div className="dbi-dash-indicator mt-1" />
               ) : (
-                <div className="w-[14px] h-[4px] mt-1 opacity-0 pointer-events-none" />
+                <div className="w-[16px] h-[3px] mt-1 opacity-0 pointer-events-none" />
               )}
             </Link>
 
             {/* Account */}
             <Link
               href="/change-password"
-              className={`flex flex-col items-center justify-center py-2 px-1 rounded-[22px] transition-all duration-200 active:scale-95 ${
+              className={`flex flex-col items-center justify-center py-2 px-1 rounded-[20px] transition-all active:scale-95 ${
                 isActive("/change-password")
-                  ? "liquid-tab-active"
-                  : "text-slate-800 hover:text-slate-950"
+                  ? "dbi-tab-active"
+                  : "text-[#24212D] hover:text-[#35118F]"
               }`}
             >
               <User
-                className={`w-[22px] h-[22px] ${
-                  isActive("/change-password") ? "text-[#0284c7] stroke-[2.3]" : "text-slate-800 stroke-[2]"
+                className={`w-[20px] h-[20px] ${
+                  isActive("/change-password") ? "text-[#35118F] stroke-[2.3]" : "text-[#24212D] stroke-[2]"
                 }`}
               />
               <span
                 className={`text-[11px] mt-1 tracking-tight leading-none ${
-                  isActive("/change-password") ? "font-bold text-[#0284c7]" : "font-semibold text-slate-800"
+                  isActive("/change-password") ? "font-bold text-[#35118F]" : "font-semibold text-[#24212D]"
                 }`}
               >
                 Account
               </span>
               {isActive("/change-password") ? (
-                <div className="liquid-dash-indicator mt-1" />
+                <div className="dbi-dash-indicator mt-1" />
               ) : (
-                <div className="w-[14px] h-[4px] mt-1 opacity-0 pointer-events-none" />
+                <div className="w-[16px] h-[3px] mt-1 opacity-0 pointer-events-none" />
               )}
             </Link>
           </div>

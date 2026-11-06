@@ -73,13 +73,13 @@ export default function CanteenScanPage() {
       <div>
         <Link
           href="/canteen"
-          className="inline-flex items-center space-x-1.5 text-xs font-semibold text-slate-500 hover:text-slate-800 mb-2 transition"
+          className="inline-flex items-center space-x-1.5 text-xs font-semibold text-[#6A6577] hover:text-[#35118F] mb-2 transition"
         >
           <ArrowLeft className="w-3.5 h-3.5" />
           <span>Back to Canteen Dashboard</span>
         </Link>
-        <h1 className="text-2xl font-bold text-slate-900">Meal Collection Verification</h1>
-        <p className="text-xs text-slate-500 mt-1">
+        <h1 className="text-2xl font-bold text-[#24212D]">Meal Collection Verification</h1>
+        <p className="text-xs text-[#6A6577] mt-1">
           Scan the staff member's QR code. Database locks prevent duplicate meal redemptions.
         </p>
       </div>
@@ -87,24 +87,24 @@ export default function CanteenScanPage() {
       {/* Verification Result Display */}
       {result && (
         <div
-          className={`rounded-2xl p-6 border shadow-sm transition ${
+          className={`rounded-2xl p-6 border shadow-xs transition ${
             result.status === "SUCCESS"
-              ? "bg-emerald-50 border-emerald-300 text-emerald-950"
+              ? "bg-[#EEFBF6] border-[#12B98A]/40 text-[#0C7A5B]"
               : result.status === "ALREADY_COLLECTED"
               ? "bg-rose-50 border-rose-300 text-rose-950"
               : result.status === "INELIGIBLE"
-              ? "bg-amber-50 border-amber-300 text-amber-950"
+              ? "bg-[#FEF9ED] border-[#F5B51B]/40 text-[#B88204]"
               : "bg-red-50 border-red-300 text-red-950"
           }`}
         >
           <div className="flex items-start space-x-4">
-            <div className="p-2 rounded-xl bg-white/80 shadow-sm">
+            <div className="p-2.5 rounded-xl bg-white/90 shadow-xs border border-[#E5E2EE]">
               {result.status === "SUCCESS" ? (
-                <CheckCircle2 className="w-8 h-8 text-emerald-600" />
+                <CheckCircle2 className="w-8 h-8 text-[#12B98A]" />
               ) : result.status === "ALREADY_COLLECTED" ? (
                 <XCircle className="w-8 h-8 text-rose-600" />
               ) : (
-                <AlertTriangle className="w-8 h-8 text-amber-600" />
+                <AlertTriangle className="w-8 h-8 text-[#F5B51B]" />
               )}
             </div>
 
@@ -121,30 +121,30 @@ export default function CanteenScanPage() {
               <h2 className="text-lg font-bold mt-0.5">{result.message}</h2>
 
               {result.data && (
-                <div className="mt-4 p-4 bg-white/90 rounded-xl border border-black/5 text-xs text-slate-700 space-y-1.5 font-sans">
+                <div className="mt-4 p-4 bg-white rounded-xl border border-[#E5E2EE] text-xs text-[#24212D] space-y-1.5 font-sans">
                   <div className="flex justify-between">
-                    <span className="text-slate-500">Staff Member:</span>
-                    <span className="font-bold text-slate-900">
+                    <span className="text-[#6A6577]">Staff Member:</span>
+                    <span className="font-bold text-[#24212D]">
                       {result.data.staffName} ({result.data.staffId})
                     </span>
                   </div>
                   {result.data.department && (
                     <div className="flex justify-between">
-                      <span className="text-slate-500">Department:</span>
-                      <span className="font-medium text-slate-800">
+                      <span className="text-[#6A6577]">Department:</span>
+                      <span className="font-medium text-[#24212D]">
                         {result.data.department}
                       </span>
                     </div>
                   )}
                   <div className="flex justify-between">
-                    <span className="text-slate-500">Meal Type:</span>
-                    <span className="font-bold text-slate-900 font-mono">
+                    <span className="text-[#6A6577]">Meal Type:</span>
+                    <span className="font-bold text-[#35118F] font-mono">
                       {result.data.mealType}
                     </span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-slate-500">Service Date:</span>
-                    <span className="font-mono text-slate-800">
+                    <span className="text-[#6A6577]">Service Date:</span>
+                    <span className="font-mono text-[#24212D]">
                       {result.data.serviceDate}
                     </span>
                   </div>
@@ -154,9 +154,9 @@ export default function CanteenScanPage() {
               <div className="mt-5">
                 <button
                   onClick={handleReset}
-                  className="inline-flex items-center space-x-2 px-5 py-2.5 bg-slate-900 hover:bg-slate-800 text-white rounded-xl text-xs font-bold shadow-sm transition"
+                  className="inline-flex items-center space-x-2 px-5 py-2.5 bg-[#35118F] hover:bg-[#2a0d72] text-white rounded-xl text-xs font-bold shadow-xs transition"
                 >
-                  <RotateCcw className="w-4 h-4" />
+                  <RotateCcw className="w-4 h-4 text-[#F5B51B]" />
                   <span>Scan Next Staff Member</span>
                 </button>
               </div>

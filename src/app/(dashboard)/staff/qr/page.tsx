@@ -74,34 +74,34 @@ export default function StaffQrPage() {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // Outer border
-      ctx.strokeStyle = "#e2e8f0";
+      ctx.strokeStyle = "#E5E2EE";
       ctx.lineWidth = 4;
       ctx.strokeRect(10, 10, canvas.width - 20, canvas.height - 20);
 
-      // Top header banner
-      ctx.fillStyle = "#0f172a";
+      // Top header banner in DBI Deep Purple
+      ctx.fillStyle = "#35118F";
       ctx.fillRect(10, 10, canvas.width - 20, 110);
 
       // Title
       ctx.fillStyle = "#ffffff";
       ctx.font = "bold 24px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
       ctx.textAlign = "center";
-      ctx.fillText("DBI STAFF FOOD PORTAL", canvas.width / 2, 58);
+      ctx.fillText("DIGITAL BRIDGE INTERNATIONAL", canvas.width / 2, 58);
 
-      ctx.fillStyle = "#94a3b8";
-      ctx.font = "600 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
-      ctx.fillText("OFFICIAL CANTEEN MEAL PASS", canvas.width / 2, 88);
+      ctx.fillStyle = "#F5B51B";
+      ctx.font = "bold 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
+      ctx.fillText("STAFF FOOD MANAGEMENT PORTAL • MEAL PASS", canvas.width / 2, 88);
 
       // Meal pill badge
       const badgeColors: Record<string, { bg: string; text: string }> = {
-        BREAKFAST: { bg: "#0284c7", text: "#ffffff" },
-        LUNCH: { bg: "#0f766e", text: "#ffffff" },
-        DINNER: { bg: "#4338ca", text: "#ffffff" },
+        BREAKFAST: { bg: "#F5B51B", text: "#24212D" },
+        LUNCH: { bg: "#12B98A", text: "#ffffff" },
+        DINNER: { bg: "#35118F", text: "#ffffff" },
       };
-      const color = badgeColors[item.mealType] || { bg: "#0f172a", text: "#ffffff" };
+      const color = badgeColors[item.mealType] || { bg: "#35118F", text: "#ffffff" };
 
       ctx.fillStyle = color.bg;
-      const pillW = 230;
+      const pillW = 240;
       const pillH = 38;
       const pillX = (canvas.width - pillW) / 2;
       const pillY = 135;
@@ -119,19 +119,19 @@ export default function StaffQrPage() {
       ctx.fillText(`${item.mealType} COLLECTION PASS`, canvas.width / 2, pillY + 24);
 
       // Staff & Date details box
-      ctx.fillStyle = "#f8fafc";
+      ctx.fillStyle = "#F6F5FA";
       ctx.fillRect(40, 190, canvas.width - 80, 80);
-      ctx.strokeStyle = "#cbd5e1";
+      ctx.strokeStyle = "#E5E2EE";
       ctx.lineWidth = 1;
       ctx.strokeRect(40, 190, canvas.width - 80, 80);
 
       ctx.textAlign = "left";
-      ctx.fillStyle = "#64748b";
+      ctx.fillStyle = "#6A6577";
       ctx.font = "600 11px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
       ctx.fillText("STAFF ID / NAME", 60, 216);
       ctx.fillText("SERVICE DATE", canvas.width / 2 + 20, 216);
 
-      ctx.fillStyle = "#0f172a";
+      ctx.fillStyle = "#24212D";
       ctx.font = "bold 15px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
       const staffLabel = data?.staffName ? `${data.staffId || ""} • ${data.staffName}` : (data?.staffId || "Staff Member");
       ctx.fillText(staffLabel, 60, 246);
@@ -147,16 +147,16 @@ export default function StaffQrPage() {
 
         // Token
         ctx.textAlign = "center";
-        ctx.fillStyle = "#64748b";
+        ctx.fillStyle = "#6A6577";
         ctx.font = "12px monospace";
         ctx.fillText(`Token: ${item.token}`, canvas.width / 2, 645);
 
         // Footer instruction
-        ctx.fillStyle = "#0284c7";
+        ctx.fillStyle = "#35118F";
         ctx.font = "bold 13px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
-        ctx.fillText("Show this QR pass at the canteen counter for collection", canvas.width / 2, 680);
+        ctx.fillText("Present this QR pass at the canteen counter for collection", canvas.width / 2, 680);
 
-        ctx.fillStyle = "#94a3b8";
+        ctx.fillStyle = "#6A6577";
         ctx.font = "11px -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif";
         ctx.fillText("Valid strictly for single meal redemption", canvas.width / 2, 705);
 
@@ -197,13 +197,13 @@ export default function StaffQrPage() {
         <div>
           <Link
             href="/staff"
-            className="inline-flex items-center space-x-1.5 text-xs font-semibold text-slate-500 hover:text-slate-800 mb-2 transition"
+            className="inline-flex items-center space-x-1.5 text-xs font-semibold text-[#6A6577] hover:text-[#35118F] mb-2 transition"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to Meal Selection</span>
           </Link>
-          <h1 className="text-2xl font-bold text-slate-900">Your Meal Collection QR Codes</h1>
-          <p className="text-xs text-slate-500 mt-1">
+          <h1 className="text-2xl font-bold text-[#24212D]">Your Meal Collection QR Codes</h1>
+          <p className="text-xs text-[#6A6577] mt-1">
             Present these QR codes at the canteen counter during meal service.
           </p>
         </div>
@@ -216,7 +216,7 @@ export default function StaffQrPage() {
               const today = new Date().toISOString().split("T")[0];
               handleDateChange(today);
             }}
-            className="px-3 py-1.5 text-xs font-semibold bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-lg shadow-xs transition"
+            className="px-3 py-1.5 text-xs font-semibold bg-white border border-[#E5E2EE] hover:bg-[#F6F5FA] text-[#24212D] rounded-xl shadow-xs transition"
           >
             Today
           </button>
@@ -228,7 +228,7 @@ export default function StaffQrPage() {
               const tomorrowStr = tomorrow.toISOString().split("T")[0];
               handleDateChange(tomorrowStr);
             }}
-            className="px-3 py-1.5 text-xs font-semibold bg-white border border-slate-300 hover:bg-slate-50 text-slate-700 rounded-lg shadow-xs transition"
+            className="px-3 py-1.5 text-xs font-semibold bg-white border border-[#E5E2EE] hover:bg-[#F6F5FA] text-[#24212D] rounded-xl shadow-xs transition"
           >
             Tomorrow
           </button>
@@ -237,14 +237,14 @@ export default function StaffQrPage() {
             type="date"
             value={selectedDate}
             onChange={(e) => handleDateChange(e.target.value)}
-            className="px-3 py-1.5 text-xs font-medium border border-slate-300 rounded-lg shadow-xs focus:outline-none focus:ring-2 focus:ring-slate-900 bg-white"
+            className="px-3 py-1.5 text-xs font-medium border border-[#E5E2EE] rounded-xl shadow-xs focus:outline-none focus:ring-2 focus:ring-[#35118F] bg-white text-[#24212D]"
           />
 
           {data?.qrs && data.qrs.length > 1 && (
             <button
               type="button"
               onClick={downloadAllPasses}
-              className="px-3 py-1.5 text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-white rounded-lg shadow-xs transition inline-flex items-center space-x-1.5"
+              className="px-3.5 py-1.5 text-xs font-semibold bg-[#35118F] hover:bg-[#2a0d72] text-white rounded-xl shadow-xs transition inline-flex items-center space-x-1.5"
             >
               <Download className="w-3.5 h-3.5" />
               <span>Download All Passes</span>
@@ -254,23 +254,23 @@ export default function StaffQrPage() {
       </div>
 
       {loading ? (
-        <div className="flex items-center justify-center py-20 text-slate-500">
-          <Loader2 className="w-8 h-8 animate-spin text-slate-900 mr-3" />
+        <div className="flex items-center justify-center py-20 text-[#6A6577]">
+          <Loader2 className="w-8 h-8 animate-spin text-[#35118F] mr-3" />
           <span>Generating and loading QR passes...</span>
         </div>
       ) : data?.qrs.length === 0 ? (
-        <div className="bg-white border border-slate-200 rounded-2xl p-12 text-center">
-          <QrCode className="w-12 h-12 text-slate-300 mx-auto mb-3" />
-          <h3 className="text-base font-semibold text-slate-800">
+        <div className="bg-white border border-[#E5E2EE] rounded-2xl p-12 text-center">
+          <QrCode className="w-12 h-12 text-[#6A6577]/40 mx-auto mb-3" />
+          <h3 className="text-base font-semibold text-[#24212D]">
             No Active Meal Requests for {data.serviceDateDisplay}
           </h3>
-          <p className="text-xs text-slate-500 max-w-md mx-auto mt-2">
+          <p className="text-xs text-[#6A6577] max-w-md mx-auto mt-2">
             You have not requested any meals (or opted out) for this date. Only meals that were requested before the cutoff generate collection QR passes.
           </p>
           <div className="mt-6">
             <Link
               href="/staff"
-              className="inline-flex items-center space-x-2 px-4 py-2 bg-slate-900 text-white text-xs font-semibold rounded-lg hover:bg-slate-800 transition"
+              className="inline-flex items-center space-x-2 px-5 py-2.5 bg-[#35118F] text-white text-xs font-semibold rounded-xl hover:bg-[#2a0d72] transition shadow-xs"
             >
               <span>Manage Next-Day Meal Requests</span>
             </Link>
@@ -281,39 +281,39 @@ export default function StaffQrPage() {
           {data?.qrs.map((item) => (
             <div
               key={item.mealType}
-              className={`bg-white border rounded-2xl p-6 shadow-sm flex flex-col items-center text-center transition ${
-                item.isCollected ? "border-emerald-300 bg-emerald-50/20" : "border-slate-200"
+              className={`bg-white border rounded-2xl p-6 shadow-xs flex flex-col items-center text-center transition ${
+                item.isCollected ? "border-[#D2F6EA] bg-[#EEFBF6]/30" : "border-[#E5E2EE]"
               }`}
             >
               {/* Badge */}
               <div className="w-full flex items-center justify-between mb-4">
-                <span className="font-bold text-slate-900 uppercase tracking-wider text-sm">
+                <span className="font-bold text-[#24212D] uppercase tracking-wider text-sm">
                   {item.mealType}
                 </span>
                 {item.isCollected ? (
-                  <span className="inline-flex items-center space-x-1 text-xs font-semibold text-emerald-700 bg-emerald-100 px-2.5 py-1 rounded-full">
-                    <CheckCircle className="w-3.5 h-3.5" />
+                  <span className="inline-flex items-center space-x-1 text-xs font-semibold text-[#0C7A5B] bg-[#EEFBF6] border border-[#D2F6EA] px-2.5 py-1 rounded-full">
+                    <CheckCircle className="w-3.5 h-3.5 text-[#12B98A]" />
                     <span>Collected</span>
                   </span>
                 ) : (
-                  <span className="inline-flex items-center space-x-1 text-xs font-semibold text-sky-700 bg-sky-100 px-2.5 py-1 rounded-full">
-                    <Clock className="w-3.5 h-3.5" />
+                  <span className="inline-flex items-center space-x-1 text-xs font-semibold text-[#35118F] bg-[#F4F0FD] border border-[#E9E1FA] px-2.5 py-1 rounded-full">
+                    <Clock className="w-3.5 h-3.5 text-[#35118F]" />
                     <span>Eligible for Collection</span>
                   </span>
                 )}
               </div>
 
               {/* QR Image */}
-              <div className="bg-white p-3 rounded-xl border border-slate-200 shadow-sm relative">
+              <div className="bg-white p-3.5 rounded-2xl border border-[#E5E2EE] shadow-xs relative">
                 <img
                   src={item.dataUrl}
                   alt={`${item.mealType} QR Code`}
-                  className={`w-56 h-56 ${item.isCollected ? "opacity-40 grayscale" : ""}`}
+                  className={`w-56 h-56 ${item.isCollected ? "opacity-30 grayscale" : ""}`}
                 />
                 {item.isCollected && (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/80 rounded-xl">
-                    <CheckCircle className="w-12 h-12 text-emerald-600 mb-1" />
-                    <span className="text-xs font-bold text-emerald-800 uppercase">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/85 rounded-2xl">
+                    <CheckCircle className="w-12 h-12 text-[#12B98A] mb-1" />
+                    <span className="text-xs font-bold text-[#0C7A5B] uppercase">
                       Already Verified
                     </span>
                   </div>
@@ -321,7 +321,7 @@ export default function StaffQrPage() {
               </div>
 
               {/* Token Info */}
-              <div className="mt-4 text-xs text-slate-500 font-mono break-all max-w-xs">
+              <div className="mt-4 text-xs text-[#6A6577] font-mono break-all max-w-xs">
                 Token: {item.token}
               </div>
 
@@ -331,7 +331,7 @@ export default function StaffQrPage() {
                   type="button"
                   onClick={() => downloadMealPass(item)}
                   disabled={downloadingMeal === item.mealType}
-                  className="w-full max-w-xs inline-flex items-center justify-center space-x-2 px-5 py-2.5 text-xs font-semibold text-white bg-slate-900 hover:bg-slate-800 active:scale-[0.99] rounded-xl shadow-xs transition disabled:opacity-50"
+                  className="w-full max-w-xs inline-flex items-center justify-center space-x-2 px-5 py-2.5 text-xs font-semibold text-white bg-[#35118F] hover:bg-[#2a0d72] active:scale-[0.99] rounded-xl shadow-xs transition disabled:opacity-50"
                 >
                   {downloadingMeal === item.mealType ? (
                     <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -343,7 +343,7 @@ export default function StaffQrPage() {
               </div>
 
               {item.isCollected && item.collectedAt && (
-                <div className="mt-3 text-xs text-emerald-700 bg-emerald-50 border border-emerald-200 px-3 py-1.5 rounded-lg">
+                <div className="mt-3 text-xs text-[#0C7A5B] bg-[#EEFBF6] border border-[#D2F6EA] px-3 py-1.5 rounded-xl">
                   Collected on: {item.collectedAt}
                 </div>
               )}
