@@ -10,6 +10,9 @@ import {
   AlertCircle,
   Loader2,
   Users,
+  Coffee,
+  Utensils,
+  CookingPot,
 } from "lucide-react";
 import StatCard from "@/components/StatCard";
 
@@ -128,16 +131,19 @@ export default function AdminReportsPage() {
               label="Breakfast Prep Target"
               value={data.meals.breakfast.requested}
               subtext={`Verified: ${data.meals.breakfast.collected} | Pending: ${data.meals.breakfast.pending}`}
+              icon={<Coffee className="w-5 h-5 text-[#35118F]" />}
             />
             <StatCard
               label="Lunch Prep Target"
               value={data.meals.lunch.requested}
               subtext={`Verified: ${data.meals.lunch.collected} | Pending: ${data.meals.lunch.pending}`}
+              icon={<Utensils className="w-5 h-5 text-[#35118F]" />}
             />
             <StatCard
               label="Dinner Prep Target"
               value={data.meals.dinner.requested}
               subtext={`Verified: ${data.meals.dinner.collected} | Pending: ${data.meals.dinner.pending}`}
+              icon={<CookingPot className="w-5 h-5 text-[#35118F]" />}
             />
           </div>
 

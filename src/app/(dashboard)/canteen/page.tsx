@@ -10,6 +10,9 @@ import {
   Loader2,
   RefreshCw,
   UtensilsCrossed,
+  Coffee,
+  Utensils,
+  CookingPot,
 } from "lucide-react";
 import StatCard from "@/components/StatCard";
 
@@ -134,10 +137,15 @@ export default function CanteenDashboardPage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {/* Breakfast */}
               <div className="bg-white border border-[#E5E2EE] rounded-xl p-5">
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h3 className="font-semibold text-[#24212D] text-base">Breakfast</h3>
-                    <span className="text-xs text-[#6A6577]">Morning Service</span>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 rounded-lg bg-[#F6F5FA] border border-[#E5E2EE] flex items-center justify-center text-[#35118F]">
+                      <Coffee className="w-4 h-4 text-[#35118F]" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-[#24212D] text-sm">Breakfast</h3>
+                      <span className="text-xs text-[#6A6577]">Morning Service</span>
+                    </div>
                   </div>
                   <span className="text-xs font-mono font-medium text-[#6A6577]">
                     {data.meals.breakfast.requested > 0
@@ -170,10 +178,15 @@ export default function CanteenDashboardPage() {
 
               {/* Lunch */}
               <div className="bg-white border border-[#E5E2EE] rounded-xl p-5">
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h3 className="font-semibold text-[#24212D] text-base">Lunch</h3>
-                    <span className="text-xs text-[#6A6577]">Afternoon Service</span>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 rounded-lg bg-[#F6F5FA] border border-[#E5E2EE] flex items-center justify-center text-[#35118F]">
+                      <Utensils className="w-4 h-4 text-[#35118F]" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-[#24212D] text-sm">Lunch</h3>
+                      <span className="text-xs text-[#6A6577]">Afternoon Service</span>
+                    </div>
                   </div>
                   <span className="text-xs font-mono font-medium text-[#6A6577]">
                     {data.meals.lunch.requested > 0
@@ -206,10 +219,15 @@ export default function CanteenDashboardPage() {
 
               {/* Dinner */}
               <div className="bg-white border border-[#E5E2EE] rounded-xl p-5">
-                <div className="flex items-start justify-between mb-4">
-                  <div>
-                    <h3 className="font-semibold text-[#24212D] text-base">Dinner</h3>
-                    <span className="text-xs text-[#6A6577]">Night Service</span>
+                <div className="flex items-center justify-between mb-4">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 rounded-lg bg-[#F6F5FA] border border-[#E5E2EE] flex items-center justify-center text-[#35118F]">
+                      <CookingPot className="w-4 h-4 text-[#35118F]" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-[#24212D] text-sm">Dinner</h3>
+                      <span className="text-xs text-[#6A6577]">Night Service</span>
+                    </div>
                   </div>
                   <span className="text-xs font-mono font-medium text-[#6A6577]">
                     {data.meals.dinner.requested > 0

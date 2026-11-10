@@ -11,6 +11,9 @@ import {
   Loader2,
   Calendar,
   HelpCircle,
+  Coffee,
+  Utensils,
+  CookingPot,
 } from "lucide-react";
 import DeadlineBadge from "@/components/DeadlineBadge";
 
@@ -260,10 +263,15 @@ export default function StaffDashboardPage() {
               }`}
             >
               <div>
-                <div className="flex items-start justify-between mb-3">
-                  <div>
-                    <h3 className="font-semibold text-[#24212D] text-base">Breakfast</h3>
-                    <span className="text-xs text-[#6A6577]">Morning service</span>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 rounded-lg bg-[#F6F5FA] border border-[#E5E2EE] flex items-center justify-center text-[#35118F]">
+                      <Coffee className="w-4 h-4 text-[#35118F]" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-[#24212D] text-sm">Breakfast</h3>
+                      <span className="text-xs text-[#6A6577]">Morning service</span>
+                    </div>
                   </div>
                   {renderMealBadge(breakfast)}
                 </div>
@@ -316,10 +324,15 @@ export default function StaffDashboardPage() {
               }`}
             >
               <div>
-                <div className="flex items-start justify-between mb-3">
-                  <div>
-                    <h3 className="font-semibold text-[#24212D] text-base">Lunch</h3>
-                    <span className="text-xs text-[#6A6577]">Afternoon service</span>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 rounded-lg bg-[#F6F5FA] border border-[#E5E2EE] flex items-center justify-center text-[#35118F]">
+                      <Utensils className="w-4 h-4 text-[#35118F]" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-[#24212D] text-sm">Lunch</h3>
+                      <span className="text-xs text-[#6A6577]">Afternoon service</span>
+                    </div>
                   </div>
                   {renderMealBadge(lunch)}
                 </div>
@@ -372,10 +385,15 @@ export default function StaffDashboardPage() {
               }`}
             >
               <div>
-                <div className="flex items-start justify-between mb-3">
-                  <div>
-                    <h3 className="font-semibold text-[#24212D] text-base">Dinner</h3>
-                    <span className="text-xs text-[#6A6577]">Night service</span>
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center space-x-3">
+                    <div className="w-8 h-8 rounded-lg bg-[#F6F5FA] border border-[#E5E2EE] flex items-center justify-center text-[#35118F]">
+                      <CookingPot className="w-4 h-4 text-[#35118F]" />
+                    </div>
+                    <div>
+                      <h3 className="font-semibold text-[#24212D] text-sm">Dinner</h3>
+                      <span className="text-xs text-[#6A6577]">Night service</span>
+                    </div>
                   </div>
                   {renderMealBadge(dinner)}
                 </div>

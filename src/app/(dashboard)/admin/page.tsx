@@ -11,6 +11,9 @@ import {
   Calendar,
   Loader2,
   ArrowRight,
+  Coffee,
+  Utensils,
+  CookingPot,
 } from "lucide-react";
 import StatCard from "@/components/StatCard";
 
@@ -100,20 +103,23 @@ export default function AdminDashboardPage() {
               label="Breakfast Count"
               value={data.meals.breakfast.requested}
               subtext={`Collected: ${data.meals.breakfast.collected} | Pending: ${data.meals.breakfast.pending}`}
+              icon={<Coffee className="w-5 h-5 text-[#35118F]" />}
               badge="Next Day"
-              badgeColor="yellow"
+              badgeColor="purple"
             />
             <StatCard
               label="Lunch Count"
               value={data.meals.lunch.requested}
               subtext={`Collected: ${data.meals.lunch.collected} | Pending: ${data.meals.lunch.pending}`}
+              icon={<Utensils className="w-5 h-5 text-[#35118F]" />}
               badge="Next Day"
-              badgeColor="teal"
+              badgeColor="purple"
             />
             <StatCard
               label="Dinner Count"
               value={data.meals.dinner.requested}
               subtext={`Collected: ${data.meals.dinner.collected} | Pending: ${data.meals.dinner.pending}`}
+              icon={<CookingPot className="w-5 h-5 text-[#35118F]" />}
               badge="Next Day"
               badgeColor="purple"
             />
@@ -162,7 +168,10 @@ export default function AdminDashboardPage() {
                 <tbody className="divide-y divide-[#E5E2EE]">
                   <tr className="hover:bg-[#F8F7FC]/70 transition-colors">
                     <td className="px-5 py-3.5 font-medium text-[#24212D]">
-                      Breakfast
+                      <div className="flex items-center space-x-2">
+                        <Coffee className="w-4 h-4 text-[#35118F]" />
+                        <span>Breakfast</span>
+                      </div>
                     </td>
                     <td className="px-5 py-3.5 font-semibold text-[#24212D] font-mono text-base">
                       {data.meals.breakfast.requested}
@@ -189,7 +198,10 @@ export default function AdminDashboardPage() {
 
                   <tr className="hover:bg-[#F8F7FC]/70 transition-colors">
                     <td className="px-5 py-3.5 font-medium text-[#24212D]">
-                      Lunch
+                      <div className="flex items-center space-x-2">
+                        <Utensils className="w-4 h-4 text-[#35118F]" />
+                        <span>Lunch</span>
+                      </div>
                     </td>
                     <td className="px-5 py-3.5 font-semibold text-[#24212D] font-mono text-base">
                       {data.meals.lunch.requested}
@@ -216,7 +228,10 @@ export default function AdminDashboardPage() {
 
                   <tr className="hover:bg-[#F8F7FC]/70 transition-colors">
                     <td className="px-5 py-3.5 font-medium text-[#24212D]">
-                      Dinner
+                      <div className="flex items-center space-x-2">
+                        <CookingPot className="w-4 h-4 text-[#35118F]" />
+                        <span>Dinner</span>
+                      </div>
                     </td>
                     <td className="px-5 py-3.5 font-semibold text-[#24212D] font-mono text-base">
                       {data.meals.dinner.requested}
