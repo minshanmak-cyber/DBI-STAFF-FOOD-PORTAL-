@@ -45,17 +45,15 @@ export default function LoginPage() {
     <div className="min-h-screen flex flex-col justify-center py-12 sm:px-6 lg:px-8 bg-[#F6F5FA]">
       <div className="sm:mx-auto sm:w-full sm:max-w-md">
         {/* Official DBI Logo */}
-        <div className="flex justify-center mb-4">
-          <div className="bg-white px-4 py-2.5 rounded-xl border border-[#E5E2EE] shadow-xs inline-flex items-center justify-center">
-            <Image
-              src="/dbi-logo.jpg"
-              alt="Digital Bridge International Logo"
-              width={240}
-              height={70}
-              className="h-12 sm:h-14 w-auto object-contain"
-              priority
-            />
-          </div>
+        <div className="flex justify-center mb-5">
+          <Image
+            src="/dbi-logo.jpg"
+            alt="Digital Bridge International"
+            width={240}
+            height={70}
+            className="h-12 sm:h-14 w-auto object-contain"
+            priority
+          />
         </div>
 
         <h1 className="text-center text-2xl font-semibold tracking-tight text-[#24212D]">
