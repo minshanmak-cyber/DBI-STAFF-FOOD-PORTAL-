@@ -341,16 +341,6 @@ export default function Navbar() {
                 )}
               </div>
 
-              {/* Direct Sign Out Button */}
-              <button
-                onClick={handleLogout}
-                title="Sign Out"
-                className="h-8 px-2.5 rounded-lg text-xs font-medium text-[#6A6577] bg-white border border-[#E5E2EE] hover:text-red-700 hover:bg-red-50 hover:border-red-200 transition-colors hidden sm:flex items-center space-x-1.5"
-              >
-                <LogOut className="w-3.5 h-3.5" />
-                <span>Logout</span>
-              </button>
-
               {/* Mobile Hamburger Button for Admin & Canteen only */}
               {user.role !== "STAFF" && (
                 <button
