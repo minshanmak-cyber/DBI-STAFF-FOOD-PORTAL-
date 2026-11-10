@@ -3,7 +3,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import {
   Utensils,
   LogOut,
@@ -19,6 +19,7 @@ import {
   User,
   Menu,
   X,
+  ChevronDown,
 } from "lucide-react";
 
 interface UserProfile {
@@ -35,6 +36,8 @@ export default function Navbar() {
   const [user, setUser] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [userMenuOpen, setUserMenuOpen] = useState(false);
+  const userMenuRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     fetch("/api/auth/me")
@@ -49,6 +52,25 @@ export default function Navbar() {
       .finally(() => setLoading(false));
   }, [pathname]);
 
+  // Close menus on route change
+  useEffect(() => {
+    setMobileMenuOpen(false);
+    setUserMenuOpen(false);
+  }, [pathname]);
+
+  // Click-outside listener for user profile dropdown
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (userMenuRef.current && !userMenuRef.current.contains(event.target as Node)) {
+        setUserMenuOpen(false);
+      }
+    }
+    if (userMenuOpen) {
+      document.addEventListener("mousedown", handleClickOutside);
+      return () => document.removeEventListener("mousedown", handleClickOutside);
+    }
+  }, [userMenuOpen]);
+
   const handleLogout = async () => {
     try {
       await fetch("/api/auth/logout", { method: "POST" });
@@ -59,9 +81,24 @@ export default function Navbar() {
     }
   };
 
+  const getInitials = (name?: string | null) => {
+    if (!name) return "U";
+    const parts = name.trim().split(/\s+/).filter(Boolean);
+    if (parts.length >= 2) {
+      return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+    }
+    return name.slice(0, 2).toUpperCase();
+  };
+
   if (loading || !user) return null;
 
   const isActive = (path: string) => pathname === path;
+  const roleLabel =
+    user.role === "ADMIN"
+      ? "Administrator"
+      : user.role === "CANTEEN"
+      ? "Canteen"
+      : "Staff";
 
   return (
     <>
@@ -83,7 +120,7 @@ export default function Navbar() {
                   />
                 </div>
                 <div>
-                  <div className="font-extrabold text-[#24212D] tracking-tight text-sm sm:text-base leading-tight">
+                  <div className="font-semibold text-[#24212D] tracking-tight text-sm sm:text-base leading-tight">
                     Staff Food Portal
                   </div>
                   <div className="text-[10px] uppercase tracking-wider text-[#6A6577] font-semibold hidden sm:block leading-none mt-0.5">
@@ -222,48 +259,97 @@ export default function Navbar() {
             </nav>
 
             {/* User Profile & Actions */}
-            <div className="flex items-center space-x-2.5 shrink-0">
-              <div className="text-right hidden sm:block">
-                <div className="text-xs font-bold text-[#24212D] leading-tight">{user.fullName}</div>
-                <div className="text-[10px] text-[#6A6577] flex items-center justify-end space-x-1.5 mt-0.5">
-                  <span className="font-mono bg-[#F6F5FA] px-1.5 py-0.5 rounded-md text-[#24212D] font-semibold border border-[#E5E2EE]">
-                    {user.staffId}
-                  </span>
-                  <span className="text-slate-300">•</span>
-                  <span
-                    className={`uppercase tracking-wider font-extrabold px-1.5 py-0.5 rounded-md text-[9px] ${
-                      user.role === "CANTEEN"
-                        ? "text-[#12B98A] bg-[#EEFBF6] border border-[#D2F6EA]"
-                        : "text-[#35118F] bg-[#F4F0FD] border border-[#E9E1FA]"
+            <div className="flex items-center space-x-2 shrink-0">
+              {/* Profile Chip & Dropdown */}
+              <div className="relative" ref={userMenuRef}>
+                <button
+                  type="button"
+                  onClick={() => setUserMenuOpen((prev) => !prev)}
+                  className="flex items-center gap-2 p-1 sm:px-2.5 sm:py-1 rounded-lg border border-transparent hover:border-[#E5E2EE] hover:bg-[#F6F5FA] transition-all text-left group focus:outline-hidden focus:ring-2 focus:ring-[#35118F]/20"
+                  aria-expanded={userMenuOpen}
+                  aria-haspopup="true"
+                  aria-label="User account menu"
+                >
+                  {/* Initials Avatar */}
+                  <div className="w-8 h-8 rounded-full bg-[#35118F]/10 text-[#35118F] border border-[#35118F]/15 flex items-center justify-center text-xs font-semibold shrink-0 select-none group-hover:bg-[#35118F] group-hover:text-white transition-colors">
+                    {getInitials(user.fullName)}
+                  </div>
+
+                  {/* Desktop / Tablet User Identity */}
+                  <div className="hidden sm:block text-left leading-tight">
+                    <div className="text-xs font-semibold text-[#24212D] truncate max-w-[130px]">
+                      {user.fullName}
+                    </div>
+                    <div className="text-[11px] text-[#6A6577] flex items-center gap-1 mt-0.5 font-normal">
+                      <span className="font-mono text-[#4A4557] font-medium">{user.staffId}</span>
+                      <span className="text-[#C5C0D0]">·</span>
+                      <span>{roleLabel}</span>
+                    </div>
+                  </div>
+
+                  <ChevronDown
+                    className={`w-3.5 h-3.5 text-[#6A6577] transition-transform duration-200 hidden sm:block ${
+                      userMenuOpen ? "rotate-180 text-[#35118F]" : ""
                     }`}
-                  >
-                    {user.role}
-                  </span>
-                </div>
+                  />
+                </button>
+
+                {/* Dropdown Card */}
+                {userMenuOpen && (
+                  <div className="absolute right-0 mt-1.5 w-56 rounded-xl bg-white border border-[#E5E2EE] shadow-lg py-1.5 z-50 animate-in fade-in-0 zoom-in-95 duration-100">
+                    <div className="px-3.5 py-2.5 border-b border-[#E5E2EE] bg-[#FDFCFE]">
+                      <div className="text-xs font-semibold text-[#24212D] truncate">
+                        {user.fullName}
+                      </div>
+                      <div className="text-[11px] text-[#6A6577] mt-1 flex items-center justify-between">
+                        <span className="font-mono text-[#24212D] font-medium">{user.staffId}</span>
+                        <span
+                          className={`text-[10px] font-medium px-1.5 py-0.5 rounded-md ${
+                            user.role === "CANTEEN"
+                              ? "bg-[#EEFBF6] text-[#0C7A5B] border border-[#D2F6EA]"
+                              : "bg-[#F4F0FD] text-[#35118F] border border-[#E9E1FA]"
+                          }`}
+                        >
+                          {roleLabel}
+                        </span>
+                      </div>
+                    </div>
+
+                    <div className="py-1">
+                      <Link
+                        href="/change-password"
+                        onClick={() => setUserMenuOpen(false)}
+                        className="flex items-center gap-2.5 px-3.5 py-2 text-xs font-medium text-[#24212D] hover:bg-[#F6F5FA] hover:text-[#35118F] transition-colors"
+                      >
+                        <KeyRound className="w-3.5 h-3.5 text-[#6A6577]" />
+                        <span>Change Password</span>
+                      </Link>
+                    </div>
+
+                    <div className="border-t border-[#E5E2EE] pt-1">
+                      <button
+                        onClick={() => {
+                          setUserMenuOpen(false);
+                          handleLogout();
+                        }}
+                        className="w-full flex items-center gap-2.5 px-3.5 py-2 text-xs font-medium text-red-700 hover:bg-red-50 transition-colors text-left"
+                      >
+                        <LogOut className="w-3.5 h-3.5 text-red-600" />
+                        <span>Sign Out</span>
+                      </button>
+                    </div>
+                  </div>
+                )}
               </div>
 
-              {/* Mobile Staff ID Badge */}
-              <div className="sm:hidden font-mono bg-[#F6F5FA] border border-[#E5E2EE] px-2 py-1 rounded-md text-[#24212D] font-semibold text-xs">
-                {user.staffId}
-              </div>
-
-              <div className="h-5 w-px bg-[#E5E2EE] hidden sm:block" />
-
-              <Link
-                href="/change-password"
-                title="Change Password"
-                className="btn-icon hidden md:inline-flex"
-              >
-                <KeyRound className="w-4 h-4" />
-              </Link>
-
+              {/* Direct Sign Out Button */}
               <button
                 onClick={handleLogout}
                 title="Sign Out"
-                className="h-8 px-2.5 rounded-lg text-xs font-medium text-red-700 bg-white border border-red-200 hover:bg-red-50 hover:border-red-300 transition-colors flex items-center space-x-1.5"
+                className="h-8 px-2.5 rounded-lg text-xs font-medium text-[#6A6577] bg-white border border-[#E5E2EE] hover:text-red-700 hover:bg-red-50 hover:border-red-200 transition-colors hidden sm:flex items-center space-x-1.5"
               >
                 <LogOut className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">Logout</span>
+                <span>Logout</span>
               </button>
 
               {/* Mobile Hamburger Button for Admin & Canteen only */}
