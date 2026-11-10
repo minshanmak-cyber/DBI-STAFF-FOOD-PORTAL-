@@ -1,23 +1,15 @@
 "use client";
 
 import { useState, useEffect, Suspense } from "react";
-import Link from "next/link";
+import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import {
-  KeyRound,
   ShieldAlert,
   CheckCircle2,
-  ArrowRight,
-  ArrowLeft,
   Loader2,
-  Utensils,
-  QrCode,
-  History,
-  LogOut,
-  User,
-  ShieldCheck,
   ChevronLeft,
 } from "lucide-react";
+import Navbar from "@/components/Navbar";
 
 interface UserProfile {
   id: string;
@@ -126,81 +118,59 @@ function ChangePasswordContent() {
 
   return (
     <div className="min-h-screen flex flex-col bg-[#F6F5FA]">
-      {/* Sticky Top Navigation Bar */}
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#E5E2EE]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 h-15 flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            {!isFirstLogin ? (
-              <button
-                type="button"
-                onClick={handleGoBack}
-                className="btn-secondary h-8 px-2.5 text-xs"
-                aria-label="Go Back to Portal"
-              >
-                <ChevronLeft className="w-4 h-4 text-[#35118F] -ml-0.5" />
-                <span>Go Back</span>
-              </button>
-            ) : (
-              <span className="badge-warning">
-                First Login Setup
-              </span>
-            )}
+      {/* Header: Use official Navbar for authenticated users; dedicated setup header on first login */}
+      {!isFirstLogin ? (
+        <Navbar />
+      ) : (
+        <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#E5E2EE]">
+          <div className="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
+            <Image
+              src="/dbi-logo.jpg"
+              alt="Digital Bridge International"
+              width={140}
+              height={44}
+              className="h-9 w-auto object-contain"
+              priority
+            />
+            <span className="text-xs font-semibold text-[#B45309] bg-[#FEF3C7] border border-[#FDE68A] px-2.5 py-1 rounded-md">
+              First Login Setup
+            </span>
+            <button
+              type="button"
+              onClick={handleLogout}
+              className="text-xs font-medium text-[#6A6577] hover:text-red-700 transition-colors"
+            >
+              Cancel & Sign Out
+            </button>
           </div>
-
-          <div className="text-center font-semibold text-[#24212D] text-sm tracking-tight">
-            Account & Security
-          </div>
-
-          <div className="flex items-center space-x-2">
-            {user ? (
-              <div className="flex items-center space-x-2">
-                <span className="hidden sm:inline-block font-mono bg-[#F6F5FA] border border-[#E5E2EE] px-2 py-0.5 rounded text-[#24212D] font-medium text-xs">
-                  {user.staffId}
-                </span>
-                <button
-                  type="button"
-                  onClick={handleLogout}
-                  className="h-8 px-2.5 rounded-lg text-xs font-medium text-red-700 bg-white border border-red-200 hover:bg-red-50 hover:border-red-300 transition-colors flex items-center space-x-1.5"
-                  title="Sign Out"
-                >
-                  <LogOut className="w-3.5 h-3.5" />
-                  <span className="hidden sm:inline">Logout</span>
-                </button>
-              </div>
-            ) : isFirstLogin ? (
-              <button
-                type="button"
-                onClick={handleLogout}
-                className="text-xs font-medium text-red-600 hover:text-red-700"
-              >
-                Cancel & Sign Out
-              </button>
-            ) : (
-              <div className="w-16" />
-            )}
-          </div>
-        </div>
-      </header>
+        </header>
+      )}
 
       {/* Main Content Area */}
-      <main className="flex-1 flex flex-col justify-center py-8 px-4 sm:px-6 lg:px-8 pb-20 md:pb-12 max-w-md w-full mx-auto">
-        {/* Card Header */}
-        <div className="sm:mx-auto sm:w-full sm:max-w-md text-center">
-          <div className="inline-flex bg-[#F4F0FD] text-[#35118F] p-3 rounded-xl border border-[#35118F]/20">
-            <KeyRound className="w-6 h-6" />
-          </div>
-          <h1 className="mt-3 text-xl sm:text-2xl font-semibold tracking-tight text-[#24212D]">
-            {isFirstLogin ? "Set Your Personal Password" : "Change Account Password"}
+      <main className="flex-1 max-w-xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12 pb-24 md:pb-12">
+        {!isFirstLogin && (
+          <button
+            type="button"
+            onClick={handleGoBack}
+            className="inline-flex items-center text-xs font-medium text-[#6A6577] hover:text-[#35118F] mb-6 transition-colors group"
+          >
+            <ChevronLeft className="w-4 h-4 mr-1 text-[#6A6577] group-hover:text-[#35118F] transition-colors" />
+            <span>Back to Portal</span>
+          </button>
+        )}
+
+        <div className="mb-6">
+          <h1 className="text-2xl font-semibold tracking-tight text-[#24212D]">
+            {isFirstLogin ? "Set Your Personal Password" : "Change Password"}
           </h1>
-          <p className="mt-1 text-xs text-[#6A6577] max-w-sm mx-auto">
+          <p className="mt-1 text-xs sm:text-sm text-[#6A6577]">
             {isFirstLogin
               ? "For security, you must update your temporary initial password before proceeding."
               : "Update your institutional credentials below to keep your account secure."}
           </p>
         </div>
 
-        {/* Password Form Card */}
-        <div className="mt-5 bg-white py-6 px-6 sm:px-8 shadow-xs border border-[#E5E2EE] rounded-xl">
+        <div className="bg-white border border-[#E5E2EE] rounded-xl p-6 sm:p-8 shadow-xs">
           {error && (
             <div className="mb-5 p-3.5 bg-red-50 border border-red-200 rounded-lg flex items-start space-x-2.5 text-red-800 text-xs">
               <ShieldAlert className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
@@ -211,7 +181,7 @@ function ChangePasswordContent() {
           {success && (
             <div className="mb-5 p-3.5 bg-[#EEFBF6] border border-[#12B98A]/30 rounded-lg flex items-start space-x-2.5 text-[#0C7A5B] text-xs font-medium">
               <CheckCircle2 className="w-4 h-4 text-[#12B98A] shrink-0 mt-0.5" />
-              <span>Password updated successfully! Redirecting to portal...</span>
+              <span>Password updated successfully! Redirecting...</span>
             </div>
           )}
 
@@ -245,11 +215,12 @@ function ChangePasswordContent() {
                 required
                 value={newPassword}
                 onChange={(e) => setNewPassword(e.target.value)}
-                placeholder="Min 8 chars, 1 uppercase, 1 digit"
+                placeholder="Enter new password"
                 className="form-input"
               />
-              <p className="text-[11px] text-[#6A6577] mt-1">
-                Must be at least 8 characters with at least one uppercase letter and one number.
+              <p className="text-[12px] text-[#6A6577] mt-1.5 flex items-center gap-1.5">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#35118F]/60 shrink-0" />
+                <span>Minimum 8 characters with at least one uppercase letter and one number</span>
               </p>
             </div>
 
@@ -264,16 +235,16 @@ function ChangePasswordContent() {
                 required
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
-                placeholder="Repeat new password"
+                placeholder="Re-enter new password"
                 className="form-input"
               />
             </div>
 
-            <div className="pt-2 space-y-2">
+            <div className="pt-3 flex flex-col sm:flex-row gap-2.5">
               <button
                 type="submit"
                 disabled={loading || success}
-                className="btn-primary w-full"
+                className="btn-primary flex-1 justify-center"
               >
                 {loading ? (
                   <>
@@ -281,10 +252,7 @@ function ChangePasswordContent() {
                     <span>Updating Password...</span>
                   </>
                 ) : (
-                  <>
-                    <span>Confirm & Update Password</span>
-                    <ArrowRight className="w-4 h-4 ml-2" />
-                  </>
+                  <span>Update Password</span>
                 )}
               </button>
 
@@ -292,63 +260,15 @@ function ChangePasswordContent() {
                 <button
                   type="button"
                   onClick={handleGoBack}
-                  className="btn-secondary w-full"
+                  className="btn-secondary justify-center sm:px-6"
                 >
-                  <ArrowLeft className="w-3.5 h-3.5 mr-1.5 text-[#6A6577]" />
-                  <span>Cancel & Return to Portal</span>
+                  Cancel
                 </button>
               )}
             </div>
           </form>
         </div>
       </main>
-
-      {/* Institutional Mobile Bottom Navigation Bar for Staff */}
-      {!isFirstLogin && (!user || user.role === "STAFF") && (
-        <nav
-          aria-label="Staff Bottom Navigation"
-          className="md:hidden fixed bottom-0 inset-x-0 z-40 mobile-nav-bar transition-all"
-        >
-          <div className="grid grid-cols-4 items-center justify-around max-w-lg mx-auto h-14 px-2">
-            <Link
-              href="/staff"
-              className="flex flex-col items-center justify-center py-1 px-1 transition-colors text-[#6A6577] hover:text-[#24212D]"
-            >
-              <Utensils className="w-5 h-5" />
-              <span className="text-[11px] mt-0.5 tracking-tight font-normal text-[#6A6577]">
-                Meals
-              </span>
-            </Link>
-
-            <Link
-              href="/staff/qr"
-              className="flex flex-col items-center justify-center py-1 px-1 transition-colors text-[#6A6577] hover:text-[#24212D]"
-            >
-              <QrCode className="w-5 h-5" />
-              <span className="text-[11px] mt-0.5 tracking-tight font-normal text-[#6A6577]">
-                My QR
-              </span>
-            </Link>
-
-            <Link
-              href="/staff/history"
-              className="flex flex-col items-center justify-center py-1 px-1 transition-colors text-[#6A6577] hover:text-[#24212D]"
-            >
-              <History className="w-5 h-5" />
-              <span className="text-[11px] mt-0.5 tracking-tight font-normal text-[#6A6577]">
-                History
-              </span>
-            </Link>
-
-            <div className="flex flex-col items-center justify-center py-1 px-1 transition-colors text-[#35118F]">
-              <User className="w-5 h-5" />
-              <span className="text-[11px] mt-0.5 tracking-tight font-semibold text-[#35118F]">
-                Account
-              </span>
-            </div>
-          </div>
-        </nav>
-      )}
     </div>
   );
 }
@@ -357,8 +277,8 @@ export default function ChangePasswordPage() {
   return (
     <Suspense
       fallback={
-        <div className="min-h-screen flex items-center justify-center bg-slate-50">
-          <Loader2 className="w-8 h-8 animate-spin text-slate-900" />
+        <div className="min-h-screen flex items-center justify-center bg-[#F6F5FA]">
+          <Loader2 className="w-8 h-8 animate-spin text-[#35118F]" />
         </div>
       }
     >
