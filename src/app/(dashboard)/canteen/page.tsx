@@ -4,9 +4,6 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
   ScanLine,
-  SunMedium,
-  Sunset,
-  Moon,
   CheckCircle,
   Clock,
   Calendar,
@@ -137,15 +134,10 @@ export default function CanteenDashboardPage() {
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
               {/* Breakfast */}
               <div className="bg-white border border-[#E5E2EE] rounded-xl p-5">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-lg bg-[#FEF9ED] text-[#B88204] border border-[#F5B51B]/30 flex items-center justify-center">
-                      <SunMedium className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-[#24212D] text-sm">Breakfast</h3>
-                      <span className="text-xs text-[#6A6577]">Morning Service</span>
-                    </div>
+                <div className="flex items-start justify-between mb-4">
+                  <div>
+                    <h3 className="font-semibold text-[#24212D] text-base">Breakfast</h3>
+                    <span className="text-xs text-[#6A6577]">Morning Service</span>
                   </div>
                   <span className="text-xs font-mono font-medium text-[#6A6577]">
                     {data.meals.breakfast.requested > 0
@@ -178,15 +170,10 @@ export default function CanteenDashboardPage() {
 
               {/* Lunch */}
               <div className="bg-white border border-[#E5E2EE] rounded-xl p-5">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-lg bg-[#EEFBF6] text-[#0C7A5B] border border-[#12B98A]/30 flex items-center justify-center">
-                      <Sunset className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-[#24212D] text-sm">Lunch</h3>
-                      <span className="text-xs text-[#6A6577]">Afternoon Service</span>
-                    </div>
+                <div className="flex items-start justify-between mb-4">
+                  <div>
+                    <h3 className="font-semibold text-[#24212D] text-base">Lunch</h3>
+                    <span className="text-xs text-[#6A6577]">Afternoon Service</span>
                   </div>
                   <span className="text-xs font-mono font-medium text-[#6A6577]">
                     {data.meals.lunch.requested > 0
@@ -219,15 +206,10 @@ export default function CanteenDashboardPage() {
 
               {/* Dinner */}
               <div className="bg-white border border-[#E5E2EE] rounded-xl p-5">
-                <div className="flex items-center justify-between mb-4">
-                  <div className="flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-lg bg-[#F4F0FD] text-[#35118F] border border-[#35118F]/20 flex items-center justify-center">
-                      <Moon className="w-5 h-5" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-[#24212D] text-sm">Dinner</h3>
-                      <span className="text-xs text-[#6A6577]">Night Service</span>
-                    </div>
+                <div className="flex items-start justify-between mb-4">
+                  <div>
+                    <h3 className="font-semibold text-[#24212D] text-base">Dinner</h3>
+                    <span className="text-xs text-[#6A6577]">Night Service</span>
                   </div>
                   <span className="text-xs font-mono font-medium text-[#6A6577]">
                     {data.meals.dinner.requested > 0

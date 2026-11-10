@@ -5,9 +5,6 @@ import Link from "next/link";
 import {
   UtensilsCrossed,
   Users,
-  SunMedium,
-  Sunset,
-  Moon,
   ClipboardList,
   FileSpreadsheet,
   ShieldCheck,
@@ -103,7 +100,6 @@ export default function AdminDashboardPage() {
               label="Breakfast Count"
               value={data.meals.breakfast.requested}
               subtext={`Collected: ${data.meals.breakfast.collected} | Pending: ${data.meals.breakfast.pending}`}
-              icon={<SunMedium className="w-5 h-5 text-[#F5B51B]" />}
               badge="Next Day"
               badgeColor="yellow"
             />
@@ -111,7 +107,6 @@ export default function AdminDashboardPage() {
               label="Lunch Count"
               value={data.meals.lunch.requested}
               subtext={`Collected: ${data.meals.lunch.collected} | Pending: ${data.meals.lunch.pending}`}
-              icon={<Sunset className="w-5 h-5 text-[#12B98A]" />}
               badge="Next Day"
               badgeColor="teal"
             />
@@ -119,7 +114,6 @@ export default function AdminDashboardPage() {
               label="Dinner Count"
               value={data.meals.dinner.requested}
               subtext={`Collected: ${data.meals.dinner.collected} | Pending: ${data.meals.dinner.pending}`}
-              icon={<Moon className="w-5 h-5 text-[#35118F]" />}
               badge="Next Day"
               badgeColor="purple"
             />
@@ -167,9 +161,8 @@ export default function AdminDashboardPage() {
                 </thead>
                 <tbody className="divide-y divide-[#E5E2EE]">
                   <tr className="hover:bg-[#F8F7FC]/70 transition-colors">
-                    <td className="px-5 py-3.5 font-medium text-[#24212D] flex items-center space-x-2">
-                      <SunMedium className="w-4 h-4 text-[#F5B51B]" />
-                      <span>Breakfast</span>
+                    <td className="px-5 py-3.5 font-medium text-[#24212D]">
+                      Breakfast
                     </td>
                     <td className="px-5 py-3.5 font-semibold text-[#24212D] font-mono text-base">
                       {data.meals.breakfast.requested}
@@ -195,9 +188,8 @@ export default function AdminDashboardPage() {
                   </tr>
 
                   <tr className="hover:bg-[#F8F7FC]/70 transition-colors">
-                    <td className="px-5 py-3.5 font-medium text-[#24212D] flex items-center space-x-2">
-                      <Sunset className="w-4 h-4 text-[#12B98A]" />
-                      <span>Lunch</span>
+                    <td className="px-5 py-3.5 font-medium text-[#24212D]">
+                      Lunch
                     </td>
                     <td className="px-5 py-3.5 font-semibold text-[#24212D] font-mono text-base">
                       {data.meals.lunch.requested}
@@ -223,9 +215,8 @@ export default function AdminDashboardPage() {
                   </tr>
 
                   <tr className="hover:bg-[#F8F7FC]/70 transition-colors">
-                    <td className="px-5 py-3.5 font-medium text-[#24212D] flex items-center space-x-2">
-                      <Moon className="w-4 h-4 text-[#35118F]" />
-                      <span>Dinner</span>
+                    <td className="px-5 py-3.5 font-medium text-[#24212D]">
+                      Dinner
                     </td>
                     <td className="px-5 py-3.5 font-semibold text-[#24212D] font-mono text-base">
                       {data.meals.dinner.requested}

@@ -3,9 +3,6 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
-  SunMedium,
-  Sunset,
-  Moon,
   CheckCircle,
   XCircle,
   QrCode,
@@ -263,15 +260,10 @@ export default function StaffDashboardPage() {
               }`}
             >
               <div>
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center space-x-2.5">
-                    <div className="w-9 h-9 rounded-lg bg-[#FEF9ED] text-[#946200] border border-[#F5B51B]/30 flex items-center justify-center">
-                      <SunMedium className="w-4.5 h-4.5" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-[#24212D] text-sm">Breakfast</h3>
-                      <span className="text-xs text-[#6A6577]">Morning service</span>
-                    </div>
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <h3 className="font-semibold text-[#24212D] text-base">Breakfast</h3>
+                    <span className="text-xs text-[#6A6577]">Morning service</span>
                   </div>
                   {renderMealBadge(breakfast)}
                 </div>
@@ -324,15 +316,10 @@ export default function StaffDashboardPage() {
               }`}
             >
               <div>
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center space-x-2.5">
-                    <div className="w-9 h-9 rounded-lg bg-[#EEFBF6] text-[#0C7A5B] border border-[#12B98A]/30 flex items-center justify-center">
-                      <Sunset className="w-4.5 h-4.5" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-[#24212D] text-sm">Lunch</h3>
-                      <span className="text-xs text-[#6A6577]">Afternoon service</span>
-                    </div>
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <h3 className="font-semibold text-[#24212D] text-base">Lunch</h3>
+                    <span className="text-xs text-[#6A6577]">Afternoon service</span>
                   </div>
                   {renderMealBadge(lunch)}
                 </div>
@@ -385,15 +372,10 @@ export default function StaffDashboardPage() {
               }`}
             >
               <div>
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center space-x-2.5">
-                    <div className="w-9 h-9 rounded-lg bg-[#F4F0FD] text-[#35118F] border border-[#35118F]/20 flex items-center justify-center">
-                      <Moon className="w-4.5 h-4.5" />
-                    </div>
-                    <div>
-                      <h3 className="font-semibold text-[#24212D] text-sm">Dinner</h3>
-                      <span className="text-xs text-[#6A6577]">Night service</span>
-                    </div>
+                <div className="flex items-start justify-between mb-3">
+                  <div>
+                    <h3 className="font-semibold text-[#24212D] text-base">Dinner</h3>
+                    <span className="text-xs text-[#6A6577]">Night service</span>
                   </div>
                   {renderMealBadge(dinner)}
                 </div>
