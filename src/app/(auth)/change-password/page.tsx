@@ -9,7 +9,6 @@ import {
   Loader2,
   ChevronLeft,
 } from "lucide-react";
-import Navbar from "@/components/Navbar";
 
 interface UserProfile {
   id: string;
@@ -117,60 +116,32 @@ function ChangePasswordContent() {
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-[#F6F5FA]">
-      {/* Header: Use official Navbar for authenticated users; dedicated setup header on first login */}
-      {!isFirstLogin ? (
-        <Navbar />
-      ) : (
-        <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#E5E2EE]">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 h-16 flex items-center justify-between">
-            <Image
-              src="/dbi-logo.jpg"
-              alt="Digital Bridge International"
-              width={140}
-              height={44}
-              className="h-9 w-auto object-contain"
-              priority
-            />
-            <span className="text-xs font-semibold text-[#B45309] bg-[#FEF3C7] border border-[#FDE68A] px-2.5 py-1 rounded-md">
-              First Login Setup
-            </span>
-            <button
-              type="button"
-              onClick={handleLogout}
-              className="text-xs font-medium text-[#6A6577] hover:text-red-700 transition-colors"
-            >
-              Cancel & Sign Out
-            </button>
-          </div>
-        </header>
-      )}
-
-      {/* Main Content Area */}
-      <main className="flex-1 max-w-xl w-full mx-auto px-4 sm:px-6 py-8 sm:py-12 pb-24 md:pb-12">
-        {!isFirstLogin && (
-          <button
-            type="button"
-            onClick={handleGoBack}
-            className="inline-flex items-center text-xs font-medium text-[#6A6577] hover:text-[#35118F] mb-6 transition-colors group"
-          >
-            <ChevronLeft className="w-4 h-4 mr-1 text-[#6A6577] group-hover:text-[#35118F] transition-colors" />
-            <span>Back to Portal</span>
-          </button>
-        )}
-
-        <div className="mb-6">
-          <h1 className="text-2xl font-semibold tracking-tight text-[#24212D]">
-            {isFirstLogin ? "Set Your Personal Password" : "Change Password"}
-          </h1>
-          <p className="mt-1 text-xs sm:text-sm text-[#6A6577]">
-            {isFirstLogin
-              ? "For security, you must update your temporary initial password before proceeding."
-              : "Update your institutional credentials below to keep your account secure."}
-          </p>
+    <div className="min-h-screen flex flex-col justify-center py-12 px-4 sm:px-6 lg:px-8 bg-[#F6F5FA]">
+      <div className="sm:mx-auto sm:w-full sm:max-w-md">
+        {/* Official DBI Logo */}
+        <div className="flex justify-center mb-5">
+          <Image
+            src="/dbi-logo.jpg"
+            alt="Digital Bridge International"
+            width={240}
+            height={70}
+            className="h-12 sm:h-14 w-auto object-contain"
+            priority
+          />
         </div>
 
-        <div className="bg-white border border-[#E5E2EE] rounded-xl p-6 sm:p-8 shadow-xs">
+        <h1 className="text-center text-2xl font-semibold tracking-tight text-[#24212D]">
+          {isFirstLogin ? "Set Your Personal Password" : "Change Account Password"}
+        </h1>
+        <p className="mt-1 text-center text-xs text-[#6A6577] max-w-sm mx-auto">
+          {isFirstLogin
+            ? "For security, you must update your temporary initial password before proceeding."
+            : "Update your institutional credentials below to keep your account secure."}
+        </p>
+      </div>
+
+      <div className="mt-6 sm:mx-auto sm:w-full sm:max-w-md">
+        <div className="bg-white py-7 px-6 sm:px-8 shadow-xs border border-[#E5E2EE] rounded-xl">
           {error && (
             <div className="mb-5 p-3.5 bg-red-50 border border-red-200 rounded-lg flex items-start space-x-2.5 text-red-800 text-xs">
               <ShieldAlert className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
@@ -240,11 +211,11 @@ function ChangePasswordContent() {
               />
             </div>
 
-            <div className="pt-3 flex flex-col sm:flex-row gap-2.5">
+            <div className="pt-2 space-y-2.5">
               <button
                 type="submit"
                 disabled={loading || success}
-                className="btn-primary flex-1 justify-center"
+                className="btn-primary w-full justify-center"
               >
                 {loading ? (
                   <>
@@ -252,23 +223,32 @@ function ChangePasswordContent() {
                     <span>Updating Password...</span>
                   </>
                 ) : (
-                  <span>Update Password</span>
+                  <span>Confirm & Update Password</span>
                 )}
               </button>
 
-              {!isFirstLogin && (
+              {!isFirstLogin ? (
                 <button
                   type="button"
                   onClick={handleGoBack}
-                  className="btn-secondary justify-center sm:px-6"
+                  className="btn-secondary w-full justify-center"
                 >
-                  Cancel
+                  <ChevronLeft className="w-4 h-4 mr-1 text-[#6A6577]" />
+                  <span>Cancel & Return to Portal</span>
+                </button>
+              ) : (
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="w-full text-center text-xs font-medium text-[#6A6577] hover:text-red-700 pt-2 transition-colors"
+                >
+                  Cancel & Sign Out
                 </button>
               )}
             </div>
           </form>
         </div>
-      </main>
+      </div>
     </div>
   );
 }
