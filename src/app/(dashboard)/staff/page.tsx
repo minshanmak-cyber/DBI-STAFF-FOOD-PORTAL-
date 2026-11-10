@@ -40,6 +40,15 @@ interface UserSession {
   department?: string | null;
 }
 
+const getInitials = (name?: string | null) => {
+  if (!name) return "U";
+  const parts = name.trim().split(/\s+/).filter(Boolean);
+  if (parts.length >= 2) {
+    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+  }
+  return name.slice(0, 2).toUpperCase();
+};
+
 export default function StaffDashboardPage() {
   const [user, setUser] = useState<UserSession | null>(null);
   const [data, setData] = useState<MealResponseData | null>(null);
@@ -169,17 +178,26 @@ export default function StaffDashboardPage() {
     <div className="space-y-6">
       {/* Welcome Banner */}
       <div className="bg-white border border-[#E5E2EE] rounded-xl p-5 sm:p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div>
-          <span className="badge-purple">
-            Staff Portal
-          </span>
-          <h1 className="text-2xl font-semibold text-[#24212D] mt-2 tracking-tight">
-            Welcome, {user?.fullName || "Staff Member"}
-          </h1>
-          <p className="text-xs text-[#6A6577] mt-1">
-            Staff ID: <span className="font-mono text-[#35118F] font-semibold">{user?.staffId}</span>
-            {user?.department && ` • Department: ${user.department}`}
-          </p>
+        <div className="flex items-center gap-3.5 sm:gap-4">
+          <div className="w-11 h-11 rounded-full bg-[#35118F]/10 text-[#35118F] border border-[#35118F]/15 flex items-center justify-center text-sm font-semibold shrink-0 select-none">
+            {getInitials(user?.fullName)}
+          </div>
+          <div>
+            <h1 className="text-xl sm:text-2xl font-semibold text-[#24212D] tracking-tight leading-tight">
+              Welcome, {user?.fullName || "Staff Member"}
+            </h1>
+            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-[#6A6577] mt-1">
+              <span className="font-mono text-[11px] font-medium text-[#24212D] bg-[#F6F5FA] px-1.5 py-0.5 rounded border border-[#E5E2EE]">
+                ID: {user?.staffId}
+              </span>
+              {user?.department && (
+                <>
+                  <span className="text-[#C5C0D0]">·</span>
+                  <span>{user.department.replace(/\s*•\s*/g, " · ")}</span>
+                </>
+              )}
+            </div>
+          </div>
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5">

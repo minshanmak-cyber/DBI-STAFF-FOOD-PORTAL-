@@ -57,14 +57,9 @@ export default function CanteenDashboardPage() {
       {/* Page Header */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 pb-4 border-b border-[#E5E2EE]">
         <div>
-          <div className="flex items-center gap-2.5">
-            <h1 className="text-2xl font-semibold text-[#24212D]">
-              Meal Counter Status
-            </h1>
-            <span className="badge-purple">
-              Canteen Service
-            </span>
-          </div>
+          <h1 className="text-2xl font-semibold text-[#24212D] tracking-tight">
+            Meal Counter Status
+          </h1>
           <p className="text-xs text-[#6A6577] mt-1 flex items-center gap-1.5">
             <Calendar className="w-3.5 h-3.5 text-[#6A6577]" />
             <span>

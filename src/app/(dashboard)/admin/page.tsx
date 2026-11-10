@@ -66,10 +66,7 @@ export default function AdminDashboardPage() {
       {/* Header & Date Selector */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 sm:p-6 rounded-xl border border-[#E5E2EE] shadow-xs">
         <div>
-          <span className="badge-purple">
-            Operations Dashboard
-          </span>
-          <h1 className="text-2xl font-semibold text-[#24212D] mt-2 tracking-tight">DBI Food Production Counts</h1>
+          <h1 className="text-2xl font-semibold text-[#24212D] tracking-tight">DBI Food Production Counts</h1>
           <p className="text-xs text-[#6A6577] mt-1">
             Real-time aggregate food counts and staff participation for{" "}
             <span className="font-medium text-[#24212D]">
