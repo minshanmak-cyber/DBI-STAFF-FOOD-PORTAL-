@@ -108,19 +108,24 @@ export default function Navbar() {
           <div className="flex items-center justify-between h-16 gap-3">
             {/* Logo / Brand */}
             <div className="flex items-center shrink-0">
-              <Link href="/" className="flex items-center space-x-3 group py-1">
+              <Link href="/" className="flex items-center space-x-3 sm:space-x-3.5 group py-1">
                 <Image
                   src="/dbi-logo.jpg"
                   alt="Digital Bridge International"
                   width={130}
-                  height={38}
-                  className="h-8 sm:h-9 w-auto object-contain"
+                  height={40}
+                  className="h-8 sm:h-9 w-auto object-contain shrink-0"
                   priority
                 />
-                <div className="h-5 w-px bg-[#E5E2EE] hidden sm:block" />
-                <span className="text-xs sm:text-sm font-medium text-[#4A4557] hidden sm:inline-block tracking-tight">
-                  Staff Food Portal
-                </span>
+                <div className="h-8 w-px bg-[#E5E2EE] shrink-0" />
+                <div className="flex flex-col justify-center">
+                  <div className="font-bold text-[#1A162B] text-sm sm:text-base leading-tight tracking-tight">
+                    Staff Food Portal
+                  </div>
+                  <div className="text-[11px] sm:text-xs text-[#555062] font-normal leading-tight mt-0.5">
+                    Digital Bridge International
+                  </div>
+                </div>
               </Link>
             </div>
 
