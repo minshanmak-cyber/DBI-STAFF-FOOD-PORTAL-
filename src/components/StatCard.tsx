@@ -37,7 +37,7 @@ export default function StatCard({
         {icon && <div className="text-[#6A6577] shrink-0">{icon}</div>}
       </div>
       <div className="flex items-baseline space-x-2.5">
-        <span className="text-2xl font-semibold text-[#24212D] tracking-tight font-mono">
+        <span className="text-2xl font-semibold text-[#24212D] tracking-tight tabular-nums">
           {value}
         </span>
         {badge && (

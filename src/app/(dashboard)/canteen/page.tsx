@@ -147,7 +147,7 @@ export default function CanteenDashboardPage() {
                       <span className="text-xs text-[#6A6577]">Morning Service</span>
                     </div>
                   </div>
-                  <span className="text-xs font-mono font-medium text-[#6A6577]">
+                  <span className="text-xs tabular-nums font-medium text-[#6A6577]">
                     {data.meals.breakfast.requested > 0
                       ? `${Math.round((data.meals.breakfast.collected / data.meals.breakfast.requested) * 100)}%`
                       : "0%"}
@@ -157,19 +157,19 @@ export default function CanteenDashboardPage() {
                 <div className="space-y-2 border-t border-[#E5E2EE] pt-3 text-xs">
                   <div className="flex justify-between py-0.5">
                     <span className="text-[#6A6577]">Requested:</span>
-                    <span className="font-semibold text-[#24212D] font-mono">
+                    <span className="font-semibold text-[#24212D] tabular-nums">
                       {data.meals.breakfast.requested}
                     </span>
                   </div>
                   <div className="flex justify-between py-0.5">
                     <span className="text-[#6A6577]">Collected:</span>
-                    <span className="font-semibold text-[#12B98A] font-mono">
+                    <span className="font-semibold text-[#12B98A] tabular-nums">
                       {data.meals.breakfast.collected}
                     </span>
                   </div>
                   <div className="flex justify-between py-0.5">
                     <span className="text-[#6A6577]">Pending:</span>
-                    <span className="font-semibold text-[#B88204] font-mono">
+                    <span className="font-semibold text-[#B88204] tabular-nums">
                       {data.meals.breakfast.pending}
                     </span>
                   </div>
@@ -188,7 +188,7 @@ export default function CanteenDashboardPage() {
                       <span className="text-xs text-[#6A6577]">Afternoon Service</span>
                     </div>
                   </div>
-                  <span className="text-xs font-mono font-medium text-[#6A6577]">
+                  <span className="text-xs tabular-nums font-medium text-[#6A6577]">
                     {data.meals.lunch.requested > 0
                       ? `${Math.round((data.meals.lunch.collected / data.meals.lunch.requested) * 100)}%`
                       : "0%"}
@@ -198,19 +198,19 @@ export default function CanteenDashboardPage() {
                 <div className="space-y-2 border-t border-[#E5E2EE] pt-3 text-xs">
                   <div className="flex justify-between py-0.5">
                     <span className="text-[#6A6577]">Requested:</span>
-                    <span className="font-semibold text-[#24212D] font-mono">
+                    <span className="font-semibold text-[#24212D] tabular-nums">
                       {data.meals.lunch.requested}
                     </span>
                   </div>
                   <div className="flex justify-between py-0.5">
                     <span className="text-[#6A6577]">Collected:</span>
-                    <span className="font-semibold text-[#12B98A] font-mono">
+                    <span className="font-semibold text-[#12B98A] tabular-nums">
                       {data.meals.lunch.collected}
                     </span>
                   </div>
                   <div className="flex justify-between py-0.5">
                     <span className="text-[#6A6577]">Pending:</span>
-                    <span className="font-semibold text-[#B88204] font-mono">
+                    <span className="font-semibold text-[#B88204] tabular-nums">
                       {data.meals.lunch.pending}
                     </span>
                   </div>
@@ -229,7 +229,7 @@ export default function CanteenDashboardPage() {
                       <span className="text-xs text-[#6A6577]">Night Service</span>
                     </div>
                   </div>
-                  <span className="text-xs font-mono font-medium text-[#6A6577]">
+                  <span className="text-xs tabular-nums font-medium text-[#6A6577]">
                     {data.meals.dinner.requested > 0
                       ? `${Math.round((data.meals.dinner.collected / data.meals.dinner.requested) * 100)}%`
                       : "0%"}
@@ -239,19 +239,19 @@ export default function CanteenDashboardPage() {
                 <div className="space-y-2 border-t border-[#E5E2EE] pt-3 text-xs">
                   <div className="flex justify-between py-0.5">
                     <span className="text-[#6A6577]">Requested:</span>
-                    <span className="font-semibold text-[#24212D] font-mono">
+                    <span className="font-semibold text-[#24212D] tabular-nums">
                       {data.meals.dinner.requested}
                     </span>
                   </div>
                   <div className="flex justify-between py-0.5">
                     <span className="text-[#6A6577]">Collected:</span>
-                    <span className="font-semibold text-[#12B98A] font-mono">
+                    <span className="font-semibold text-[#12B98A] tabular-nums">
                       {data.meals.dinner.collected}
                     </span>
                   </div>
                   <div className="flex justify-between py-0.5">
                     <span className="text-[#6A6577]">Pending:</span>
-                    <span className="font-semibold text-[#B88204] font-mono">
+                    <span className="font-semibold text-[#B88204] tabular-nums">
                       {data.meals.dinner.pending}
                     </span>
                   </div>

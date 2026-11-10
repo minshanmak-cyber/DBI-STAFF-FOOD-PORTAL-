@@ -173,19 +173,19 @@ export default function AdminDashboardPage() {
                         <span>Breakfast</span>
                       </div>
                     </td>
-                    <td className="px-5 py-3.5 font-semibold text-[#24212D] font-mono text-base">
+                    <td className="px-5 py-3.5 font-semibold text-[#24212D] tabular-nums text-base">
                       {data.meals.breakfast.requested}
                     </td>
-                    <td className="px-5 py-3.5 text-[#6A6577] font-mono">
+                    <td className="px-5 py-3.5 text-[#6A6577] tabular-nums">
                       {data.meals.breakfast.optOut}
                     </td>
-                    <td className="px-5 py-3.5 text-[#0C7A5B] font-mono font-medium">
+                    <td className="px-5 py-3.5 text-[#0C7A5B] tabular-nums font-medium">
                       {data.meals.breakfast.collected}
                     </td>
-                    <td className="px-5 py-3.5 text-[#946200] font-mono font-medium">
+                    <td className="px-5 py-3.5 text-[#946200] tabular-nums font-medium">
                       {data.meals.breakfast.pending}
                     </td>
-                    <td className="px-5 py-3.5 text-xs font-medium text-[#24212D] text-right font-mono">
+                    <td className="px-5 py-3.5 text-xs font-medium text-[#24212D] text-right tabular-nums">
                       {data.meals.breakfast.requested > 0
                         ? `${Math.round(
                             (data.meals.breakfast.collected /
@@ -203,19 +203,19 @@ export default function AdminDashboardPage() {
                         <span>Lunch</span>
                       </div>
                     </td>
-                    <td className="px-5 py-3.5 font-semibold text-[#24212D] font-mono text-base">
+                    <td className="px-5 py-3.5 font-semibold text-[#24212D] tabular-nums text-base">
                       {data.meals.lunch.requested}
                     </td>
-                    <td className="px-5 py-3.5 text-[#6A6577] font-mono">
+                    <td className="px-5 py-3.5 text-[#6A6577] tabular-nums">
                       {data.meals.lunch.optOut}
                     </td>
-                    <td className="px-5 py-3.5 text-[#0C7A5B] font-mono font-medium">
+                    <td className="px-5 py-3.5 text-[#0C7A5B] tabular-nums font-medium">
                       {data.meals.lunch.collected}
                     </td>
-                    <td className="px-5 py-3.5 text-[#946200] font-mono font-medium">
+                    <td className="px-5 py-3.5 text-[#946200] tabular-nums font-medium">
                       {data.meals.lunch.pending}
                     </td>
-                    <td className="px-5 py-3.5 text-xs font-medium text-[#24212D] text-right font-mono">
+                    <td className="px-5 py-3.5 text-xs font-medium text-[#24212D] text-right tabular-nums">
                       {data.meals.lunch.requested > 0
                         ? `${Math.round(
                             (data.meals.lunch.collected /
@@ -233,19 +233,19 @@ export default function AdminDashboardPage() {
                         <span>Dinner</span>
                       </div>
                     </td>
-                    <td className="px-5 py-3.5 font-semibold text-[#24212D] font-mono text-base">
+                    <td className="px-5 py-3.5 font-semibold text-[#24212D] tabular-nums text-base">
                       {data.meals.dinner.requested}
                     </td>
-                    <td className="px-5 py-3.5 text-[#6A6577] font-mono">
+                    <td className="px-5 py-3.5 text-[#6A6577] tabular-nums">
                       {data.meals.dinner.optOut}
                     </td>
-                    <td className="px-5 py-3.5 text-[#0C7A5B] font-mono font-medium">
+                    <td className="px-5 py-3.5 text-[#0C7A5B] tabular-nums font-medium">
                       {data.meals.dinner.collected}
                     </td>
-                    <td className="px-5 py-3.5 text-[#946200] font-mono font-medium">
+                    <td className="px-5 py-3.5 text-[#946200] tabular-nums font-medium">
                       {data.meals.dinner.pending}
                     </td>
-                    <td className="px-5 py-3.5 text-xs font-medium text-[#24212D] text-right font-mono">
+                    <td className="px-5 py-3.5 text-xs font-medium text-[#24212D] text-right tabular-nums">
                       {data.meals.dinner.requested > 0
                         ? `${Math.round(
                             (data.meals.dinner.collected /
