@@ -253,7 +253,7 @@ export default function StaffDashboardPage() {
       <div className="bg-white border border-[#E5E2EE] rounded-xl p-5 sm:p-6 shadow-xs">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-[#E5E2EE]">
           <div>
-            <div className="flex items-center space-x-1.5 text-[#6A6577] text-xs font-medium">
+            <div className="flex items-center space-x-1.5 text-[#6A6577] text-xs font-medium uppercase tracking-wider">
               <Calendar className="w-3.5 h-3.5 text-[#35118F]" />
               <span>Target Service Date</span>
             </div>
