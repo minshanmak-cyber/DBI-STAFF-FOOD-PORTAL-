@@ -317,15 +317,15 @@ export default function StaffQrPage() {
         </div>
       ) : data?.qrs.length === 0 ? (
         /* Empty State Card matching reference mockup */
-        <div className="bg-white border border-[#E5E2EE] rounded-2xl sm:rounded-3xl p-8 sm:p-12 shadow-xs flex flex-col md:flex-row items-center gap-8 md:gap-14">
+        <div className="bg-white border border-[#E5E2EE] rounded-2xl sm:rounded-3xl p-6 sm:p-10 lg:p-12 shadow-xs flex flex-col md:flex-row items-center gap-8 sm:gap-10 lg:gap-14">
           {/* Left: 3D Layered QR Illustration Asset */}
-          <div className="shrink-0 flex items-center justify-center p-2 sm:p-4">
+          <div className="shrink-0 flex items-center justify-center w-52 h-52 sm:w-60 sm:h-60 lg:w-68 lg:h-68 select-none">
             <Image
-              src="/qr-illustration.png"
+              src="/qr-illustration.svg"
               alt="Meal Collection QR Codes"
-              width={200}
-              height={190}
-              className="w-40 sm:w-48 h-auto object-contain select-none"
+              width={272}
+              height={272}
+              className="w-full h-full object-contain"
               priority
             />
           </div>
