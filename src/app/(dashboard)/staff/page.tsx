@@ -268,7 +268,7 @@ export default function StaffDashboardPage() {
 
       {/* Next Day Meal Selection Section */}
       <div className="bg-white border border-[#E5E2EE] rounded-xl p-5 sm:p-6 shadow-xs">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3 pb-5 border-b border-[#E5E2EE]">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-stretch gap-3 sm:gap-3.5">
             <div className="w-1 bg-[#35118F] rounded-full self-stretch shrink-0" />
             <div>
@@ -282,7 +282,7 @@ export default function StaffDashboardPage() {
             </div>
           </div>
 
-          {data && (
+          {data && data.eligibility.status !== "CLOSED" && (
             <DeadlineBadge
               allowed={data.eligibility.allowed}
               status={data.eligibility.status}
@@ -291,6 +291,17 @@ export default function StaffDashboardPage() {
             />
           )}
         </div>
+
+        {/* When deadline has passed, render the clean notice directly underneath matching user screenshot */}
+        {data && data.eligibility.status === "CLOSED" && (
+          <div className="mt-4 pt-1">
+            <DeadlineBadge
+              allowed={false}
+              status="CLOSED"
+              deadlineDisplay={data.eligibility.deadlineDisplay}
+            />
+          </div>
+        )}
 
         {feedback && (
           <div
@@ -324,12 +335,12 @@ export default function StaffDashboardPage() {
           </div>
         )}
 
-        {isLocked && (
+        {isLocked && data?.eligibility.status === "NOT_OPEN" && (
           <div className="mt-5 p-3.5 bg-[#FEF9ED] border border-[#F5B51B]/30 rounded-lg text-xs text-[#946200] flex items-center space-x-2.5">
             <AlertCircle className="w-4 h-4 text-[#F5B51B] shrink-0" />
             <span>
               {data?.eligibility.reason ||
-                "Submissions are accepted strictly between 9:00 AM and 3:00 PM IST on the day preceding the meal date. For late corrections, please contact your Administrator."}
+                "Submissions for this service date open at 9:00 AM IST. Window: 9:00 AM – 3:00 PM."}
             </span>
           </div>
         )}
