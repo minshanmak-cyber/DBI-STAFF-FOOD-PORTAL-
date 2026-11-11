@@ -13,7 +13,7 @@ import {
   HelpCircle,
   Coffee,
   Utensils,
-  CookingPot,
+  ConciergeBell,
 } from "lucide-react";
 import DeadlineBadge from "@/components/DeadlineBadge";
 
@@ -175,23 +175,23 @@ export default function StaffDashboardPage() {
   const renderMealBadge = (status: "OPT_IN" | "OPT_OUT" | "NO_RESPONSE") => {
     if (status === "OPT_IN") {
       return (
-        <span className="badge-success">
-          <CheckCircle className="w-3.5 h-3.5 text-[#12B98A]" />
+        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-xs font-medium bg-[#EEFBF6] text-[#0C7A5B]">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#12B98A]" />
           <span>Requested</span>
         </span>
       );
     }
     if (status === "OPT_OUT") {
       return (
-        <span className="badge-neutral">
-          <XCircle className="w-3.5 h-3.5 text-[#6A6577]" />
+        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-xs font-medium bg-[#F6F5FA] text-[#6A6577]">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#6A6577]" />
           <span>Opted Out</span>
         </span>
       );
     }
     return (
-      <span className="badge-warning">
-        <HelpCircle className="w-3.5 h-3.5 text-[#F5B51B]" />
+      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-xs font-medium bg-[#FEF9ED] text-[#92400E]">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#F5B51B]" />
         <span>Not Responded</span>
       </span>
     );
@@ -343,9 +343,9 @@ export default function StaffDashboardPage() {
                   disabled={isLocked}
                   onClick={() => setBreakfast("OPT_IN")}
                   className={`h-9 px-3 text-xs font-medium rounded-lg transition-all ${
-                    breakfast === "OPT_IN"
-                      ? "bg-[#35118F] text-white shadow-xs"
-                      : "bg-white hover:bg-[#F6F5FA] text-[#24212D] border border-[#E5E2EE] hover:border-[#35118F]/40"
+                    breakfast === "OPT_OUT"
+                      ? "bg-white hover:bg-[#F6F5FA] text-[#4A4557] border border-[#E5E2EE] hover:border-[#35118F]/40"
+                      : "bg-[#35118F] text-white hover:bg-[#2B0D75] shadow-xs"
                   } disabled:opacity-50`}
                 >
                   Request Meal
@@ -357,7 +357,7 @@ export default function StaffDashboardPage() {
                   className={`h-9 px-3 text-xs font-medium rounded-lg transition-all ${
                     breakfast === "OPT_OUT"
                       ? "bg-[#24212D] text-white shadow-xs"
-                      : "bg-white hover:bg-[#F6F5FA] text-[#6A6577] border border-[#E5E2EE] hover:text-red-700 hover:border-red-200"
+                      : "bg-white hover:bg-[#F6F5FA] text-[#4A4557] border border-[#E5E2EE] hover:text-red-700 hover:border-red-200"
                   } disabled:opacity-50`}
                 >
                   Opt Out
@@ -404,9 +404,9 @@ export default function StaffDashboardPage() {
                   disabled={isLocked}
                   onClick={() => setLunch("OPT_IN")}
                   className={`h-9 px-3 text-xs font-medium rounded-lg transition-all ${
-                    lunch === "OPT_IN"
-                      ? "bg-[#35118F] text-white shadow-xs"
-                      : "bg-white hover:bg-[#F6F5FA] text-[#24212D] border border-[#E5E2EE] hover:border-[#35118F]/40"
+                    lunch === "OPT_OUT"
+                      ? "bg-white hover:bg-[#F6F5FA] text-[#4A4557] border border-[#E5E2EE] hover:border-[#35118F]/40"
+                      : "bg-[#35118F] text-white hover:bg-[#2B0D75] shadow-xs"
                   } disabled:opacity-50`}
                 >
                   Request Meal
@@ -418,7 +418,7 @@ export default function StaffDashboardPage() {
                   className={`h-9 px-3 text-xs font-medium rounded-lg transition-all ${
                     lunch === "OPT_OUT"
                       ? "bg-[#24212D] text-white shadow-xs"
-                      : "bg-white hover:bg-[#F6F5FA] text-[#6A6577] border border-[#E5E2EE] hover:text-red-700 hover:border-red-200"
+                      : "bg-white hover:bg-[#F6F5FA] text-[#4A4557] border border-[#E5E2EE] hover:text-red-700 hover:border-red-200"
                   } disabled:opacity-50`}
                 >
                   Opt Out
@@ -440,7 +440,7 @@ export default function StaffDashboardPage() {
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center space-x-3">
                     <div className="w-8 h-8 rounded-lg bg-[#F6F5FA] border border-[#E5E2EE] flex items-center justify-center text-[#35118F]">
-                      <CookingPot className="w-4 h-4 text-[#35118F]" />
+                      <ConciergeBell className="w-4 h-4 text-[#35118F]" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-[#24212D] text-sm">Dinner</h3>
@@ -465,9 +465,9 @@ export default function StaffDashboardPage() {
                   disabled={isLocked}
                   onClick={() => setDinner("OPT_IN")}
                   className={`h-9 px-3 text-xs font-medium rounded-lg transition-all ${
-                    dinner === "OPT_IN"
-                      ? "bg-[#35118F] text-white shadow-xs"
-                      : "bg-white hover:bg-[#F6F5FA] text-[#24212D] border border-[#E5E2EE] hover:border-[#35118F]/40"
+                    dinner === "OPT_OUT"
+                      ? "bg-white hover:bg-[#F6F5FA] text-[#4A4557] border border-[#E5E2EE] hover:border-[#35118F]/40"
+                      : "bg-[#35118F] text-white hover:bg-[#2B0D75] shadow-xs"
                   } disabled:opacity-50`}
                 >
                   Request Meal
@@ -479,7 +479,7 @@ export default function StaffDashboardPage() {
                   className={`h-9 px-3 text-xs font-medium rounded-lg transition-all ${
                     dinner === "OPT_OUT"
                       ? "bg-[#24212D] text-white shadow-xs"
-                      : "bg-white hover:bg-[#F6F5FA] text-[#6A6577] border border-[#E5E2EE] hover:text-red-700 hover:border-red-200"
+                      : "bg-white hover:bg-[#F6F5FA] text-[#4A4557] border border-[#E5E2EE] hover:text-red-700 hover:border-red-200"
                   } disabled:opacity-50`}
                 >
                   Opt Out
