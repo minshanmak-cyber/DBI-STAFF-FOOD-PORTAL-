@@ -356,13 +356,6 @@ export default function StaffQrPage() {
                 <span className="text-base font-semibold mr-1.5 leading-none">+</span>
                 <span>Manage Next-Day Meal Requests</span>
               </Link>
-              <Link
-                href="/staff"
-                className="inline-flex items-center justify-center h-10 px-5 rounded-xl bg-white hover:bg-[#F6F5FA] border border-[#E5E2EE] text-[#1A162B] text-xs sm:text-sm font-medium shadow-xs transition-colors"
-              >
-                <Calendar className="w-4 h-4 mr-2 text-[#555062]" />
-                <span>View Meal Selection</span>
-              </Link>
             </div>
           </div>
         </div>
