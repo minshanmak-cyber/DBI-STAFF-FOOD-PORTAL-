@@ -18,6 +18,7 @@ import {
   Check,
   Sparkles,
 } from "lucide-react";
+import FoodLoadingState, { FoodSpinner } from "@/components/FoodLoader";
 
 function ClocheIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
@@ -289,11 +290,10 @@ export default function StaffHistoryPage() {
       {/* 4. Main Content: Loading / Empty / Data Views                             */}
       {/* ========================================================================= */}
       {loading ? (
-        <div className="bg-white border border-[#E5E2EE] rounded-xl p-16 text-center shadow-2xs">
-          <Loader2 className="w-8 h-8 animate-spin text-[#35118F] mx-auto mb-3" />
-          <h3 className="text-sm font-semibold text-[#1A162B]">Loading Meal Records...</h3>
-          <p className="text-xs text-[#6A6577] mt-1">Retrieving your verified meal logs from the server.</p>
-        </div>
+        <FoodLoadingState
+          title="Loading Meal Records"
+          subtitle="Retrieving your verified meal logs and collection history from the server..."
+        />
       ) : history.length === 0 ? (
         /* Empty State: Zero history records */
         <div className="bg-white border border-[#E5E2EE] rounded-2xl p-12 text-center shadow-xs max-w-lg mx-auto">

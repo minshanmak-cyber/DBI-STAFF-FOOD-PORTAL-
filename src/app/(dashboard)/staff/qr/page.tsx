@@ -16,6 +16,7 @@ import {
   Info,
 } from "lucide-react";
 import { formatServiceDateDisplay } from "@/lib/timezone";
+import FoodLoadingState, { FoodSpinner } from "@/components/FoodLoader";
 
 function ClocheIcon({ className = "w-4 h-4" }: { className?: string }) {
   return (
@@ -361,10 +362,10 @@ export default function StaffQrPage() {
       </div>
 
       {loading ? (
-        <div className="bg-white border border-[#E5E2EE] rounded-2xl p-16 text-center shadow-xs flex flex-col items-center justify-center text-[#6A6577]">
-          <Loader2 className="w-8 h-8 animate-spin text-[#35118F] mb-3" />
-          <span className="text-sm font-medium">Generating and loading QR passes...</span>
-        </div>
+        <FoodLoadingState
+          title="Loading Collection QR Codes"
+          subtitle="Verifying meal requests and generating your encrypted collection tokens..."
+        />
       ) : data?.qrs.length === 0 ? (
         /* Empty State Card matching reference mockup with balanced compact vertical height */
         <div className="bg-white border border-[#E5E2EE] rounded-2xl p-6 sm:px-8 sm:py-7 shadow-xs flex flex-col md:flex-row items-center gap-6 md:gap-10">
@@ -492,7 +493,7 @@ export default function StaffQrPage() {
                     className="w-full h-11 text-xs sm:text-sm font-medium rounded-xl flex items-center justify-center gap-2 shadow-xs bg-[#35118F] hover:bg-[#280c70] text-white transition-colors mt-4"
                   >
                     {downloadingMeal === item.mealType ? (
-                      <Loader2 className="w-4 h-4 animate-spin" />
+                      <FoodSpinner className="w-4 h-4 text-white" />
                     ) : (
                       <Download className="w-4 h-4" />
                     )}

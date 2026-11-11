@@ -15,6 +15,7 @@ import {
   Utensils,
 } from "lucide-react";
 import DeadlineBadge from "@/components/DeadlineBadge";
+import FoodLoadingState, { FoodSpinner } from "@/components/FoodLoader";
 
 function ClocheIcon({ className = "w-4 h-4 text-[#35118F]" }: { className?: string }) {
   return (
@@ -179,9 +180,11 @@ export default function StaffDashboardPage() {
 
   if (loading) {
     return (
-      <div className="flex items-center justify-center py-20 text-slate-500">
-        <Loader2 className="w-8 h-8 animate-spin text-slate-900 mr-3" />
-        <span>Loading meal portal...</span>
+      <div className="py-12">
+        <FoodLoadingState
+          title="Loading Meal Portal"
+          subtitle="Preparing your next-day menu choices and cutoff eligibility..."
+        />
       </div>
     );
   }
@@ -539,7 +542,7 @@ export default function StaffDashboardPage() {
             >
               {submitting ? (
                 <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin text-white" />
+                  <FoodSpinner className="w-4 h-4 mr-2 text-white" />
                   <span>Saving preferences...</span>
                 </>
               ) : (
