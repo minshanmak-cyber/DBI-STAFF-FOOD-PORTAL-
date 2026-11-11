@@ -1,9 +1,19 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import Image from "next/image";
 import Link from "next/link";
-import { QrCode, ArrowLeft, CheckCircle, Clock, AlertCircle, Loader2, Download } from "lucide-react";
+import {
+  QrCode,
+  ArrowLeft,
+  CheckCircle,
+  Clock,
+  Loader2,
+  Download,
+  Calendar,
+  Utensils,
+  Info,
+} from "lucide-react";
+import { formatServiceDateDisplay } from "@/lib/timezone";
 
 interface MealQrItem {
   mealType: "BREAKFAST" | "LUNCH" | "DINNER";
@@ -24,11 +34,47 @@ interface QrResponse {
   department?: string | null;
 }
 
+const getTodayStr = () => {
+  const d = new Date();
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
+
+const getTomorrowStr = () => {
+  const d = new Date();
+  d.setDate(d.getDate() + 1);
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+};
+
+const formatCompactDate = (isoDate: string) => {
+  if (!isoDate) return "Select date";
+  try {
+    const [y, m, d] = isoDate.split("-").map(Number);
+    const date = new Date(Date.UTC(y, m - 1, d));
+    return date.toLocaleDateString("en-GB", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+      timeZone: "UTC",
+    });
+  } catch {
+    return isoDate;
+  }
+};
+
 export default function StaffQrPage() {
   const [data, setData] = useState<QrResponse | null>(null);
   const [loading, setLoading] = useState(true);
   const [selectedDate, setSelectedDate] = useState<string>("");
   const [downloadingMeal, setDownloadingMeal] = useState<string | null>(null);
+
+  const todayStr = getTodayStr();
+  const tomorrowStr = getTomorrowStr();
 
   const fetchQrs = async (dateParam?: string) => {
     setLoading(true);
@@ -191,19 +237,21 @@ export default function StaffQrPage() {
   };
 
   return (
-    <div className="space-y-6 max-w-4xl mx-auto">
+    <div className="space-y-6 max-w-5xl mx-auto">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <Link
             href="/staff"
-            className="inline-flex items-center space-x-1.5 text-xs font-medium text-[#6A6577] hover:text-[#35118F] mb-1.5 transition-colors"
+            className="inline-flex items-center space-x-1.5 text-xs sm:text-sm font-medium text-[#6A6577] hover:text-[#35118F] mb-1.5 transition-colors"
           >
             <ArrowLeft className="w-3.5 h-3.5" />
             <span>Back to Meal Selection</span>
           </Link>
-          <h1 className="text-2xl font-semibold text-[#24212D] tracking-tight">Your Meal Collection QR Codes</h1>
-          <p className="text-xs text-[#6A6577] mt-1">
+          <h1 className="text-2xl sm:text-3xl font-bold text-[#1A162B] tracking-tight">
+            Your Meal Collection QR Codes
+          </h1>
+          <p className="text-xs sm:text-sm text-[#555062] mt-1">
             Present these QR codes at the canteen counter during meal service.
           </p>
         </div>
@@ -212,39 +260,47 @@ export default function StaffQrPage() {
         <div className="flex flex-wrap items-center gap-2">
           <button
             type="button"
-            onClick={() => {
-              const today = new Date().toISOString().split("T")[0];
-              handleDateChange(today);
-            }}
-            className="btn-secondary h-8 px-3 text-xs"
+            onClick={() => handleDateChange(todayStr)}
+            className={`h-9 px-4 text-xs sm:text-sm font-medium rounded-xl transition-all ${
+              selectedDate === todayStr
+                ? "bg-[#35118F] text-white shadow-xs"
+                : "bg-white hover:bg-[#F6F5FA] text-[#1A162B] border border-[#E5E2EE]"
+            }`}
           >
             Today
           </button>
           <button
             type="button"
-            onClick={() => {
-              const tomorrow = new Date();
-              tomorrow.setDate(tomorrow.getDate() + 1);
-              const tomorrowStr = tomorrow.toISOString().split("T")[0];
-              handleDateChange(tomorrowStr);
-            }}
-            className="btn-secondary h-8 px-3 text-xs"
+            onClick={() => handleDateChange(tomorrowStr)}
+            className={`h-9 px-4 text-xs sm:text-sm font-medium rounded-xl transition-all ${
+              selectedDate === tomorrowStr
+                ? "bg-[#35118F] text-white shadow-xs"
+                : "bg-white hover:bg-[#F6F5FA] text-[#1A162B] border border-[#E5E2EE]"
+            }`}
           >
             Tomorrow
           </button>
-          <input
-            id="serviceDate"
-            type="date"
-            value={selectedDate}
-            onChange={(e) => handleDateChange(e.target.value)}
-            className="h-8 px-2.5 text-xs border border-[#E5E2EE] rounded-lg bg-white text-[#24212D] focus:border-[#35118F] focus:outline-none"
-          />
+
+          <div className="relative inline-flex items-center">
+            <div className="h-9 px-3.5 text-xs sm:text-sm font-medium border border-[#E5E2EE] rounded-xl bg-white text-[#1A162B] flex items-center gap-2 shadow-2xs hover:border-[#D5C4F5] transition-colors cursor-pointer">
+              <span>{formatCompactDate(selectedDate)}</span>
+              <Calendar className="w-4 h-4 text-[#555062]" />
+            </div>
+            <input
+              id="serviceDate"
+              type="date"
+              value={selectedDate}
+              onChange={(e) => handleDateChange(e.target.value)}
+              className="absolute inset-0 opacity-0 cursor-pointer w-full h-full"
+              aria-label="Select service date"
+            />
+          </div>
 
           {data?.qrs && data.qrs.length > 1 && (
             <button
               type="button"
               onClick={downloadAllPasses}
-              className="btn-primary h-8 px-3 text-xs"
+              className="btn-primary h-9 px-3.5 text-xs rounded-xl"
             >
               <Download className="w-3.5 h-3.5 mr-1.5" />
               <span>Download All Passes</span>
@@ -254,40 +310,104 @@ export default function StaffQrPage() {
       </div>
 
       {loading ? (
-        <div className="flex items-center justify-center py-20 text-[#6A6577]">
-          <Loader2 className="w-8 h-8 animate-spin text-[#35118F] mr-3" />
-          <span>Generating and loading QR passes...</span>
+        <div className="bg-white border border-[#E5E2EE] rounded-2xl p-16 text-center shadow-xs flex flex-col items-center justify-center text-[#6A6577]">
+          <Loader2 className="w-8 h-8 animate-spin text-[#35118F] mb-3" />
+          <span className="text-sm font-medium">Generating and loading QR passes...</span>
         </div>
       ) : data?.qrs.length === 0 ? (
-        <div className="bg-white border border-[#E5E2EE] rounded-xl p-10 text-center">
-          <QrCode className="w-10 h-10 text-[#6A6577]/40 mx-auto mb-3" />
-          <h3 className="text-base font-semibold text-[#24212D]">
-            No Active Meal Requests for {data.serviceDateDisplay}
-          </h3>
-          <p className="text-xs text-[#6A6577] max-w-md mx-auto mt-1.5 leading-relaxed">
-            You have not requested any meals (or opted out) for this date. Only meals requested before the cutoff generate collection QR passes.
-          </p>
-          <div className="mt-5">
-            <Link
-              href="/staff"
-              className="btn-primary h-9 px-4 text-xs"
-            >
-              <span>Manage Next-Day Meal Requests</span>
-            </Link>
+        /* Empty State Card matching reference mockup */
+        <div className="bg-white border border-[#E5E2EE] rounded-2xl sm:rounded-3xl p-8 sm:p-12 shadow-xs flex flex-col md:flex-row items-center gap-8 md:gap-14">
+          {/* Left: 3D Layered QR Illustration */}
+          <div className="relative shrink-0 flex items-center justify-center p-4">
+            {/* Back tilted lavender card */}
+            <div className="w-44 h-44 sm:w-52 sm:h-52 rounded-2xl sm:rounded-3xl bg-[#EDE7FA] shadow-sm transform -rotate-6 translate-x-1" />
+            {/* Front white elevated card */}
+            <div className="absolute w-44 h-44 sm:w-52 sm:h-52 rounded-2xl sm:rounded-3xl bg-white shadow-xl border border-[#EDE9F6] flex items-center justify-center p-6">
+              {/* Spark rays top right */}
+              <div className="absolute -top-3 -right-2 text-[#7C4DFF]">
+                <svg
+                  width="26"
+                  height="26"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2.5"
+                  strokeLinecap="round"
+                >
+                  <line x1="12" y1="2" x2="12" y2="6" />
+                  <line x1="4.5" y1="5.5" x2="7.5" y2="8.5" />
+                  <line x1="19.5" y1="5.5" x2="16.5" y2="8.5" />
+                </svg>
+              </div>
+
+              {/* Stylized Purple QR SVG Pattern */}
+              <svg viewBox="0 0 100 100" className="w-24 h-24 sm:w-28 sm:h-28 text-[#35118F]" fill="currentColor">
+                <rect x="10" y="10" width="30" height="30" rx="8" fill="none" stroke="currentColor" strokeWidth="6" />
+                <rect x="20" y="20" width="10" height="10" rx="3" fill="currentColor" />
+                <rect x="60" y="10" width="30" height="30" rx="8" fill="none" stroke="currentColor" strokeWidth="6" />
+                <rect x="70" y="20" width="10" height="10" rx="3" fill="currentColor" />
+                <rect x="10" y="60" width="30" height="30" rx="8" fill="none" stroke="currentColor" strokeWidth="6" />
+                <rect x="20" y="70" width="10" height="10" rx="3" fill="currentColor" />
+                <rect x="48" y="12" width="6" height="14" rx="3" fill="currentColor" />
+                <rect x="12" y="48" width="14" height="6" rx="3" fill="currentColor" />
+                <rect x="45" y="45" width="10" height="10" rx="3" fill="currentColor" />
+                <rect x="62" y="48" width="12" height="6" rx="3" fill="currentColor" />
+                <rect x="48" y="68" width="6" height="14" rx="3" fill="currentColor" />
+                <rect x="62" y="62" width="12" height="12" rx="3" fill="currentColor" />
+                <rect x="78" y="62" width="12" height="6" rx="3" fill="currentColor" />
+                <rect x="62" y="78" width="28" height="8" rx="4" fill="currentColor" />
+              </svg>
+            </div>
+          </div>
+
+          {/* Divider */}
+          <div className="hidden md:block w-px self-stretch bg-[#E5E2EE]" />
+
+          {/* Right: Info and Action Buttons */}
+          <div className="flex-1 flex flex-col items-start text-left">
+            <div className="w-10 h-10 rounded-xl bg-[#F4F0FD] flex items-center justify-center text-[#35118F] mb-4">
+              <Utensils className="w-4 h-4 text-[#35118F]" />
+            </div>
+            <h2 className="text-2xl sm:text-3xl font-bold text-[#1A162B] tracking-tight leading-snug">
+              No Active Meal Requests for<br />
+              <span className="text-[#1A162B]">
+                {data?.serviceDateDisplay || formatServiceDateDisplay(selectedDate)}
+              </span>
+            </h2>
+            <p className="text-xs sm:text-sm text-[#555062] mt-3 leading-relaxed max-w-xl">
+              You have not requested any meals (or opted out) for this date. Only meals requested before the cutoff will generate collection QR passes.
+            </p>
+            <div className="mt-6 flex flex-wrap items-center gap-3">
+              <Link
+                href="/staff"
+                className="inline-flex items-center justify-center h-10 px-5 rounded-xl bg-[#35118F] hover:bg-[#280c70] text-white text-xs sm:text-sm font-medium shadow-xs transition-colors"
+              >
+                <span className="text-base font-semibold mr-1.5 leading-none">+</span>
+                <span>Manage Next-Day Meal Requests</span>
+              </Link>
+              <Link
+                href="/staff"
+                className="inline-flex items-center justify-center h-10 px-5 rounded-xl bg-white hover:bg-[#F6F5FA] border border-[#E5E2EE] text-[#1A162B] text-xs sm:text-sm font-medium shadow-xs transition-colors"
+              >
+                <Calendar className="w-4 h-4 mr-2 text-[#555062]" />
+                <span>View Meal Selection</span>
+              </Link>
+            </div>
           </div>
         </div>
       ) : (
+        /* Active QR passes grid */
         <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
           {data?.qrs.map((item) => (
             <div
               key={item.mealType}
-              className={`bg-white border rounded-xl p-5 shadow-xs flex flex-col items-center text-center transition-colors ${
+              className={`bg-white border rounded-2xl p-6 shadow-xs flex flex-col items-center text-center transition-colors ${
                 item.isCollected ? "border-[#12B98A]/30 bg-[#EEFBF6]/20" : "border-[#E5E2EE]"
               }`}
             >
               {/* Badge */}
               <div className="w-full flex items-center justify-between mb-4">
-                <span className="font-semibold text-[#24212D] uppercase tracking-wider text-sm">
+                <span className="font-semibold text-[#1A162B] uppercase tracking-wider text-sm">
                   {item.mealType}
                 </span>
                 {item.isCollected ? (
@@ -304,14 +424,14 @@ export default function StaffQrPage() {
               </div>
 
               {/* QR Image */}
-              <div className="bg-white p-3 rounded-lg border border-[#E5E2EE] shadow-xs relative">
+              <div className="bg-white p-3.5 rounded-xl border border-[#E5E2EE] shadow-xs relative">
                 <img
                   src={item.dataUrl}
                   alt={`${item.mealType} QR Code`}
                   className={`w-52 h-52 ${item.isCollected ? "opacity-25 grayscale" : ""}`}
                 />
                 {item.isCollected && (
-                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/90 rounded-lg">
+                  <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/90 rounded-xl">
                     <CheckCircle className="w-10 h-10 text-[#12B98A] mb-1" />
                     <span className="text-xs font-semibold text-[#0C7A5B] uppercase">
                       Already Verified
@@ -331,7 +451,7 @@ export default function StaffQrPage() {
                   type="button"
                   onClick={() => downloadMealPass(item)}
                   disabled={downloadingMeal === item.mealType}
-                  className="btn-primary w-full max-w-xs h-10 text-xs"
+                  className="btn-primary w-full max-w-xs h-10 text-xs rounded-xl"
                 >
                   {downloadingMeal === item.mealType ? (
                     <Loader2 className="w-3.5 h-3.5 animate-spin mr-1.5" />
@@ -343,7 +463,7 @@ export default function StaffQrPage() {
               </div>
 
               {item.isCollected && item.collectedAt && (
-                <div className="mt-3 text-xs text-[#0C7A5B] bg-[#EEFBF6] border border-[#12B98A]/30 px-3 py-1.5 rounded-md">
+                <div className="mt-3 text-xs text-[#0C7A5B] bg-[#EEFBF6] border border-[#12B98A]/30 px-3 py-1.5 rounded-lg">
                   Collected on: {item.collectedAt}
                 </div>
               )}
@@ -351,7 +471,35 @@ export default function StaffQrPage() {
           ))}
         </div>
       )}
+
+      {/* How it works banner */}
+      <div className="bg-[#F5F2FD] border border-[#E8E1F8] rounded-xl sm:rounded-2xl p-4 sm:px-6 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs sm:text-sm">
+        <div className="flex items-center shrink-0 text-[#35118F] font-semibold">
+          <Info className="w-4 h-4 mr-2 text-[#35118F]" />
+          <span>How it works</span>
+          <span className="hidden md:inline mx-3 text-[#D4C8F5]">|</span>
+        </div>
+        <div className="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs sm:text-sm text-[#4A4557]">
+          <div className="flex items-center gap-2">
+            <span className="w-5 h-5 rounded-full bg-[#EAE2F8] text-[#35118F] font-bold text-[11px] flex items-center justify-center shrink-0">
+              1
+            </span>
+            <span>Request your meals for the next day</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="w-5 h-5 rounded-full bg-[#EAE2F8] text-[#35118F] font-bold text-[11px] flex items-center justify-center shrink-0">
+              2
+            </span>
+            <span>Get collection QR codes</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="w-5 h-5 rounded-full bg-[#EAE2F8] text-[#35118F] font-bold text-[11px] flex items-center justify-center shrink-0">
+              3
+            </span>
+            <span>Show the QR code at the canteen counter</span>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
-
