@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import {
+  Check,
   CheckCircle,
   XCircle,
   QrCode,
@@ -512,13 +513,13 @@ export default function StaffDashboardPage() {
             >
               {submitting ? (
                 <>
-                  <Loader2 className="w-4 h-4 mr-2 animate-spin text-[#F5B51B]" />
-                  <span>Saving Preferences...</span>
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin text-white" />
+                  <span>Saving preferences...</span>
                 </>
               ) : (
                 <>
-                  <CheckCircle className="w-4 h-4 mr-2 text-[#12B98A]" />
-                  <span>Save Next-Day Preferences</span>
+                  <Check className="w-4 h-4 mr-2 text-white" />
+                  <span>Save next-day preferences</span>
                 </>
               )}
             </button>
