@@ -20,11 +20,14 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: -0.02em;
 }
 
-/* Remove all browser outlines and focus outlines */
-*,
-*:focus,
-*:focus-visible {
-  outline: none !important;
+/* Accessible focus outlines */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #35118F;
+  outline-offset: 2px;
 }
 
 /* Enterprise Software System Components */

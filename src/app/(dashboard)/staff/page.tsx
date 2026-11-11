@@ -351,7 +351,7 @@ export default function StaffDashboardPage() {
             <div
               className={`border rounded-xl p-5 flex flex-col justify-between transition-all ${
                 breakfast === "OPT_IN"
-                  ? "border-[#35118F] bg-[#F4F0FD]/30"
+                  ? "border-[#35118F] ring-1 ring-[#35118F]/20 bg-[#F4F0FD]/30"
                   : breakfast === "OPT_OUT"
                   ? "border-[#E5E2EE] bg-[#F6F5FA]/60"
                   : "border-[#E5E2EE] bg-white hover:border-[#D5C4F5]"
@@ -412,7 +412,7 @@ export default function StaffDashboardPage() {
             <div
               className={`border rounded-xl p-5 flex flex-col justify-between transition-all ${
                 lunch === "OPT_IN"
-                  ? "border-[#35118F] bg-[#F4F0FD]/30"
+                  ? "border-[#35118F] ring-1 ring-[#35118F]/20 bg-[#F4F0FD]/30"
                   : lunch === "OPT_OUT"
                   ? "border-[#E5E2EE] bg-[#F6F5FA]/60"
                   : "border-[#E5E2EE] bg-white hover:border-[#D5C4F5]"
@@ -473,7 +473,7 @@ export default function StaffDashboardPage() {
             <div
               className={`border rounded-xl p-5 flex flex-col justify-between transition-all ${
                 dinner === "OPT_IN"
-                  ? "border-[#35118F] bg-[#F4F0FD]/30"
+                  ? "border-[#35118F] ring-1 ring-[#35118F]/20 bg-[#F4F0FD]/30"
                   : dinner === "OPT_OUT"
                   ? "border-[#E5E2EE] bg-[#F6F5FA]/60"
                   : "border-[#E5E2EE] bg-white hover:border-[#D5C4F5]"
