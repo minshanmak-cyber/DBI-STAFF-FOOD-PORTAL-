@@ -163,7 +163,7 @@ export default function StaffDashboardPage() {
       } else {
         setFeedback({
           type: "success",
-          message: "Next-day meal preferences saved successfully!",
+          message: "Your next-day preferences have been updated successfully.",
         });
         fetchData();
       }
@@ -294,18 +294,33 @@ export default function StaffDashboardPage() {
 
         {feedback && (
           <div
-            className={`mt-5 p-3.5 rounded-lg flex items-start space-x-2.5 text-xs ${
+            className={`mt-5 rounded-xl border relative overflow-hidden flex items-center p-3.5 sm:px-4 text-xs sm:text-sm shadow-2xs ${
               feedback.type === "success"
-                ? "bg-[#EEFBF6] border border-[#12B98A]/30 text-[#0C7A5B]"
-                : "bg-red-50 border border-red-200 text-red-800"
+                ? "bg-[#F0FDF8] border-[#D7F3E8]"
+                : "bg-red-50 border-red-200"
             }`}
           >
-            {feedback.type === "success" ? (
-              <CheckCircle className="w-4 h-4 text-[#12B98A] shrink-0 mt-0.5" />
-            ) : (
-              <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
-            )}
-            <span className="leading-relaxed">{feedback.message}</span>
+            <div
+              className={`absolute left-0 top-0 bottom-0 w-1 ${
+                feedback.type === "success" ? "bg-[#0C7A5B]" : "bg-red-600"
+              }`}
+            />
+            <div className="flex flex-wrap items-center gap-x-2.5 gap-y-1 pl-1">
+              {feedback.type === "success" ? (
+                <Check className="w-4 h-4 text-[#0C7A5B] shrink-0 stroke-[2.5]" />
+              ) : (
+                <AlertCircle className="w-4 h-4 text-red-600 shrink-0" />
+              )}
+              <span className={`font-semibold ${feedback.type === "success" ? "text-[#1A162B]" : "text-red-900"}`}>
+                {feedback.type === "success" ? "Meal preferences saved" : "Error saving preferences"}
+              </span>
+              <span className={feedback.type === "success" ? "text-[#C5DCD4] hidden sm:inline" : "text-red-300 hidden sm:inline"}>
+                |
+              </span>
+              <span className={feedback.type === "success" ? "text-[#555062]" : "text-red-700"}>
+                {feedback.message}
+              </span>
+            </div>
           </div>
         )}
 
