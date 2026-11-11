@@ -7,11 +7,11 @@ import {
   Calendar,
   Coffee,
   Utensils,
-  CookingPot,
   Sparkles,
 } from "lucide-react";
 import StatCard from "@/components/StatCard";
 import FoodLoadingState, { FoodSpinner } from "@/components/FoodLoader";
+import ClocheIcon from "@/components/ClocheIcon";
 
 interface CountsData {
   serviceDate: string;
@@ -153,7 +153,7 @@ export default function AdminReportsPage() {
               label="Dinner Prep Target"
               value={data.meals.dinner.requested}
               subtext={`Verified: ${data.meals.dinner.collected} | Pending: ${data.meals.dinner.pending}`}
-              icon={<CookingPot className="w-5 h-5 text-[#35118F]" />}
+              icon={<ClocheIcon className="w-5 h-5 text-[#35118F]" />}
               badge="Portions"
               badgeColor="purple"
             />

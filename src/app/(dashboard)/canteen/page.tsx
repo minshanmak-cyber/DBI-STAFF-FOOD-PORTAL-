@@ -11,12 +11,12 @@ import {
   UtensilsCrossed,
   Coffee,
   Utensils,
-  CookingPot,
   ArrowRight,
   ShieldCheck,
   TrendingUp,
 } from "lucide-react";
 import FoodLoadingState from "@/components/FoodLoader";
+import ClocheIcon from "@/components/ClocheIcon";
 
 interface CanteenStats {
   serviceDate: string;
@@ -460,7 +460,7 @@ export default function CanteenDashboardPage() {
                   <div className="flex items-center justify-between mb-4">
                     <div className="flex items-center space-x-3">
                       <div className="w-10 h-10 rounded-xl bg-[#F4F0FD] text-[#35118F] flex items-center justify-center shrink-0">
-                        <CookingPot className="w-5 h-5" />
+                        <ClocheIcon className="w-5 h-5 text-[#35118F]" />
                       </div>
                       <div>
                         <h3 className="font-bold text-[#1A162B] text-base">Dinner</h3>

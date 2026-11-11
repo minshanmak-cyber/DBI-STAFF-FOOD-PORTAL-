@@ -10,11 +10,11 @@ import {
   ArrowRight,
   Coffee,
   Utensils,
-  CookingPot,
   RefreshCw,
 } from "lucide-react";
 import StatCard from "@/components/StatCard";
 import FoodLoadingState from "@/components/FoodLoader";
+import ClocheIcon from "@/components/ClocheIcon";
 
 interface CountsData {
   serviceDate: string;
@@ -177,7 +177,7 @@ export default function AdminDashboardPage() {
               label="Dinner Count"
               value={data.meals.dinner.requested}
               subtext={`Collected: ${data.meals.dinner.collected} | Pending: ${data.meals.dinner.pending}`}
-              icon={<CookingPot className="w-5 h-5 text-[#35118F]" />}
+              icon={<ClocheIcon className="w-5 h-5 text-[#35118F]" />}
               badge="Portions"
               badgeColor="purple"
             />
@@ -287,7 +287,7 @@ export default function AdminDashboardPage() {
                   <tr className="hover:bg-[#F9F8FD] transition-colors">
                     <td className="px-5 sm:px-6 py-3.5 font-medium text-[#1A162B]">
                       <div className="flex items-center space-x-2.5">
-                        <CookingPot className="w-4 h-4 text-[#35118F]" />
+                        <ClocheIcon className="w-4 h-4 text-[#35118F]" />
                         <span>Dinner</span>
                       </div>
                     </td>
