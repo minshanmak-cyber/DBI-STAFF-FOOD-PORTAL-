@@ -11,10 +11,10 @@ import {
   Search,
   CheckCircle,
   AlertCircle,
-  Loader2,
   X,
 } from "lucide-react";
 import ConfirmModal from "@/components/ConfirmModal";
+import FoodLoadingState from "@/components/FoodLoader";
 
 interface StaffUser {
   id: string;
@@ -216,13 +216,21 @@ export default function StaffManagementPage() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-semibold text-[#24212D] tracking-tight">Staff & Account Directory</h1>
-          <p className="text-xs text-[#6A6577] mt-1">
-            Manage institutional users, credentials, roles, and active statuses.
-          </p>
+      {/* Header Banner */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 sm:p-6 rounded-2xl shadow-sm">
+        <div className="flex items-stretch gap-3 sm:gap-3.5">
+          <div className="w-1 bg-[#35118F] rounded-full self-stretch shrink-0" />
+          <div>
+            <div className="text-xs font-bold uppercase tracking-wider text-[#6A6577] mb-0.5">
+              User Administration
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-[#1A162B] tracking-tight leading-tight">
+              Staff & Account Directory
+            </h1>
+            <p className="text-xs text-[#6A6577] mt-1">
+              Manage institutional users, credentials, roles, and active statuses.
+            </p>
+          </div>
         </div>
 
         <button
@@ -234,7 +242,7 @@ export default function StaffManagementPage() {
             setRole("STAFF");
             setShowCreateModal(true);
           }}
-          className="btn-primary"
+          className="btn-primary h-10 px-4 rounded-xl text-xs font-bold"
         >
           <UserPlus className="w-4 h-4 mr-2" />
           <span>Add New Account</span>
@@ -243,10 +251,10 @@ export default function StaffManagementPage() {
 
       {feedback && (
         <div
-          className={`p-3.5 rounded-lg flex items-start space-x-2.5 text-xs ${
+          className={`p-4 rounded-xl flex items-start space-x-2.5 text-xs shadow-xs ${
             feedback.type === "success"
-              ? "bg-[#EEFBF6] border border-[#12B98A]/30 text-[#0C7A5B]"
-              : "bg-red-50 border border-red-200 text-red-800"
+              ? "bg-[#EEFBF6] text-[#0C7A5B]"
+              : "bg-red-50 text-red-800"
           }`}
         >
           {feedback.type === "success" ? (
@@ -254,13 +262,13 @@ export default function StaffManagementPage() {
           ) : (
             <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
           )}
-          <span className="leading-relaxed">{feedback.message}</span>
+          <span className="leading-relaxed font-medium">{feedback.message}</span>
         </div>
       )}
 
-      {/* Search Input */}
+      {/* Search Bar */}
       <div className="relative max-w-md">
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#6A6577]">
+        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#6A6577]">
           <Search className="w-4 h-4" />
         </div>
         <input
@@ -268,31 +276,32 @@ export default function StaffManagementPage() {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Filter by Staff ID, Name, or Department..."
-          className="form-input pl-9"
+          className="form-input pl-10 rounded-xl"
         />
       </div>
 
       {/* Users Table */}
       {loading ? (
-        <div className="flex items-center justify-center py-20 text-[#6A6577]">
-          <Loader2 className="w-8 h-8 animate-spin text-[#35118F] mr-3" />
-          <span>Loading staff accounts...</span>
-        </div>
+        <FoodLoadingState
+          title="Loading staff directory..."
+          subtitle="Fetching verified institutional accounts"
+          showText
+        />
       ) : (
-        <div className="bg-white border border-[#E5E2EE] rounded-xl overflow-hidden shadow-xs">
+        <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="bg-[#F8F7FC] border-b border-[#E5E2EE] text-xs font-medium uppercase tracking-wider text-[#6A6577]">
+              <thead className="bg-[#FAF9FD] border-b border-[#F1EFF7] text-[11px] font-bold uppercase tracking-wider text-[#6A6577]">
                 <tr>
-                  <th className="px-5 py-3">Staff ID</th>
-                  <th className="px-5 py-3">Full Name</th>
-                  <th className="px-5 py-3">Department</th>
-                  <th className="px-5 py-3">Role</th>
-                  <th className="px-5 py-3">Status</th>
-                  <th className="px-5 py-3 text-right">Actions</th>
+                  <th className="px-5 sm:px-6 py-3.5">Staff ID</th>
+                  <th className="px-5 sm:px-6 py-3.5">Full Name</th>
+                  <th className="px-5 sm:px-6 py-3.5">Department</th>
+                  <th className="px-5 sm:px-6 py-3.5">Role</th>
+                  <th className="px-5 sm:px-6 py-3.5">Status</th>
+                  <th className="px-5 sm:px-6 py-3.5 text-right">Actions</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#E5E2EE]">
+              <tbody className="divide-y divide-[#F1EFF7]">
                 {filteredUsers.map((u) => (
                   <tr key={u.id} className="hover:bg-[#F8F7FC]/70 transition-colors">
                     <td className="px-5 py-3.5 font-mono font-semibold text-[#35118F]">

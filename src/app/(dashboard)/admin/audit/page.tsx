@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ShieldCheck, Search, Loader2 } from "lucide-react";
+import { ShieldCheck, Search } from "lucide-react";
+import FoodLoadingState from "@/components/FoodLoader";
 
 interface AuditLogItem {
   id: string;
@@ -40,16 +41,25 @@ export default function AdminAuditPage() {
 
   return (
     <div className="space-y-6">
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-        <div>
-          <h1 className="text-2xl font-semibold text-[#24212D] tracking-tight">System Audit Trail</h1>
-          <p className="text-xs text-[#6A6577] mt-1">
-            Immutable log of administrative overrides, account modifications, and operational events.
-          </p>
+      {/* Header Banner */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 sm:p-6 rounded-2xl shadow-sm">
+        <div className="flex items-stretch gap-3 sm:gap-3.5">
+          <div className="w-1 bg-[#35118F] rounded-full self-stretch shrink-0" />
+          <div>
+            <div className="text-xs font-bold uppercase tracking-wider text-[#6A6577] mb-0.5">
+              Compliance & Security
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-[#1A162B] tracking-tight leading-tight">
+              System Audit Trail
+            </h1>
+            <p className="text-xs text-[#6A6577] mt-1">
+              Immutable log of administrative overrides, account modifications, and operational events.
+            </p>
+          </div>
         </div>
 
         <div className="relative max-w-xs w-full">
-          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#6A6577]">
+          <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#6A6577]">
             <Search className="w-4 h-4" />
           </div>
           <input
@@ -57,48 +67,49 @@ export default function AdminAuditPage() {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
             placeholder="Search action, actor, or reason..."
-            className="form-input pl-9"
+            className="form-input pl-10 rounded-xl"
           />
         </div>
       </div>
 
       {loading ? (
-        <div className="flex items-center justify-center py-20 text-[#6A6577]">
-          <Loader2 className="w-8 h-8 animate-spin text-[#35118F] mr-3" />
-          <span>Loading audit history...</span>
-        </div>
+        <FoodLoadingState
+          title="Loading audit history..."
+          subtitle="Fetching verified compliance logs"
+          showText
+        />
       ) : filtered.length === 0 ? (
-        <div className="bg-white border border-[#E5E2EE] rounded-xl p-10 text-center">
+        <div className="bg-white rounded-2xl p-10 text-center shadow-sm">
           <ShieldCheck className="w-10 h-10 text-[#6A6577]/40 mx-auto mb-3" />
-          <h3 className="text-base font-semibold text-[#24212D]">No Audit Events Found</h3>
+          <h3 className="text-base font-bold text-[#1A162B]">No Audit Events Found</h3>
           <p className="text-xs text-[#6A6577] mt-1">Events will appear here as actions are performed.</p>
         </div>
       ) : (
-        <div className="bg-white border border-[#E5E2EE] rounded-xl overflow-hidden shadow-xs">
+        <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="bg-[#F8F7FC] border-b border-[#E5E2EE] text-xs font-medium uppercase tracking-wider text-[#6A6577]">
+              <thead className="bg-[#FAF9FD] border-b border-[#F1EFF7] text-[11px] font-bold uppercase tracking-wider text-[#6A6577]">
                 <tr>
-                  <th className="px-5 py-3">Timestamp (IST)</th>
-                  <th className="px-5 py-3">Actor</th>
-                  <th className="px-5 py-3">Action</th>
-                  <th className="px-5 py-3">Reason / Notes</th>
-                  <th className="px-5 py-3 text-right">Details</th>
+                  <th className="px-5 sm:px-6 py-3.5">Timestamp (IST)</th>
+                  <th className="px-5 sm:px-6 py-3.5">Actor</th>
+                  <th className="px-5 sm:px-6 py-3.5">Action</th>
+                  <th className="px-5 sm:px-6 py-3.5">Reason / Notes</th>
+                  <th className="px-5 sm:px-6 py-3.5 text-right">Details</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#E5E2EE]">
+              <tbody className="divide-y divide-[#F1EFF7]">
                 {filtered.map((log) => (
-                  <tr key={log.id} className="hover:bg-[#F8F7FC]/70 transition-colors">
-                    <td className="px-5 py-3.5 text-xs font-mono text-[#6A6577] whitespace-nowrap">
+                  <tr key={log.id} className="hover:bg-[#F9F8FD] transition-colors">
+                    <td className="px-5 sm:px-6 py-4 text-xs font-mono text-[#6A6577] whitespace-nowrap">
                       {log.createdAt}
                     </td>
-                    <td className="px-5 py-3.5 font-medium text-[#24212D]">
-                      <div>{log.actorName}</div>
-                      <span className="text-[11px] font-mono text-[#35118F]">
+                    <td className="px-5 sm:px-6 py-4 font-medium text-[#1A162B]">
+                      <div className="font-bold">{log.actorName}</div>
+                      <span className="text-[11px] font-mono font-semibold text-[#35118F]">
                         {log.actorStaffId}
                       </span>
                     </td>
-                    <td className="px-5 py-3.5">
+                    <td className="px-5 sm:px-6 py-4">
                       <span
                         className={
                           log.action.includes("OVERRIDE")
@@ -111,15 +122,15 @@ export default function AdminAuditPage() {
                         {log.action}
                       </span>
                     </td>
-                    <td className="px-5 py-3.5 text-xs text-[#24212D] max-w-xs leading-relaxed">
+                    <td className="px-5 sm:px-6 py-4 text-xs text-[#24212D] max-w-xs leading-relaxed">
                       {log.reason || "—"}
                     </td>
-                    <td className="px-5 py-3.5 text-[11px] font-mono text-[#6A6577] max-w-sm truncate text-right">
+                    <td className="px-5 sm:px-6 py-4 text-[11px] font-mono text-[#6A6577] max-w-sm truncate text-right">
                       {log.newValue ? (
                         <div title={log.newValue} className="text-[#0C7A5B]">New: {log.newValue}</div>
                       ) : null}
                       {log.previousValue ? (
-                        <div title={log.previousValue} className="text-[#6A6577]">Prev: {log.previousValue}</div>
+                        <div title={log.previousValue} className="text-[#6A6577]">Old: {log.previousValue}</div>
                       ) : null}
                     </td>
                   </tr>
@@ -132,4 +143,3 @@ export default function AdminAuditPage() {
     </div>
   );
 }
-

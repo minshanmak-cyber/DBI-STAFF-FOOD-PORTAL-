@@ -29,24 +29,24 @@ export default function StatCard({
   }[badgeColor];
 
   return (
-    <div className="bg-white border border-[#E5E2EE] rounded-xl p-5 shadow-xs transition-colors hover:border-[#D5C4F5]">
+    <div className="bg-white rounded-2xl p-5 shadow-xs transition-all hover:shadow-md">
       <div className="flex items-center justify-between mb-3">
-        <span className="text-xs font-medium uppercase tracking-wider text-[#6A6577]">
+        <span className="text-xs font-semibold uppercase tracking-wider text-[#6A6577]">
           {label}
         </span>
-        {icon && <div className="text-[#6A6577] shrink-0">{icon}</div>}
+        {icon && <div className="p-2 rounded-xl bg-[#F6F5FA] text-[#35118F] shrink-0">{icon}</div>}
       </div>
       <div className="flex items-baseline space-x-2.5">
-        <span className="text-2xl font-semibold text-[#24212D] tracking-tight tabular-nums">
+        <span className="text-2xl sm:text-3xl font-extrabold text-[#1A162B] tracking-tight tabular-nums">
           {value}
         </span>
         {badge && (
-          <span className={`text-[11px] font-medium ${badgeClasses}`}>
+          <span className={`text-[11px] font-semibold px-2 py-0.5 rounded-md ${badgeClasses}`}>
             {badge}
           </span>
         )}
       </div>
-      {subtext && <p className="text-xs text-[#6A6577] mt-2 leading-relaxed">{subtext}</p>}
+      {subtext && <p className="text-xs text-[#6A6577] mt-2.5 leading-relaxed">{subtext}</p>}
     </div>
   );
 }

@@ -5,16 +5,13 @@ import {
   FileSpreadsheet,
   FileText,
   Calendar,
-  Download,
-  CheckCircle,
-  AlertCircle,
-  Loader2,
-  Users,
   Coffee,
   Utensils,
   CookingPot,
+  Sparkles,
 } from "lucide-react";
 import StatCard from "@/components/StatCard";
+import FoodLoadingState, { FoodSpinner } from "@/components/FoodLoader";
 
 interface CountsData {
   serviceDate: string;
@@ -70,34 +67,42 @@ export default function AdminReportsPage() {
 
   return (
     <div className="space-y-6">
-      {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 sm:p-6 rounded-xl border border-[#E5E2EE] shadow-xs">
-        <div>
-          <h1 className="text-2xl font-semibold text-[#24212D] tracking-tight">Food Production Reports & Exports</h1>
-          <p className="text-xs text-[#6A6577] mt-1">
-            Generate and export official kitchen sheets and staff response audits.
-          </p>
+      {/* Header Banner */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 sm:p-6 rounded-2xl shadow-sm">
+        <div className="flex items-stretch gap-3 sm:gap-3.5">
+          <div className="w-1 bg-[#35118F] rounded-full self-stretch shrink-0" />
+          <div>
+            <div className="text-xs font-bold uppercase tracking-wider text-[#6A6577] mb-0.5">
+              Exports & Audits
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-[#1A162B] tracking-tight leading-tight">
+              Food Production Reports
+            </h1>
+            <p className="text-xs text-[#6A6577] mt-1">
+              Generate and export official kitchen sheets and staff response audits.
+            </p>
+          </div>
         </div>
 
         <div className="flex flex-wrap items-center gap-2.5">
-          <div className="flex items-center space-x-2 bg-[#F6F5FA] p-2 rounded-lg border border-[#E5E2EE]">
+          <div className="flex items-center space-x-2 bg-[#F6F5FA] px-3 py-2 rounded-xl">
             <Calendar className="w-4 h-4 text-[#35118F] shrink-0" />
-            <span className="text-xs font-medium text-[#24212D]">Date:</span>
+            <span className="text-xs font-semibold text-[#24212D]">Date:</span>
             <input
               type="date"
               value={serviceDate}
               onChange={(e) => handleDateChange(e.target.value)}
-              className="h-8 px-2.5 text-xs border border-[#E5E2EE] rounded-md bg-white text-[#24212D] focus:border-[#35118F] focus:outline-none"
+              className="bg-transparent text-xs text-[#24212D] font-medium focus:outline-none cursor-pointer"
             />
           </div>
 
           <button
             onClick={() => handleDownload("excel")}
             disabled={loading || Boolean(downloadingFormat)}
-            className="inline-flex items-center space-x-2 h-10 px-4 bg-[#12B98A] hover:bg-[#0ea278] active:bg-[#0c7a5b] text-white rounded-lg text-sm font-medium shadow-xs transition-colors disabled:opacity-50"
+            className="inline-flex items-center space-x-2 h-10 px-4 bg-[#12B98A] hover:bg-[#0ea278] active:bg-[#0c7a5b] text-white rounded-xl text-xs font-bold shadow-xs transition-colors disabled:opacity-50"
           >
             {downloadingFormat === "excel" ? (
-              <Loader2 className="w-4 h-4 animate-spin text-white" />
+              <FoodSpinner className="w-4 h-4 text-white" />
             ) : (
               <FileSpreadsheet className="w-4 h-4" />
             )}
@@ -107,12 +112,12 @@ export default function AdminReportsPage() {
           <button
             onClick={() => handleDownload("pdf")}
             disabled={loading || Boolean(downloadingFormat)}
-            className="btn-primary"
+            className="btn-primary h-10 px-4 rounded-xl text-xs font-bold inline-flex items-center space-x-2"
           >
             {downloadingFormat === "pdf" ? (
-              <Loader2 className="w-4 h-4 animate-spin text-white mr-2" />
+              <FoodSpinner className="w-4 h-4 text-white" />
             ) : (
-              <FileText className="w-4 h-4 mr-2" />
+              <FileText className="w-4 h-4" />
             )}
             <span>Export PDF (.pdf)</span>
           </button>
@@ -120,51 +125,58 @@ export default function AdminReportsPage() {
       </div>
 
       {loading ? (
-        <div className="flex items-center justify-center py-20 text-[#6A6577]">
-          <Loader2 className="w-8 h-8 animate-spin text-[#35118F] mr-3" />
-          <span>Generating report preview...</span>
-        </div>
+        <FoodLoadingState
+          title="Generating report preview..."
+          subtitle="Compiling production numbers and logs"
+          showText
+        />
       ) : data ? (
         <>
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 sm:gap-5">
             <StatCard
               label="Breakfast Prep Target"
               value={data.meals.breakfast.requested}
               subtext={`Verified: ${data.meals.breakfast.collected} | Pending: ${data.meals.breakfast.pending}`}
               icon={<Coffee className="w-5 h-5 text-[#35118F]" />}
+              badge="Portions"
+              badgeColor="purple"
             />
             <StatCard
               label="Lunch Prep Target"
               value={data.meals.lunch.requested}
               subtext={`Verified: ${data.meals.lunch.collected} | Pending: ${data.meals.lunch.pending}`}
               icon={<Utensils className="w-5 h-5 text-[#35118F]" />}
+              badge="Portions"
+              badgeColor="purple"
             />
             <StatCard
               label="Dinner Prep Target"
               value={data.meals.dinner.requested}
               subtext={`Verified: ${data.meals.dinner.collected} | Pending: ${data.meals.dinner.pending}`}
               icon={<CookingPot className="w-5 h-5 text-[#35118F]" />}
+              badge="Portions"
+              badgeColor="purple"
             />
           </div>
 
-          <div className="bg-white border border-[#E5E2EE] rounded-xl p-5 shadow-xs">
-            <h2 className="text-sm font-semibold text-[#24212D] mb-1">Export Contents Description</h2>
+          <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-sm">
+            <h2 className="text-sm font-bold text-[#1A162B] mb-1">Export Contents Description</h2>
             <p className="text-xs text-[#6A6577]">Both downloadable formats contain verified operational data</p>
             <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs text-[#6A6577] mt-4">
-              <div className="p-4 bg-[#F6F5FA] rounded-lg border border-[#E5E2EE]">
-                <span className="font-semibold text-[#24212D] block mb-1">
+              <div className="p-4 bg-[#F8F7FC] rounded-xl">
+                <span className="font-bold text-[#1A162B] block mb-1">
                   1. Production Counts Summary
                 </span>
                 Calculated food targets, collections, remaining portions, and staff participation statistics.
               </div>
-              <div className="p-4 bg-[#F6F5FA] rounded-lg border border-[#E5E2EE]">
-                <span className="font-semibold text-[#24212D] block mb-1">
+              <div className="p-4 bg-[#F8F7FC] rounded-xl">
+                <span className="font-bold text-[#1A162B] block mb-1">
                   2. Staff Response Audit
                 </span>
                 Individual staff entries for Breakfast, Lunch, and Dinner with last modification timestamps.
               </div>
-              <div className="p-4 bg-[#F6F5FA] rounded-lg border border-[#E5E2EE]">
-                <span className="font-semibold text-[#24212D] block mb-1">
+              <div className="p-4 bg-[#F8F7FC] rounded-xl">
+                <span className="font-bold text-[#1A162B] block mb-1">
                   3. Meal Collection Logs
                 </span>
                 Canteen operator verification timestamps, staff identities, and redemption records.
@@ -176,4 +188,3 @@ export default function AdminReportsPage() {
     </div>
   );
 }
-

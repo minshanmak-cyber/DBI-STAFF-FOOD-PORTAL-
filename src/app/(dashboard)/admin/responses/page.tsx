@@ -10,9 +10,9 @@ import {
   XCircle,
   HelpCircle,
   Search,
-  Loader2,
   X,
 } from "lucide-react";
+import FoodLoadingState from "@/components/FoodLoader";
 
 interface StaffResponseRow {
   userId: string;
@@ -88,22 +88,14 @@ export default function AdminResponsesPage() {
 
   const handleSubmitOverride = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!overrideTarget) return;
-
-    if (reason.trim().length < 5) {
-      setFeedback({
-        type: "error",
-        message: "A clear audit reason (minimum 5 characters) is mandatory for late corrections.",
-      });
-      return;
-    }
+    if (!overrideTarget || !reason.trim()) return;
 
     setSubmitting(true);
     setFeedback(null);
 
     try {
-      const res = await fetch("/api/admin/responses/override", {
-        method: "POST",
+      const res = await fetch("/api/admin/responses", {
+        method: "PATCH",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           userId: overrideTarget.user.userId,
@@ -117,7 +109,7 @@ export default function AdminResponsesPage() {
       const data = await res.json();
 
       if (!res.ok) {
-        setFeedback({ type: "error", message: data.error || "Failed to override response." });
+        setFeedback({ type: "error", message: data.error || "Failed to record override." });
       } else {
         setFeedback({ type: "success", message: data.message });
         setOverrideTarget(null);
@@ -166,33 +158,41 @@ export default function AdminResponsesPage() {
 
   return (
     <div className="space-y-6">
-      {/* Header & Date Selector */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 sm:p-6 rounded-xl border border-[#E5E2EE] shadow-xs">
-        <div>
-          <h1 className="text-2xl font-semibold text-[#24212D] tracking-tight">Staff Meal Response Matrix</h1>
-          <p className="text-xs text-[#6A6577] mt-1">
-            Service Date: <span className="font-semibold text-[#35118F]">{serviceDateDisplay}</span> • Unresponded staff default to Out
-          </p>
+      {/* Header & Date Selector Banner */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 sm:p-6 rounded-2xl shadow-sm">
+        <div className="flex items-stretch gap-3 sm:gap-3.5">
+          <div className="w-1 bg-[#35118F] rounded-full self-stretch shrink-0" />
+          <div>
+            <div className="text-xs font-bold uppercase tracking-wider text-[#6A6577] mb-0.5">
+              Corrections & Overrides
+            </div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-[#1A162B] tracking-tight leading-tight">
+              Staff Meal Response Matrix
+            </h1>
+            <p className="text-xs text-[#6A6577] mt-1">
+              Service Date: <span className="font-semibold text-[#35118F]">{serviceDateDisplay}</span> • Unresponded staff default to Out
+            </p>
+          </div>
         </div>
 
-        <div className="flex items-center space-x-2.5 bg-[#F6F5FA] p-2 rounded-lg border border-[#E5E2EE]">
+        <div className="flex items-center space-x-2 bg-[#F6F5FA] px-3 py-2 rounded-xl">
           <Calendar className="w-4 h-4 text-[#35118F] shrink-0" />
-          <span className="text-xs font-medium text-[#24212D]">Date:</span>
+          <span className="text-xs font-semibold text-[#24212D]">Target Date:</span>
           <input
             type="date"
             value={serviceDate}
             onChange={(e) => handleDateChange(e.target.value)}
-            className="h-8 px-2.5 text-xs border border-[#E5E2EE] rounded-md bg-white text-[#24212D] focus:border-[#35118F] focus:outline-none"
+            className="bg-transparent text-xs text-[#24212D] font-medium focus:outline-none cursor-pointer"
           />
         </div>
       </div>
 
       {feedback && (
         <div
-          className={`p-3.5 rounded-lg flex items-start space-x-2.5 text-xs ${
+          className={`p-4 rounded-xl flex items-start space-x-2.5 text-xs shadow-xs ${
             feedback.type === "success"
-              ? "bg-[#EEFBF6] border border-[#12B98A]/30 text-[#0C7A5B]"
-              : "bg-red-50 border border-red-200 text-red-800"
+              ? "bg-[#EEFBF6] text-[#0C7A5B]"
+              : "bg-red-50 text-red-800"
           }`}
         >
           {feedback.type === "success" ? (
@@ -200,13 +200,13 @@ export default function AdminResponsesPage() {
           ) : (
             <AlertCircle className="w-4 h-4 text-red-600 shrink-0 mt-0.5" />
           )}
-          <span className="leading-relaxed">{feedback.message}</span>
+          <span className="leading-relaxed font-medium">{feedback.message}</span>
         </div>
       )}
 
-      {/* Search Input */}
+      {/* Search Bar */}
       <div className="relative max-w-md">
-        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#6A6577]">
+        <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#6A6577]">
           <Search className="w-4 h-4" />
         </div>
         <input
@@ -214,38 +214,39 @@ export default function AdminResponsesPage() {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           placeholder="Filter by Staff ID, Name, or Department..."
-          className="form-input pl-9"
+          className="form-input pl-10 rounded-xl"
         />
       </div>
 
-      {/* Responses Table */}
+      {/* Responses Table Card */}
       {loading ? (
-        <div className="flex items-center justify-center py-20 text-[#6A6577]">
-          <Loader2 className="w-8 h-8 animate-spin text-[#35118F] mr-3" />
-          <span>Loading responses...</span>
-        </div>
+        <FoodLoadingState
+          title="Loading staff meal responses..."
+          subtitle="Fetching submission matrix for target service date"
+          showText
+        />
       ) : (
-        <div className="bg-white border border-[#E5E2EE] rounded-xl overflow-hidden shadow-xs">
+        <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
           <div className="overflow-x-auto">
             <table className="w-full text-left text-sm">
-              <thead className="bg-[#F8F7FC] border-b border-[#E5E2EE] text-xs font-medium uppercase tracking-wider text-[#6A6577]">
+              <thead className="bg-[#FAF9FD] border-b border-[#F1EFF7] text-[11px] font-bold uppercase tracking-wider text-[#6A6577]">
                 <tr>
-                  <th className="px-5 py-3">Staff ID</th>
-                  <th className="px-5 py-3">Full Name</th>
-                  <th className="px-5 py-3">Department</th>
-                  <th className="px-5 py-3 text-center">Breakfast</th>
-                  <th className="px-5 py-3 text-center">Lunch</th>
-                  <th className="px-5 py-3 text-center">Dinner</th>
-                  <th className="px-5 py-3 text-right">Last Updated</th>
+                  <th className="px-5 sm:px-6 py-3.5">Staff ID</th>
+                  <th className="px-5 sm:px-6 py-3.5">Full Name</th>
+                  <th className="px-5 sm:px-6 py-3.5">Department</th>
+                  <th className="px-5 sm:px-6 py-3.5 text-center">Breakfast</th>
+                  <th className="px-5 sm:px-6 py-3.5 text-center">Lunch</th>
+                  <th className="px-5 sm:px-6 py-3.5 text-center">Dinner</th>
+                  <th className="px-5 sm:px-6 py-3.5 text-right">Last Updated</th>
                 </tr>
               </thead>
-              <tbody className="divide-y divide-[#E5E2EE]">
+              <tbody className="divide-y divide-[#F1EFF7]">
                 {filtered.map((row) => (
-                  <tr key={row.userId} className="hover:bg-[#F8F7FC]/70 transition-colors">
-                    <td className="px-5 py-3.5 font-mono font-semibold text-[#35118F]">
+                  <tr key={row.userId} className="hover:bg-[#F9F8FD] transition-colors">
+                    <td className="px-5 sm:px-6 py-4 font-mono font-bold text-[#35118F]">
                       {row.staffId}
                     </td>
-                    <td className="px-5 py-3.5 font-medium text-[#24212D]">
+                    <td className="px-5 sm:px-6 py-4 font-medium text-[#1A162B]">
                       {row.fullName}
                       {!row.hasResponded && (
                         <span className="block text-[11px] text-[#946200] font-normal">
@@ -253,10 +254,10 @@ export default function AdminResponsesPage() {
                         </span>
                       )}
                     </td>
-                    <td className="px-5 py-3.5 text-[#6A6577]">{row.department || "—"}</td>
+                    <td className="px-5 sm:px-6 py-4 text-[#6A6577]">{row.department || "—"}</td>
 
                     {/* Breakfast cell */}
-                    <td className="px-5 py-3.5 text-center">
+                    <td className="px-5 sm:px-6 py-4 text-center">
                       <div className="inline-flex items-center space-x-1.5">
                         {renderStatusBadge(row.breakfast)}
                         <button
@@ -270,7 +271,7 @@ export default function AdminResponsesPage() {
                     </td>
 
                     {/* Lunch cell */}
-                    <td className="px-5 py-3.5 text-center">
+                    <td className="px-5 sm:px-6 py-4 text-center">
                       <div className="inline-flex items-center space-x-1.5">
                         {renderStatusBadge(row.lunch)}
                         <button
@@ -284,7 +285,7 @@ export default function AdminResponsesPage() {
                     </td>
 
                     {/* Dinner cell */}
-                    <td className="px-5 py-3.5 text-center">
+                    <td className="px-5 sm:px-6 py-4 text-center">
                       <div className="inline-flex items-center space-x-1.5">
                         {renderStatusBadge(row.dinner)}
                         <button
@@ -297,7 +298,7 @@ export default function AdminResponsesPage() {
                       </div>
                     </td>
 
-                    <td className="px-5 py-3.5 text-xs text-[#6A6577] font-mono text-right">
+                    <td className="px-5 sm:px-6 py-4 text-xs text-[#6A6577] font-mono text-right">
                       {row.updatedAt}
                     </td>
                   </tr>
@@ -310,11 +311,11 @@ export default function AdminResponsesPage() {
 
       {/* Override / Correction Modal */}
       {overrideTarget && (
-        <div className="fixed inset-0 z-50 bg-[#24212D]/50 flex items-center justify-center p-4">
-          <div className="bg-white rounded-xl shadow-lg max-w-md w-full p-5 border border-[#E5E2EE]">
-            <div className="flex items-center justify-between pb-3.5 border-b border-[#E5E2EE]">
+        <div className="fixed inset-0 z-50 bg-[#24212D]/50 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-2xl shadow-xl max-w-md w-full p-6">
+            <div className="flex items-center justify-between pb-3.5 border-b border-[#F1EFF7]">
               <div>
-                <h3 className="text-base font-semibold text-[#24212D]">
+                <h3 className="text-base font-bold text-[#1A162B]">
                   Late Response Correction
                 </h3>
                 <span className="text-xs text-[#6A6577]">
@@ -331,7 +332,7 @@ export default function AdminResponsesPage() {
               </button>
             </div>
 
-            <form onSubmit={handleSubmitOverride} className="mt-4 space-y-3.5">
+            <form onSubmit={handleSubmitOverride} className="mt-4 space-y-4">
               <div>
                 <label className="form-label">
                   New Status
@@ -339,7 +340,7 @@ export default function AdminResponsesPage() {
                 <select
                   value={newStatus}
                   onChange={(e) => setNewStatus(e.target.value as any)}
-                  className="form-input"
+                  className="form-input rounded-xl"
                 >
                   <option value="OPT_IN">OPT_IN (Request Meal)</option>
                   <option value="OPT_OUT">OPT_OUT (Cancel / Decline)</option>
@@ -357,7 +358,7 @@ export default function AdminResponsesPage() {
                   value={reason}
                   onChange={(e) => setReason(e.target.value)}
                   placeholder="e.g. Staff called duty desk; roster change by HR supervisor."
-                  className="w-full px-3 py-2 text-sm border border-[#E5E2EE] rounded-lg bg-white text-[#24212D] placeholder-[#9D98A8] focus:border-[#35118F] focus:ring-1 focus:ring-[#35118F] focus:outline-none transition-colors"
+                  className="w-full px-3.5 py-2.5 text-sm rounded-xl bg-[#F8F7FC] text-[#24212D] placeholder-[#9D98A8] focus:bg-white focus:ring-2 focus:ring-[#35118F]/20 focus:outline-none transition-all"
                 />
                 <span className="form-helper">
                   This reason will be permanently recorded in the institutional audit log.
@@ -368,14 +369,14 @@ export default function AdminResponsesPage() {
                 <button
                   type="button"
                   onClick={() => setOverrideTarget(null)}
-                  className="btn-secondary"
+                  className="btn-secondary h-9 px-4 rounded-xl text-xs font-semibold"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={submitting || reason.trim().length < 5}
-                  className="btn-primary"
+                  className="btn-primary h-9 px-4 rounded-xl text-xs font-bold"
                 >
                   {submitting ? "Recording..." : "Apply & Log Correction"}
                 </button>
@@ -387,4 +388,3 @@ export default function AdminResponsesPage() {
     </div>
   );
 }
-
