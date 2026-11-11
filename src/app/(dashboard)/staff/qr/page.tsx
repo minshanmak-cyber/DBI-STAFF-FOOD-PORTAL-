@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import {
   QrCode,
@@ -317,47 +318,16 @@ export default function StaffQrPage() {
       ) : data?.qrs.length === 0 ? (
         /* Empty State Card matching reference mockup */
         <div className="bg-white border border-[#E5E2EE] rounded-2xl sm:rounded-3xl p-8 sm:p-12 shadow-xs flex flex-col md:flex-row items-center gap-8 md:gap-14">
-          {/* Left: 3D Layered QR Illustration */}
-          <div className="relative shrink-0 flex items-center justify-center p-4">
-            {/* Back tilted lavender card */}
-            <div className="w-44 h-44 sm:w-52 sm:h-52 rounded-2xl sm:rounded-3xl bg-[#EDE7FA] shadow-sm transform -rotate-6 translate-x-1" />
-            {/* Front white elevated card */}
-            <div className="absolute w-44 h-44 sm:w-52 sm:h-52 rounded-2xl sm:rounded-3xl bg-white shadow-xl border border-[#EDE9F6] flex items-center justify-center p-6">
-              {/* Spark rays top right */}
-              <div className="absolute -top-3 -right-2 text-[#7C4DFF]">
-                <svg
-                  width="26"
-                  height="26"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2.5"
-                  strokeLinecap="round"
-                >
-                  <line x1="12" y1="2" x2="12" y2="6" />
-                  <line x1="4.5" y1="5.5" x2="7.5" y2="8.5" />
-                  <line x1="19.5" y1="5.5" x2="16.5" y2="8.5" />
-                </svg>
-              </div>
-
-              {/* Stylized Purple QR SVG Pattern */}
-              <svg viewBox="0 0 100 100" className="w-24 h-24 sm:w-28 sm:h-28 text-[#35118F]" fill="currentColor">
-                <rect x="10" y="10" width="30" height="30" rx="8" fill="none" stroke="currentColor" strokeWidth="6" />
-                <rect x="20" y="20" width="10" height="10" rx="3" fill="currentColor" />
-                <rect x="60" y="10" width="30" height="30" rx="8" fill="none" stroke="currentColor" strokeWidth="6" />
-                <rect x="70" y="20" width="10" height="10" rx="3" fill="currentColor" />
-                <rect x="10" y="60" width="30" height="30" rx="8" fill="none" stroke="currentColor" strokeWidth="6" />
-                <rect x="20" y="70" width="10" height="10" rx="3" fill="currentColor" />
-                <rect x="48" y="12" width="6" height="14" rx="3" fill="currentColor" />
-                <rect x="12" y="48" width="14" height="6" rx="3" fill="currentColor" />
-                <rect x="45" y="45" width="10" height="10" rx="3" fill="currentColor" />
-                <rect x="62" y="48" width="12" height="6" rx="3" fill="currentColor" />
-                <rect x="48" y="68" width="6" height="14" rx="3" fill="currentColor" />
-                <rect x="62" y="62" width="12" height="12" rx="3" fill="currentColor" />
-                <rect x="78" y="62" width="12" height="6" rx="3" fill="currentColor" />
-                <rect x="62" y="78" width="28" height="8" rx="4" fill="currentColor" />
-              </svg>
-            </div>
+          {/* Left: 3D Layered QR Illustration Asset */}
+          <div className="shrink-0 flex items-center justify-center p-2 sm:p-4">
+            <Image
+              src="/qr-illustration.png"
+              alt="Meal Collection QR Codes"
+              width={200}
+              height={190}
+              className="w-40 sm:w-48 h-auto object-contain select-none"
+              priority
+            />
           </div>
 
           {/* Divider */}
