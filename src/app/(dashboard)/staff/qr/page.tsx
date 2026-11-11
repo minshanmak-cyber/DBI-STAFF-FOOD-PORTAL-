@@ -321,11 +321,11 @@ export default function StaffQrPage() {
           {/* Left: High-Clarity 3D Layered QR Illustration Asset */}
           <div className="shrink-0 flex items-center justify-center p-2 sm:p-4">
             <Image
-              src="/qr-illustration.png?v=2"
+              src="/qr-illustration.png?v=3"
               alt="Meal Collection QR Codes"
-              width={260}
-              height={260}
-              className="w-48 sm:w-56 h-auto object-contain select-none mix-blend-multiply"
+              width={340}
+              height={378}
+              className="w-56 sm:w-64 md:w-72 h-auto object-contain select-none mix-blend-multiply"
               priority
               unoptimized
             />
