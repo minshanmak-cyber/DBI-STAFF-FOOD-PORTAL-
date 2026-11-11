@@ -10,12 +10,28 @@ import {
   AlertCircle,
   Loader2,
   Calendar,
-  HelpCircle,
   Coffee,
   Utensils,
-  ConciergeBell,
 } from "lucide-react";
 import DeadlineBadge from "@/components/DeadlineBadge";
+
+function ClocheIcon({ className = "w-4 h-4 text-[#35118F]" }: { className?: string }) {
+  return (
+    <svg
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+      className={className}
+    >
+      <path d="M10 7a2 2 0 1 1 4 0" />
+      <path d="M4 17a8 8 0 0 1 16 0" />
+      <line x1="2" y1="18" x2="22" y2="18" />
+    </svg>
+  );
+}
 
 interface MealResponseData {
   serviceDate: string;
@@ -175,7 +191,7 @@ export default function StaffDashboardPage() {
   const renderMealBadge = (status: "OPT_IN" | "OPT_OUT" | "NO_RESPONSE") => {
     if (status === "OPT_IN") {
       return (
-        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-xs font-medium bg-[#EEFBF6] text-[#0C7A5B]">
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-[#EEFBF6] text-[#0C7A5B]">
           <span className="w-1.5 h-1.5 rounded-full bg-[#12B98A]" />
           <span>Requested</span>
         </span>
@@ -183,15 +199,15 @@ export default function StaffDashboardPage() {
     }
     if (status === "OPT_OUT") {
       return (
-        <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-xs font-medium bg-[#F6F5FA] text-[#6A6577]">
+        <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-[#F6F5FA] text-[#6A6577]">
           <span className="w-1.5 h-1.5 rounded-full bg-[#6A6577]" />
           <span>Opted Out</span>
         </span>
       );
     }
     return (
-      <span className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded-md text-xs font-medium bg-[#FEF9ED] text-[#92400E]">
-        <span className="w-1.5 h-1.5 rounded-full bg-[#F5B51B]" />
+      <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-md text-xs font-medium bg-[#FEF6E9] text-[#92400E]">
+        <span className="w-1.5 h-1.5 rounded-full bg-[#E88C1E]" />
         <span>Not Responded</span>
       </span>
     );
@@ -317,7 +333,7 @@ export default function StaffDashboardPage() {
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 rounded-lg bg-[#F6F5FA] border border-[#E5E2EE] flex items-center justify-center text-[#35118F]">
+                    <div className="w-9 h-9 rounded-xl bg-[#F4F0FD] flex items-center justify-center text-[#35118F]">
                       <Coffee className="w-4 h-4 text-[#35118F]" />
                     </div>
                     <div>
@@ -342,7 +358,7 @@ export default function StaffDashboardPage() {
                   type="button"
                   disabled={isLocked}
                   onClick={() => setBreakfast("OPT_IN")}
-                  className={`h-9 px-3 text-xs font-medium rounded-lg transition-all ${
+                  className={`h-9 px-3 text-xs font-medium rounded-lg transition-all flex items-center justify-center ${
                     breakfast === "OPT_OUT"
                       ? "bg-white hover:bg-[#F6F5FA] text-[#4A4557] border border-[#E5E2EE] hover:border-[#35118F]/40"
                       : "bg-[#35118F] text-white hover:bg-[#2B0D75] shadow-xs"
@@ -354,7 +370,7 @@ export default function StaffDashboardPage() {
                   type="button"
                   disabled={isLocked}
                   onClick={() => setBreakfast("OPT_OUT")}
-                  className={`h-9 px-3 text-xs font-medium rounded-lg transition-all ${
+                  className={`h-9 px-3 text-xs font-medium rounded-lg transition-all flex items-center justify-center ${
                     breakfast === "OPT_OUT"
                       ? "bg-[#24212D] text-white shadow-xs"
                       : "bg-white hover:bg-[#F6F5FA] text-[#4A4557] border border-[#E5E2EE] hover:text-red-700 hover:border-red-200"
@@ -378,7 +394,7 @@ export default function StaffDashboardPage() {
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 rounded-lg bg-[#F6F5FA] border border-[#E5E2EE] flex items-center justify-center text-[#35118F]">
+                    <div className="w-9 h-9 rounded-xl bg-[#F4F0FD] flex items-center justify-center text-[#35118F]">
                       <Utensils className="w-4 h-4 text-[#35118F]" />
                     </div>
                     <div>
@@ -403,7 +419,7 @@ export default function StaffDashboardPage() {
                   type="button"
                   disabled={isLocked}
                   onClick={() => setLunch("OPT_IN")}
-                  className={`h-9 px-3 text-xs font-medium rounded-lg transition-all ${
+                  className={`h-9 px-3 text-xs font-medium rounded-lg transition-all flex items-center justify-center ${
                     lunch === "OPT_OUT"
                       ? "bg-white hover:bg-[#F6F5FA] text-[#4A4557] border border-[#E5E2EE] hover:border-[#35118F]/40"
                       : "bg-[#35118F] text-white hover:bg-[#2B0D75] shadow-xs"
@@ -415,7 +431,7 @@ export default function StaffDashboardPage() {
                   type="button"
                   disabled={isLocked}
                   onClick={() => setLunch("OPT_OUT")}
-                  className={`h-9 px-3 text-xs font-medium rounded-lg transition-all ${
+                  className={`h-9 px-3 text-xs font-medium rounded-lg transition-all flex items-center justify-center ${
                     lunch === "OPT_OUT"
                       ? "bg-[#24212D] text-white shadow-xs"
                       : "bg-white hover:bg-[#F6F5FA] text-[#4A4557] border border-[#E5E2EE] hover:text-red-700 hover:border-red-200"
@@ -439,8 +455,8 @@ export default function StaffDashboardPage() {
               <div>
                 <div className="flex items-center justify-between mb-3">
                   <div className="flex items-center space-x-3">
-                    <div className="w-8 h-8 rounded-lg bg-[#F6F5FA] border border-[#E5E2EE] flex items-center justify-center text-[#35118F]">
-                      <ConciergeBell className="w-4 h-4 text-[#35118F]" />
+                    <div className="w-9 h-9 rounded-xl bg-[#F4F0FD] flex items-center justify-center text-[#35118F]">
+                      <ClocheIcon className="w-4 h-4 text-[#35118F]" />
                     </div>
                     <div>
                       <h3 className="font-semibold text-[#24212D] text-sm">Dinner</h3>
@@ -464,7 +480,7 @@ export default function StaffDashboardPage() {
                   type="button"
                   disabled={isLocked}
                   onClick={() => setDinner("OPT_IN")}
-                  className={`h-9 px-3 text-xs font-medium rounded-lg transition-all ${
+                  className={`h-9 px-3 text-xs font-medium rounded-lg transition-all flex items-center justify-center ${
                     dinner === "OPT_OUT"
                       ? "bg-white hover:bg-[#F6F5FA] text-[#4A4557] border border-[#E5E2EE] hover:border-[#35118F]/40"
                       : "bg-[#35118F] text-white hover:bg-[#2B0D75] shadow-xs"
@@ -476,7 +492,7 @@ export default function StaffDashboardPage() {
                   type="button"
                   disabled={isLocked}
                   onClick={() => setDinner("OPT_OUT")}
-                  className={`h-9 px-3 text-xs font-medium rounded-lg transition-all ${
+                  className={`h-9 px-3 text-xs font-medium rounded-lg transition-all flex items-center justify-center ${
                     dinner === "OPT_OUT"
                       ? "bg-[#24212D] text-white shadow-xs"
                       : "bg-white hover:bg-[#F6F5FA] text-[#4A4557] border border-[#E5E2EE] hover:text-red-700 hover:border-red-200"
