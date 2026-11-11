@@ -11,6 +11,7 @@ import {
   Coffee,
   Utensils,
   CookingPot,
+  RefreshCw,
 } from "lucide-react";
 import StatCard from "@/components/StatCard";
 import FoodLoadingState from "@/components/FoodLoader";
@@ -54,6 +55,20 @@ export default function AdminDashboardPage() {
     fetchCounts();
   }, []);
 
+  const getTodayISO = () => {
+    const d = new Date();
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  };
+
+  const getTomorrowISO = () => {
+    const d = new Date();
+    d.setDate(d.getDate() + 1);
+    return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, "0")}-${String(d.getDate()).padStart(2, "0")}`;
+  };
+
+  const todayStr = getTodayISO();
+  const tomorrowStr = getTomorrowISO();
+
   const handleDateChange = (newDate: string) => {
     setSelectedDate(newDate);
     fetchCounts(newDate);
@@ -61,29 +76,84 @@ export default function AdminDashboardPage() {
 
   return (
     <div className="space-y-6">
-      {/* Header & Date Selector */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-white p-5 sm:p-6 rounded-2xl shadow-sm">
-        <div>
-          <h1 className="text-2xl font-bold text-[#1A162B] tracking-tight">
-            DBI Food Production Counts
-          </h1>
-          <p className="text-xs text-[#6A6577] mt-1">
-            Real-time aggregate food counts and staff participation for{" "}
-            <span className="font-semibold text-[#35118F]">
-              {data?.serviceDateDisplay || "selected date"}
-            </span>
-          </p>
+      {/* Header & Date Selector Banner */}
+      <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
+        <div className="flex items-stretch gap-3.5">
+          <div className="w-1.5 bg-[#35118F] rounded-full self-stretch shrink-0" />
+          <div>
+            <h1 className="text-2xl sm:text-3xl font-bold text-[#1A162B] tracking-tight leading-tight">
+              Food Production Counts
+            </h1>
+            <div className="flex flex-wrap items-center text-xs sm:text-sm text-[#4A4557] mt-1 gap-1.5">
+              <span className="flex items-center gap-1.5 text-[#35118F] font-semibold">
+                <Calendar className="w-3.5 h-3.5" />
+                {data?.serviceDateDisplay || "Loading date..."}
+              </span>
+              <span className="text-[#D2CEE0] hidden sm:inline">•</span>
+              <span className="text-[#6A6577]">Live aggregate kitchen targets</span>
+            </div>
+          </div>
         </div>
 
-        <div className="flex items-center space-x-2 bg-[#F6F5FA] px-3 py-2 rounded-xl">
-          <Calendar className="w-4 h-4 text-[#35118F] shrink-0" />
-          <span className="text-xs font-semibold text-[#24212D]">Target Date:</span>
-          <input
-            type="date"
-            value={selectedDate}
-            onChange={(e) => handleDateChange(e.target.value)}
-            className="bg-transparent text-xs text-[#24212D] font-medium focus:outline-none cursor-pointer"
-          />
+        {/* Date Selector & Action Controls */}
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Quick Date Switcher */}
+          <div className="flex items-center bg-[#F6F5FA] p-1 rounded-xl">
+            <button
+              type="button"
+              onClick={() => handleDateChange(todayStr)}
+              className={`h-8 px-3 rounded-lg text-xs font-semibold transition-colors ${
+                selectedDate === todayStr
+                  ? "bg-white text-[#35118F] shadow-2xs"
+                  : "text-[#6A6577] hover:text-[#1A162B]"
+              }`}
+            >
+              Today
+            </button>
+            <button
+              type="button"
+              onClick={() => handleDateChange(tomorrowStr)}
+              className={`h-8 px-3 rounded-lg text-xs font-semibold transition-colors ${
+                selectedDate === tomorrowStr
+                  ? "bg-white text-[#35118F] shadow-2xs"
+                  : "text-[#6A6577] hover:text-[#1A162B]"
+              }`}
+            >
+              Tomorrow
+            </button>
+          </div>
+
+          {/* Date Picker Input */}
+          <div className="flex items-center space-x-2 bg-[#F6F5FA] px-3 h-10 rounded-xl">
+            <Calendar className="w-3.5 h-3.5 text-[#35118F] shrink-0" />
+            <input
+              type="date"
+              value={selectedDate}
+              onChange={(e) => handleDateChange(e.target.value)}
+              className="bg-transparent text-xs text-[#24212D] font-medium focus:outline-none cursor-pointer"
+              aria-label="Pick target date"
+            />
+          </div>
+
+          {/* Refresh */}
+          <button
+            type="button"
+            onClick={() => fetchCounts(selectedDate)}
+            disabled={loading}
+            className="btn-secondary h-10 w-10 p-0 rounded-xl flex items-center justify-center shrink-0"
+            title="Refresh counts"
+          >
+            <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-[#35118F]" : "text-[#6A6577]"}`} />
+          </button>
+
+          {/* Export Report Link */}
+          <Link
+            href={`/admin/reports?serviceDate=${selectedDate || todayStr}`}
+            className="btn-primary h-10 px-4 rounded-xl text-xs font-bold inline-flex items-center space-x-1.5 shrink-0"
+          >
+            <FileSpreadsheet className="w-3.5 h-3.5" />
+            <span>Export Report</span>
+          </Link>
         </div>
       </div>
 
