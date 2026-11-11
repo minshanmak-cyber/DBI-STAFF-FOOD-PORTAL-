@@ -145,15 +145,6 @@ export default function AdminDashboardPage() {
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-[#35118F]" : "text-[#6A6577]"}`} />
           </button>
-
-          {/* Export Report Link */}
-          <Link
-            href={`/admin/reports?serviceDate=${selectedDate || todayStr}`}
-            className="btn-primary h-10 px-4 rounded-xl text-xs font-bold inline-flex items-center space-x-1.5 shrink-0"
-          >
-            <FileSpreadsheet className="w-3.5 h-3.5" />
-            <span>Export Report</span>
-          </Link>
         </div>
       </div>
 
