@@ -37,9 +37,9 @@ textarea:focus-visible {
     @apply inline-flex items-center justify-center h-10 px-4 rounded-lg bg-[#35118F] hover:bg-[#280c70] active:bg-[#200958] text-white text-sm font-medium transition-colors shadow-xs disabled:opacity-50 disabled:pointer-events-none;
   }
 
-  /* Secondary Button: 40px height, neutral border, dark text, purple hover */
+  /* Secondary Button: 40px height, neutral borderless, dark text, purple hover */
   .btn-secondary {
-    @apply inline-flex items-center justify-center h-10 px-4 rounded-lg bg-white hover:bg-[#F6F5FA] active:bg-[#EAE8F2] border border-[#E5E2EE] hover:border-[#D5C4F5] text-[#24212D] hover:text-[#35118F] text-sm font-medium transition-colors shadow-xs disabled:opacity-50 disabled:pointer-events-none;
+    @apply inline-flex items-center justify-center h-10 px-4 rounded-lg bg-white hover:bg-[#F6F5FA] active:bg-[#EAE8F2] text-[#24212D] hover:text-[#35118F] text-sm font-medium transition-colors shadow-2xs disabled:opacity-50 disabled:pointer-events-none;
   }
 
   /* Destructive Button */
@@ -72,9 +72,9 @@ textarea:focus-visible {
     @apply block text-xs text-[#6A6577] mt-1;
   }
 
-  /* Enterprise Card */
+  /* Enterprise Card: Clean borderless with soft elevation */
   .dbi-card {
-    @apply bg-white border border-[#E5E2EE] rounded-xl shadow-xs;
+    @apply bg-white rounded-2xl shadow-sm;
   }
 
   /* Enterprise Status Badges (restrained, 6px rounded, readable text) */

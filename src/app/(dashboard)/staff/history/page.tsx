@@ -187,7 +187,7 @@ export default function StaffHistoryPage() {
           <button
             onClick={() => fetchHistory(true)}
             disabled={refreshing}
-            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium bg-white text-[#4A4557] border border-[#E5E2EE] rounded-lg shadow-2xs hover:bg-[#F6F5FA] hover:text-[#1A162B] transition-colors disabled:opacity-60 cursor-pointer"
+            className="inline-flex items-center gap-1.5 px-3 py-2 text-xs font-medium bg-white text-[#4A4557] rounded-lg shadow-2xs hover:bg-[#F6F5FA] hover:text-[#1A162B] transition-colors disabled:opacity-60 cursor-pointer"
             title="Refresh history logs"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${refreshing ? "animate-spin text-[#35118F]" : ""}`} />
@@ -207,7 +207,7 @@ export default function StaffHistoryPage() {
       {/* Filters & Search Control Bar                                              */}
       {/* ========================================================================= */}
       {!loading && history.length > 0 && (
-        <div className="bg-white border border-[#E5E2EE] rounded-xl p-4 shadow-2xs space-y-3 sm:space-y-0 sm:flex sm:items-center sm:justify-between sm:gap-4">
+        <div className="bg-white rounded-2xl p-4 shadow-sm space-y-3 sm:space-y-0 sm:flex sm:items-center sm:justify-between sm:gap-4">
           {/* Meal Type Tabs */}
           <div className="flex flex-wrap items-center gap-1.5">
             {(
@@ -243,7 +243,7 @@ export default function StaffHistoryPage() {
             <select
               value={statusFilter}
               onChange={(e) => setStatusFilter(e.target.value as StatusFilter)}
-              className="text-xs font-medium text-[#4A4557] bg-[#F6F5FA] border border-[#E5E2EE] rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#35118F] cursor-pointer"
+              className="text-xs font-medium text-[#4A4557] bg-[#F6F5FA] rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-1 focus:ring-[#35118F] cursor-pointer"
             >
               <option value="ALL">All Statuses</option>
               <option value="COLLECTED">Verified Collected</option>
@@ -259,7 +259,7 @@ export default function StaffHistoryPage() {
                 placeholder="Search by date..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full pl-8 pr-7 py-1.5 text-xs bg-[#F6F5FA] border border-[#E5E2EE] rounded-lg placeholder-[#8A8596] text-[#1A162B] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#35118F] transition-colors"
+                className="w-full pl-8 pr-7 py-1.5 text-xs bg-[#F6F5FA] rounded-lg placeholder-[#8A8596] text-[#1A162B] focus:bg-white focus:outline-none focus:ring-1 focus:ring-[#35118F] transition-colors"
               />
               {searchQuery && (
                 <button
@@ -344,7 +344,7 @@ export default function StaffHistoryPage() {
           {/* ===================================================================== */}
           {/* Desktop Table View (>= md screens)                                    */}
           {/* ===================================================================== */}
-          <div className="hidden md:block bg-white border border-[#E5E2EE] rounded-xl overflow-hidden shadow-2xs">
+          <div className="hidden md:block bg-white rounded-2xl overflow-hidden shadow-sm">
             <div className="overflow-x-auto">
               <table className="w-full text-left text-sm">
                 <thead className="bg-[#FAF9FD] border-b border-[#E5E2EE] text-[11px] font-semibold uppercase tracking-wider text-[#6A6577]">
@@ -460,7 +460,7 @@ export default function StaffHistoryPage() {
               return (
                 <div
                   key={row.id}
-                  className="bg-white border border-[#E5E2EE] rounded-xl p-4 shadow-2xs space-y-3"
+                  className="bg-white rounded-2xl p-4 shadow-sm space-y-3"
                 >
                   {/* Top line: Date + Meal Pill */}
                   <div className="flex items-center justify-between gap-2 border-b border-[#F0EDF7] pb-2.5">

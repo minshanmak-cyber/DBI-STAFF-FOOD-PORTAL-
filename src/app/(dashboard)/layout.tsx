@@ -15,7 +15,7 @@ export default function DashboardLayout({
         <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 pb-20 md:pb-8">
           {children}
         </main>
-        <footer className="bg-white/90 backdrop-blur-xs border-t border-[#E5E2EE] py-4 text-center text-xs text-[#6A6577] hidden md:block">
+        <footer className="bg-white/80 backdrop-blur-xs py-4 text-center text-xs text-[#6A6577] hidden md:block">
           Digital Bridge International (DBI) • Staff Food Management Portal • Asia/Kolkata Timezone
         </footer>
       </div>

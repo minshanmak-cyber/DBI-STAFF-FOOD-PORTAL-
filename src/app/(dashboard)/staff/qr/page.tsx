@@ -314,7 +314,7 @@ export default function StaffQrPage() {
             className={`h-9 sm:h-10 px-4 text-xs sm:text-sm font-medium rounded-xl transition-all ${
               selectedDate === todayStr
                 ? "bg-[#35118F] text-white shadow-xs"
-                : "bg-white hover:bg-[#F6F5FA] text-[#1A162B] border border-[#E5E2EE]"
+                : "bg-white hover:bg-[#F6F5FA] text-[#1A162B] shadow-2xs"
             }`}
           >
             Today
@@ -325,7 +325,7 @@ export default function StaffQrPage() {
             className={`h-9 sm:h-10 px-4 text-xs sm:text-sm font-medium rounded-xl transition-all ${
               selectedDate === tomorrowStr
                 ? "bg-[#35118F] text-white shadow-xs"
-                : "bg-white hover:bg-[#F6F5FA] text-[#1A162B] border border-[#E5E2EE]"
+                : "bg-white hover:bg-[#F6F5FA] text-[#1A162B] shadow-2xs"
             }`}
           >
             Tomorrow
@@ -333,7 +333,7 @@ export default function StaffQrPage() {
 
           {/* Calendar Picker pill with calendar icon on the left */}
           <div className="relative inline-flex items-center">
-            <div className="h-9 sm:h-10 px-3.5 text-xs sm:text-sm font-medium border border-[#E5E2EE] rounded-xl bg-white text-[#1A162B] flex items-center gap-2 shadow-2xs hover:border-[#D5C4F5] transition-colors cursor-pointer">
+            <div className="h-9 sm:h-10 px-3.5 text-xs sm:text-sm font-medium rounded-xl bg-white text-[#1A162B] flex items-center gap-2 shadow-2xs transition-colors cursor-pointer">
               <Calendar className="w-4 h-4 text-[#555062]" />
               <span>{formatCompactDate(selectedDate)}</span>
             </div>
@@ -352,7 +352,7 @@ export default function StaffQrPage() {
             <button
               type="button"
               onClick={downloadAllPasses}
-              className="h-9 sm:h-10 px-4 text-xs sm:text-sm font-medium border border-[#35118F] text-[#35118F] bg-white hover:bg-[#F6F5FA] rounded-xl flex items-center gap-2 transition-colors shadow-2xs"
+              className="h-9 sm:h-10 px-4 text-xs sm:text-sm font-medium text-[#35118F] bg-[#35118F]/10 hover:bg-[#35118F]/15 rounded-xl flex items-center gap-2 transition-colors shadow-2xs"
             >
               <Download className="w-4 h-4 text-[#35118F]" />
               <span>Download All</span>
@@ -368,7 +368,7 @@ export default function StaffQrPage() {
         />
       ) : data?.qrs.length === 0 ? (
         /* Empty State Card matching reference mockup with balanced compact vertical height */
-        <div className="bg-white border border-[#E5E2EE] rounded-2xl p-6 sm:px-8 sm:py-7 shadow-xs flex flex-col md:flex-row items-center gap-6 md:gap-10">
+        <div className="bg-white rounded-2xl p-6 sm:px-8 sm:py-7 shadow-sm flex flex-col md:flex-row items-center gap-6 md:gap-10">
           {/* Left: High-Clarity 3D Layered QR Illustration Asset */}
           <div className="shrink-0 flex items-center justify-center p-1 sm:p-2">
             <Image
@@ -419,12 +419,12 @@ export default function StaffQrPage() {
             return (
               <div
                 key={item.mealType}
-                className="bg-white border border-[#E5E2EE] rounded-2xl p-4 sm:p-5 shadow-xs flex flex-col justify-between transition-all"
+                className="bg-white rounded-2xl p-4 sm:p-5 shadow-sm flex flex-col justify-between transition-all"
               >
                 <div>
                   {/* Tinted Meal Header Box */}
                   <div
-                    className={`${config.headerBg} border rounded-xl p-3 flex items-center justify-between`}
+                    className={`${config.headerBg} rounded-xl p-3 flex items-center justify-between`}
                   >
                     <div className="flex items-center space-x-3">
                       <div
@@ -465,7 +465,7 @@ export default function StaffQrPage() {
                   </div>
 
                   {/* QR Image Container */}
-                  <div className="bg-white p-3 sm:p-4 rounded-2xl border border-[#F0EFF5] shadow-xs relative flex items-center justify-center my-1">
+                  <div className="bg-white p-3 sm:p-4 rounded-2xl shadow-xs relative flex items-center justify-center my-1">
                     <img
                       src={item.dataUrl}
                       alt={`${item.mealType} QR Code`}
@@ -513,7 +513,7 @@ export default function StaffQrPage() {
       )}
 
       {/* How it works banner */}
-      <div className="bg-[#F5F2FD] border border-[#E8E1F8] rounded-xl sm:rounded-2xl p-3 sm:px-5 sm:py-3.5 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs sm:text-sm">
+      <div className="bg-[#F5F2FD] rounded-xl sm:rounded-2xl p-3 sm:px-5 sm:py-3.5 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs sm:text-sm shadow-2xs">
         <div className="flex items-center shrink-0 text-[#35118F] font-semibold">
           <Info className="w-4 h-4 mr-2 text-[#35118F]" />
           <span>How it works</span>

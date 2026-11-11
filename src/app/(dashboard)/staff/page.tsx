@@ -220,7 +220,7 @@ export default function StaffDashboardPage() {
   return (
     <div className="space-y-6">
       {/* Welcome Banner */}
-      <div className="bg-white border border-[#E5E2EE] rounded-xl p-5 sm:p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="text-xs sm:text-sm font-medium text-[#6A6577] mb-1">
             Staff Portal
@@ -270,7 +270,7 @@ export default function StaffDashboardPage() {
       </div>
 
       {/* Next Day Meal Selection Section */}
-      <div className="bg-white border border-[#E5E2EE] rounded-xl p-5 sm:p-6 shadow-xs">
+      <div className="bg-white rounded-2xl p-5 sm:p-6 shadow-sm">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
           <div className="flex items-stretch gap-3 sm:gap-3.5">
             <div className="w-1 bg-[#35118F] rounded-full self-stretch shrink-0" />
@@ -352,12 +352,12 @@ export default function StaffDashboardPage() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Breakfast Card */}
             <div
-              className={`border rounded-xl p-5 flex flex-col justify-between transition-all ${
+              className={`rounded-2xl p-5 flex flex-col justify-between transition-all ${
                 breakfast === "OPT_IN"
-                  ? "border-[#35118F] ring-1 ring-[#35118F]/20 bg-[#F4F0FD]/30"
+                  ? "bg-[#F4F0FD]/80 shadow-xs"
                   : breakfast === "OPT_OUT"
-                  ? "border-[#E5E2EE] bg-[#F6F5FA]/60"
-                  : "border-[#E5E2EE] bg-white hover:border-[#D5C4F5]"
+                  ? "bg-[#F6F5FA]/80 shadow-2xs"
+                  : "bg-white shadow-xs hover:shadow-sm"
               }`}
             >
               <div>
@@ -383,14 +383,14 @@ export default function StaffDashboardPage() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 pt-3 border-t border-[#E5E2EE]">
+              <div className="grid grid-cols-2 gap-2 pt-3">
                 <button
                   type="button"
                   disabled={isLocked}
                   onClick={() => setBreakfast("OPT_IN")}
                   className={`h-9 px-3 text-xs font-medium rounded-lg transition-all flex items-center justify-center ${
                     breakfast === "OPT_OUT"
-                      ? "bg-white hover:bg-[#F6F5FA] text-[#4A4557] border border-[#E5E2EE] hover:border-[#35118F]/40"
+                      ? "bg-[#F6F5FA] hover:bg-[#EAE7F2] text-[#4A4557]"
                       : "bg-[#35118F] text-white hover:bg-[#2B0D75] shadow-xs"
                   } disabled:opacity-50`}
                 >
@@ -403,7 +403,7 @@ export default function StaffDashboardPage() {
                   className={`h-9 px-3 text-xs font-medium rounded-lg transition-all flex items-center justify-center ${
                     breakfast === "OPT_OUT"
                       ? "bg-[#24212D] text-white shadow-xs"
-                      : "bg-white hover:bg-[#F6F5FA] text-[#4A4557] border border-[#E5E2EE] hover:text-red-700 hover:border-red-200"
+                      : "bg-[#F6F5FA] hover:bg-[#EAE7F2] text-[#4A4557] hover:text-red-700"
                   } disabled:opacity-50`}
                 >
                   Opt Out
@@ -413,12 +413,12 @@ export default function StaffDashboardPage() {
 
             {/* Lunch Card */}
             <div
-              className={`border rounded-xl p-5 flex flex-col justify-between transition-all ${
+              className={`rounded-2xl p-5 flex flex-col justify-between transition-all ${
                 lunch === "OPT_IN"
-                  ? "border-[#35118F] ring-1 ring-[#35118F]/20 bg-[#F4F0FD]/30"
+                  ? "bg-[#F4F0FD]/80 shadow-xs"
                   : lunch === "OPT_OUT"
-                  ? "border-[#E5E2EE] bg-[#F6F5FA]/60"
-                  : "border-[#E5E2EE] bg-white hover:border-[#D5C4F5]"
+                  ? "bg-[#F6F5FA]/80 shadow-2xs"
+                  : "bg-white shadow-xs hover:shadow-sm"
               }`}
             >
               <div>
@@ -444,14 +444,14 @@ export default function StaffDashboardPage() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 pt-3 border-t border-[#E5E2EE]">
+              <div className="grid grid-cols-2 gap-2 pt-3">
                 <button
                   type="button"
                   disabled={isLocked}
                   onClick={() => setLunch("OPT_IN")}
                   className={`h-9 px-3 text-xs font-medium rounded-lg transition-all flex items-center justify-center ${
                     lunch === "OPT_OUT"
-                      ? "bg-white hover:bg-[#F6F5FA] text-[#4A4557] border border-[#E5E2EE] hover:border-[#35118F]/40"
+                      ? "bg-[#F6F5FA] hover:bg-[#EAE7F2] text-[#4A4557]"
                       : "bg-[#35118F] text-white hover:bg-[#2B0D75] shadow-xs"
                   } disabled:opacity-50`}
                 >
@@ -464,7 +464,7 @@ export default function StaffDashboardPage() {
                   className={`h-9 px-3 text-xs font-medium rounded-lg transition-all flex items-center justify-center ${
                     lunch === "OPT_OUT"
                       ? "bg-[#24212D] text-white shadow-xs"
-                      : "bg-white hover:bg-[#F6F5FA] text-[#4A4557] border border-[#E5E2EE] hover:text-red-700 hover:border-red-200"
+                      : "bg-[#F6F5FA] hover:bg-[#EAE7F2] text-[#4A4557] hover:text-red-700"
                   } disabled:opacity-50`}
                 >
                   Opt Out
@@ -474,12 +474,12 @@ export default function StaffDashboardPage() {
 
             {/* Dinner Card */}
             <div
-              className={`border rounded-xl p-5 flex flex-col justify-between transition-all ${
+              className={`rounded-2xl p-5 flex flex-col justify-between transition-all ${
                 dinner === "OPT_IN"
-                  ? "border-[#35118F] ring-1 ring-[#35118F]/20 bg-[#F4F0FD]/30"
+                  ? "bg-[#F4F0FD]/80 shadow-xs"
                   : dinner === "OPT_OUT"
-                  ? "border-[#E5E2EE] bg-[#F6F5FA]/60"
-                  : "border-[#E5E2EE] bg-white hover:border-[#D5C4F5]"
+                  ? "bg-[#F6F5FA]/80 shadow-2xs"
+                  : "bg-white shadow-xs hover:shadow-sm"
               }`}
             >
               <div>
@@ -505,14 +505,14 @@ export default function StaffDashboardPage() {
                 </p>
               </div>
 
-              <div className="grid grid-cols-2 gap-2 pt-3 border-t border-[#E5E2EE]">
+              <div className="grid grid-cols-2 gap-2 pt-3">
                 <button
                   type="button"
                   disabled={isLocked}
                   onClick={() => setDinner("OPT_IN")}
                   className={`h-9 px-3 text-xs font-medium rounded-lg transition-all flex items-center justify-center ${
                     dinner === "OPT_OUT"
-                      ? "bg-white hover:bg-[#F6F5FA] text-[#4A4557] border border-[#E5E2EE] hover:border-[#35118F]/40"
+                      ? "bg-[#F6F5FA] hover:bg-[#EAE7F2] text-[#4A4557]"
                       : "bg-[#35118F] text-white hover:bg-[#2B0D75] shadow-xs"
                   } disabled:opacity-50`}
                 >
@@ -525,7 +525,7 @@ export default function StaffDashboardPage() {
                   className={`h-9 px-3 text-xs font-medium rounded-lg transition-all flex items-center justify-center ${
                     dinner === "OPT_OUT"
                       ? "bg-[#24212D] text-white shadow-xs"
-                      : "bg-white hover:bg-[#F6F5FA] text-[#4A4557] border border-[#E5E2EE] hover:text-red-700 hover:border-red-200"
+                      : "bg-[#F6F5FA] hover:bg-[#EAE7F2] text-[#4A4557] hover:text-red-700"
                   } disabled:opacity-50`}
                 >
                   Opt Out
@@ -534,7 +534,7 @@ export default function StaffDashboardPage() {
             </div>
           </div>
 
-          <div className="flex items-center justify-end space-x-4 pt-4 border-t border-[#E5E2EE]">
+          <div className="flex items-center justify-end space-x-4 pt-4">
             <button
               type="submit"
               disabled={isLocked || submitting}
