@@ -37,16 +37,38 @@ interface MealResponseData {
 interface UserSession {
   fullName: string;
   staffId: string;
+  role?: string;
   department?: string | null;
 }
 
-const getInitials = (name?: string | null) => {
-  if (!name) return "U";
-  const parts = name.trim().split(/\s+/).filter(Boolean);
-  if (parts.length >= 2) {
-    return (parts[0][0] + parts[parts.length - 1][0]).toUpperCase();
+const toTitleCase = (str: string) => {
+  return str
+    .toLowerCase()
+    .split(/\s+/)
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(" ");
+};
+
+const parseDepartmentAndRole = (deptStr?: string | null, role?: string) => {
+  if (!deptStr) {
+    return {
+      department: null,
+      role: role ? toTitleCase(role) : "Staff",
+    };
   }
-  return name.slice(0, 2).toUpperCase();
+
+  if (deptStr.includes("•")) {
+    const [dept, desig] = deptStr.split("•").map((s) => s.trim());
+    return {
+      department: dept || null,
+      role: desig ? toTitleCase(desig) : (role ? toTitleCase(role) : "Staff"),
+    };
+  }
+
+  return {
+    department: deptStr,
+    role: role ? toTitleCase(role) : "Staff",
+  };
 };
 
 export default function StaffDashboardPage() {
@@ -148,6 +170,7 @@ export default function StaffDashboardPage() {
   }
 
   const isLocked = !data?.eligibility.allowed;
+  const userDetails = parseDepartmentAndRole(user?.department, user?.role);
 
   const renderMealBadge = (status: "OPT_IN" | "OPT_OUT" | "NO_RESPONSE") => {
     if (status === "OPT_IN") {
@@ -178,25 +201,33 @@ export default function StaffDashboardPage() {
     <div className="space-y-6">
       {/* Welcome Banner */}
       <div className="bg-white border border-[#E5E2EE] rounded-xl p-5 sm:p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
-        <div className="flex items-center gap-3.5 sm:gap-4">
-          <div className="w-11 h-11 rounded-full bg-[#35118F]/10 text-[#35118F] border border-[#35118F]/15 flex items-center justify-center text-sm font-semibold shrink-0 select-none">
-            {getInitials(user?.fullName)}
+        <div>
+          <div className="text-xs sm:text-sm font-medium text-[#6A6577] mb-1">
+            Staff Portal
           </div>
-          <div>
-            <h1 className="text-xl sm:text-2xl font-semibold text-[#24212D] tracking-tight leading-tight">
-              Welcome, {user?.fullName || "Staff Member"}
-            </h1>
-            <div className="flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-[#6A6577] mt-1">
-              <span className="font-mono text-[11px] font-medium text-[#24212D] bg-[#F6F5FA] px-1.5 py-0.5 rounded border border-[#E5E2EE]">
-                ID: {user?.staffId}
-              </span>
-              {user?.department && (
-                <>
-                  <span className="text-[#C5C0D0]">·</span>
-                  <span>{user.department.replace(/\s*•\s*/g, " · ")}</span>
-                </>
-              )}
-            </div>
+          <h1 className="text-2xl sm:text-3xl font-bold text-[#1A162B] tracking-tight leading-tight">
+            Welcome, {user?.fullName || "Staff Member"}
+          </h1>
+          <div className="flex flex-wrap items-center text-xs sm:text-sm text-[#4A4557] mt-2 gap-y-1">
+            <span>
+              Staff ID: <strong className="font-bold text-[#1A162B]">{user?.staffId}</strong>
+            </span>
+            {userDetails.department && (
+              <>
+                <span className="mx-2 sm:mx-2.5 text-[#D2CEE0]">|</span>
+                <span>
+                  Department: <span className="font-medium text-[#1A162B]">{userDetails.department}</span>
+                </span>
+              </>
+            )}
+            {userDetails.role && (
+              <>
+                <span className="mx-2 sm:mx-2.5 text-[#D2CEE0]">|</span>
+                <span>
+                  Role: <span className="font-medium text-[#1A162B]">{userDetails.role}</span>
+                </span>
+              </>
+            )}
           </div>
         </div>
 
