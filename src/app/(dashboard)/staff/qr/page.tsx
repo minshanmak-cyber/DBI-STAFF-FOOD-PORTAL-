@@ -286,7 +286,7 @@ export default function StaffQrPage() {
   };
 
   return (
-    <div className="space-y-6 max-w-7xl mx-auto">
+    <div className="space-y-4 sm:space-y-5 max-w-7xl mx-auto">
       {/* Header */}
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
@@ -366,16 +366,16 @@ export default function StaffQrPage() {
           <span className="text-sm font-medium">Generating and loading QR passes...</span>
         </div>
       ) : data?.qrs.length === 0 ? (
-        /* Empty State Card matching reference mockup */
-        <div className="bg-white border border-[#E5E2EE] rounded-2xl sm:rounded-3xl p-8 sm:p-12 shadow-xs flex flex-col md:flex-row items-center gap-8 md:gap-14">
+        /* Empty State Card matching reference mockup with balanced compact vertical height */
+        <div className="bg-white border border-[#E5E2EE] rounded-2xl p-6 sm:px-8 sm:py-7 shadow-xs flex flex-col md:flex-row items-center gap-6 md:gap-10">
           {/* Left: High-Clarity 3D Layered QR Illustration Asset */}
-          <div className="shrink-0 flex items-center justify-center p-2 sm:p-4">
+          <div className="shrink-0 flex items-center justify-center p-1 sm:p-2">
             <Image
               src="/qr-illustration.png?v=3"
               alt="Meal Collection QR Codes"
-              width={340}
-              height={378}
-              className="w-56 sm:w-64 md:w-72 h-auto object-contain select-none mix-blend-multiply"
+              width={260}
+              height={288}
+              className="w-40 sm:w-48 md:w-52 h-auto object-contain select-none mix-blend-multiply"
               priority
               unoptimized
             />
@@ -386,22 +386,22 @@ export default function StaffQrPage() {
 
           {/* Right: Info and Action Buttons */}
           <div className="flex-1 flex flex-col items-start text-left">
-            <div className="w-10 h-10 rounded-xl bg-[#F4F0FD] flex items-center justify-center text-[#35118F] mb-4">
+            <div className="w-8 h-8 rounded-lg bg-[#F4F0FD] flex items-center justify-center text-[#35118F] mb-2.5">
               <Utensils className="w-4 h-4 text-[#35118F]" />
             </div>
-            <h2 className="text-2xl sm:text-3xl font-bold text-[#1A162B] tracking-tight leading-snug">
+            <h2 className="text-xl sm:text-2xl font-bold text-[#1A162B] tracking-tight leading-snug">
               No Active Meal Requests for<br />
               <span className="text-[#1A162B]">
                 {data?.serviceDateDisplay || formatServiceDateDisplay(selectedDate)}
               </span>
             </h2>
-            <p className="text-xs sm:text-sm text-[#555062] mt-3 leading-relaxed max-w-xl">
+            <p className="text-xs sm:text-sm text-[#555062] mt-2 leading-relaxed max-w-xl">
               You have not requested any meals (or opted out) for this date. Only meals requested before the cutoff will generate collection QR passes.
             </p>
-            <div className="mt-6 flex flex-wrap items-center gap-3">
+            <div className="mt-4 sm:mt-5 flex flex-wrap items-center gap-3">
               <Link
                 href="/staff"
-                className="inline-flex items-center justify-center h-10 px-5 rounded-xl bg-[#35118F] hover:bg-[#280c70] text-white text-xs sm:text-sm font-medium shadow-xs transition-colors"
+                className="inline-flex items-center justify-center h-9 sm:h-10 px-5 rounded-xl bg-[#35118F] hover:bg-[#280c70] text-white text-xs sm:text-sm font-medium shadow-xs transition-colors"
               >
                 <span className="text-base font-semibold mr-1.5 leading-none">+</span>
                 <span>Manage Next-Day Meal Requests</span>
@@ -512,13 +512,13 @@ export default function StaffQrPage() {
       )}
 
       {/* How it works banner */}
-      <div className="bg-[#F5F2FD] border border-[#E8E1F8] rounded-xl sm:rounded-2xl p-4 sm:px-6 flex flex-col md:flex-row md:items-center justify-between gap-4 text-xs sm:text-sm">
+      <div className="bg-[#F5F2FD] border border-[#E8E1F8] rounded-xl sm:rounded-2xl p-3 sm:px-5 sm:py-3.5 flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs sm:text-sm">
         <div className="flex items-center shrink-0 text-[#35118F] font-semibold">
           <Info className="w-4 h-4 mr-2 text-[#35118F]" />
           <span>How it works</span>
           <span className="hidden md:inline mx-3 text-[#D4C8F5]">|</span>
         </div>
-        <div className="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs sm:text-sm text-[#4A4557]">
+        <div className="flex-1 flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 text-xs sm:text-sm text-[#4A4557]">
           <div className="flex items-center gap-2">
             <span className="w-5 h-5 rounded-full bg-[#EAE2F8] text-[#35118F] font-bold text-[11px] flex items-center justify-center shrink-0">
               1
