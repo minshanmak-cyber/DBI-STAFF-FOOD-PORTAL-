@@ -9,6 +9,7 @@ const config: Config = {
   theme: {
     extend: {
       boxShadow: {
+        "2xs": "0 1px 2px 0 rgba(16, 24, 40, 0.03)",
         xs: "0 1px 2px 0 rgba(16, 24, 40, 0.05)",
       },
       fontFamily: {

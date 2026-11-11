@@ -39,7 +39,7 @@ textarea:focus-visible {
 
   /* Secondary Button: 40px height, neutral borderless, dark text, purple hover */
   .btn-secondary {
-    @apply inline-flex items-center justify-center h-10 px-4 rounded-lg bg-white hover:bg-[#F6F5FA] active:bg-[#EAE8F2] text-[#24212D] hover:text-[#35118F] text-sm font-medium transition-colors shadow-2xs disabled:opacity-50 disabled:pointer-events-none;
+    @apply inline-flex items-center justify-center h-10 px-4 rounded-lg bg-white hover:bg-[#F6F5FA] active:bg-[#EAE8F2] text-[#24212D] hover:text-[#35118F] text-sm font-medium transition-colors shadow-xs disabled:opacity-50 disabled:pointer-events-none;
   }
 
   /* Destructive Button */
