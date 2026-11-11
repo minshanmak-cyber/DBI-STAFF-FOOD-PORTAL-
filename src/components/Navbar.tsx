@@ -103,7 +103,7 @@ export default function Navbar() {
   return (
     <>
       {/* Top Header */}
-      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-[#E5E2EE] transition-all">
+      <header className="sticky top-0 z-40 bg-white/95 backdrop-blur-md transition-all">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-between h-16 gap-3">
             {/* Logo / Brand */}
@@ -130,7 +130,7 @@ export default function Navbar() {
             </div>
 
             {/* Desktop Segmented Nav */}
-            <nav className="hidden md:flex items-center bg-[#F6F5FA] border border-[#E5E2EE] p-1 rounded-lg space-x-1 shrink-0">
+            <nav className="hidden md:flex items-center bg-[#F6F5FA] p-1 rounded-lg space-x-1 shrink-0">
               {user.role === "STAFF" && (
                 <>
                   <Link
