@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { Camera, CameraOff, Keyboard, Loader2 } from "lucide-react";
+import { Camera, CameraOff, Keyboard } from "lucide-react";
+import { FoodSpinner } from "@/components/FoodLoader";
 
 interface QrScannerProps {
   onScan: (decodedText: string) => void;
@@ -77,50 +78,52 @@ export default function QrScannerComponent({ onScan, isProcessing = false }: QrS
   };
 
   return (
-    <div className="bg-white rounded-xl border border-[#E5E2EE] p-6">
-      <div className="text-center mb-4">
-        <h3 className="text-base font-semibold text-[#24212D]">Canteen Verification Scanner</h3>
+    <div className="bg-white rounded-2xl shadow-sm p-6">
+      <div className="text-center mb-5">
+        <h3 className="text-base font-bold text-[#1A162B]">Canteen Verification Scanner</h3>
         <p className="text-xs text-[#6A6577] mt-1">
           Scan the staff member's meal QR code or type the token code directly
         </p>
       </div>
 
       {/* Camera Video Viewport */}
-      <div className="relative mx-auto max-w-sm rounded-lg overflow-hidden bg-[#24212D] border border-[#24212D] aspect-square flex items-center justify-center">
+      <div className="relative mx-auto max-w-sm rounded-2xl overflow-hidden bg-[#1A162B] aspect-square flex items-center justify-center shadow-inner">
         <div id={containerId} className="w-full h-full" />
 
         {!isScanning && (
-          <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-[#24212D] text-[#6A6577]">
-            <Camera className="w-10 h-10 mb-3 text-slate-400" />
-            <p className="text-sm font-medium text-slate-200">Camera is currently inactive</p>
-            <p className="text-xs text-slate-400 mt-1 max-w-xs">
+          <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center bg-[#1A162B] text-[#6A6577]">
+            <div className="w-16 h-16 rounded-2xl bg-white/10 flex items-center justify-center mb-3 text-white/80">
+              <Camera className="w-8 h-8" />
+            </div>
+            <p className="text-sm font-semibold text-white">Camera is currently inactive</p>
+            <p className="text-xs text-[#A39EB2] mt-1 max-w-xs leading-relaxed">
               Click Start Camera to activate the live QR video reader
             </p>
           </div>
         )}
 
         {isProcessing && (
-          <div className="absolute inset-0 bg-[#24212D]/80 backdrop-blur-sm flex flex-col items-center justify-center text-white z-20">
-            <Loader2 className="w-8 h-8 animate-spin text-[#F5B51B] mb-2" />
-            <span className="text-xs font-medium">Verifying with server...</span>
+          <div className="absolute inset-0 bg-[#1A162B]/85 backdrop-blur-xs flex flex-col items-center justify-center text-white z-20">
+            <FoodSpinner className="w-8 h-8 text-[#12B98A] mb-2" />
+            <span className="text-xs font-semibold">Verifying meal token...</span>
           </div>
         )}
       </div>
 
       {cameraError && (
-        <div className="mt-4 p-3 bg-rose-50 border border-rose-200 text-rose-700 text-xs rounded-lg">
+        <div className="mt-4 p-3.5 bg-rose-50 text-rose-700 text-xs rounded-xl font-medium leading-relaxed">
           {cameraError}
         </div>
       )}
 
       {/* Camera Controls */}
-      <div className="mt-4 flex justify-center space-x-3">
+      <div className="mt-5 flex justify-center space-x-3">
         {!isScanning ? (
           <button
             type="button"
             onClick={startScanner}
             disabled={isProcessing}
-            className="btn-primary h-10 px-5 text-xs font-medium"
+            className="btn-primary h-10 px-6 rounded-xl text-xs font-bold inline-flex items-center space-x-2"
           >
             <Camera className="w-4 h-4" />
             <span>Start Live Camera</span>
@@ -129,19 +132,22 @@ export default function QrScannerComponent({ onScan, isProcessing = false }: QrS
           <button
             type="button"
             onClick={stopScanner}
-            className="btn-secondary h-10 px-5 text-xs font-medium"
+            className="btn-secondary h-10 px-6 rounded-xl text-xs font-semibold inline-flex items-center space-x-2 text-rose-600 hover:text-rose-700 hover:bg-rose-50"
           >
-            <CameraOff className="w-4 h-4 text-rose-600" />
+            <CameraOff className="w-4 h-4" />
             <span>Stop Camera</span>
           </button>
         )}
       </div>
 
       {/* Manual Code Entry Fallback */}
-      <div className="mt-6 pt-5 border-t border-[#E5E2EE]">
+      <div className="mt-6 pt-5 border-t border-[#F1EFF7]">
+        <div className="text-xs font-semibold text-[#6A6577] mb-2 text-center">
+          Or Enter Token Manually
+        </div>
         <form onSubmit={handleManualSubmit} className="flex gap-2">
           <div className="relative flex-1">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-[#6A6577]">
+            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-[#6A6577]">
               <Keyboard className="w-4 h-4" />
             </div>
             <input
@@ -149,13 +155,13 @@ export default function QrScannerComponent({ onScan, isProcessing = false }: QrS
               value={manualCode}
               onChange={(e) => setManualCode(e.target.value)}
               placeholder="Paste or type QR token (e.g. DBI-2026-11-05-...)"
-              className="form-input pl-9 font-mono text-xs h-10"
+              className="form-input pl-10 font-mono text-xs h-10 rounded-xl"
             />
           </div>
           <button
             type="submit"
             disabled={isProcessing || !manualCode.trim()}
-            className="btn-primary h-10 px-5 text-xs font-medium"
+            className="btn-primary h-10 px-5 rounded-xl text-xs font-bold"
           >
             Verify
           </button>
@@ -164,4 +170,3 @@ export default function QrScannerComponent({ onScan, isProcessing = false }: QrS
     </div>
   );
 }
-
