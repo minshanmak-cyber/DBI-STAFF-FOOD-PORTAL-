@@ -79,23 +79,6 @@ export default function StaffHistoryPage() {
     fetchHistory();
   }, []);
 
-  // Summary Metrics calculations
-  const stats = useMemo(() => {
-    const total = history.length;
-    const requested = history.filter((i) => i.status === "OPT_IN").length;
-    const collected = history.filter((i) => i.collected).length;
-    const optedOut = history.filter((i) => i.status === "OPT_OUT").length;
-    const collectionRate = requested > 0 ? Math.round((collected / requested) * 100) : 0;
-
-    return {
-      total,
-      requested,
-      collected,
-      optedOut,
-      collectionRate,
-    };
-  }, [history]);
-
   // Filtered Items
   const filteredHistory = useMemo(() => {
     return history.filter((item) => {
@@ -220,86 +203,7 @@ export default function StaffHistoryPage() {
       </div>
 
       {/* ========================================================================= */}
-      {/* 2. Executive Summary Metrics Cards                                        */}
-      {/* ========================================================================= */}
-      {!loading && history.length > 0 && (
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
-          {/* Card 1: Total Requested */}
-          <div className="bg-white border border-[#E5E2EE] rounded-xl p-4 sm:p-5 shadow-2xs flex items-center justify-between">
-            <div>
-              <div className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-[#6A6577]">
-                Meals Requested
-              </div>
-              <div className="text-xl sm:text-2xl font-bold text-[#1A162B] mt-1 tabular-nums">
-                {stats.requested}
-              </div>
-              <div className="text-[11px] text-[#6A6577] mt-0.5">
-                Out of {stats.total} total slots
-              </div>
-            </div>
-            <div className="w-10 h-10 rounded-xl bg-[#F4F0FD] flex items-center justify-center text-[#35118F] shrink-0">
-              <Check className="w-5 h-5 stroke-[2.5]" />
-            </div>
-          </div>
-
-          {/* Card 2: Verified Collected */}
-          <div className="bg-white border border-[#E5E2EE] rounded-xl p-4 sm:p-5 shadow-2xs flex items-center justify-between">
-            <div>
-              <div className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-[#6A6577]">
-                Verified Collected
-              </div>
-              <div className="text-xl sm:text-2xl font-bold text-[#0C7A5B] mt-1 tabular-nums">
-                {stats.collected}
-              </div>
-              <div className="text-[11px] text-[#0C7A5B] font-medium mt-0.5">
-                {stats.collectionRate}% collection rate
-              </div>
-            </div>
-            <div className="w-10 h-10 rounded-xl bg-[#E8F8F3] flex items-center justify-center text-[#0C7A5B] shrink-0">
-              <CheckCircle className="w-5 h-5 stroke-[2.2]" />
-            </div>
-          </div>
-
-          {/* Card 3: Pending Collection */}
-          <div className="bg-white border border-[#E5E2EE] rounded-xl p-4 sm:p-5 shadow-2xs flex items-center justify-between">
-            <div>
-              <div className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-[#6A6577]">
-                Pending Collection
-              </div>
-              <div className="text-xl sm:text-2xl font-bold text-[#35118F] mt-1 tabular-nums">
-                {stats.requested - stats.collected}
-              </div>
-              <div className="text-[11px] text-[#6A6577] mt-0.5">
-                Ready at canteen
-              </div>
-            </div>
-            <div className="w-10 h-10 rounded-xl bg-[#F4F0FD] flex items-center justify-center text-[#35118F] shrink-0">
-              <Clock className="w-5 h-5 stroke-[2.2]" />
-            </div>
-          </div>
-
-          {/* Card 4: Opted Out */}
-          <div className="bg-white border border-[#E5E2EE] rounded-xl p-4 sm:p-5 shadow-2xs flex items-center justify-between">
-            <div>
-              <div className="text-[11px] sm:text-xs font-semibold uppercase tracking-wider text-[#6A6577]">
-                Opted Out
-              </div>
-              <div className="text-xl sm:text-2xl font-bold text-[#4A4557] mt-1 tabular-nums">
-                {stats.optedOut}
-              </div>
-              <div className="text-[11px] text-[#6A6577] mt-0.5">
-                Food waste prevented
-              </div>
-            </div>
-            <div className="w-10 h-10 rounded-xl bg-[#F6F5FA] flex items-center justify-center text-[#6A6577] shrink-0">
-              <XCircle className="w-5 h-5 stroke-[2]" />
-            </div>
-          </div>
-        </div>
-      )}
-
-      {/* ========================================================================= */}
-      {/* 3. Filters & Search Control Bar                                           */}
+      {/* Filters & Search Control Bar                                              */}
       {/* ========================================================================= */}
       {!loading && history.length > 0 && (
         <div className="bg-white border border-[#E5E2EE] rounded-xl p-4 shadow-2xs space-y-3 sm:space-y-0 sm:flex sm:items-center sm:justify-between sm:gap-4">
