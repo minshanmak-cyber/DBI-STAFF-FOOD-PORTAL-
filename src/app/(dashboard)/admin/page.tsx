@@ -146,11 +146,6 @@ export default function AdminDashboardPage() {
                 {user?.staffId || "Admin"}
               </span>
             </span>
-            <span className="mx-2 sm:mx-2.5 text-[#D2CEE0]">|</span>
-            <span className="inline-flex items-center gap-1.5 text-[#0C7A5B] font-medium bg-[#EEFBF6] px-2.5 py-0.5 rounded-full text-xs">
-              <span className="w-1.5 h-1.5 rounded-full bg-[#12B98A] animate-pulse" />
-              Live Kitchen Sync
-            </span>
           </div>
         </div>
 
