@@ -142,7 +142,7 @@ export default function CanteenDashboardPage() {
           <button
             onClick={() => fetchStats(selectedDate)}
             disabled={loading}
-            className="btn-secondary h-10 px-3.5 rounded-xl text-xs font-semibold"
+            className="btn-secondary h-10 px-4 rounded-xl text-xs font-semibold inline-flex items-center space-x-1.5 shrink-0 whitespace-nowrap"
             title="Refresh meal counts"
           >
             <RefreshCw className={`w-3.5 h-3.5 ${loading ? "animate-spin text-[#35118F]" : ""}`} />
@@ -150,7 +150,7 @@ export default function CanteenDashboardPage() {
           </button>
           <Link
             href="/canteen/scan"
-            className="inline-flex items-center space-x-2 h-10 px-4.5 bg-[#12B98A] hover:bg-[#0ea278] active:bg-[#0c7a5b] text-white rounded-xl text-xs font-bold shadow-xs transition-colors"
+            className="inline-flex items-center space-x-2 h-10 px-5 bg-[#12B98A] hover:bg-[#0ea278] active:bg-[#0c7a5b] text-white rounded-xl text-xs font-bold shadow-xs transition-colors whitespace-nowrap shrink-0"
           >
             <ScanLine className="w-4 h-4" />
             <span>Open QR Scanner</span>
